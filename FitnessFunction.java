@@ -1,46 +1,42 @@
 public class FitnessFunction {
-    public static double calculateFitness(MosaicPuzzle puzzle, MosaicSolution solution) {
-        int error = totalError(puzzle, solution);
-        return 1.0 / (1 + error);
-    }
+   public double calculateFitness(Kromosom kromosom, MosaicPuzzle puzzle) {
+       int totalError = 0;
 
-    //method menghitung total error antara solusi dan puzzle
-    private static int totalError(MosaicPuzzle puzzle, MosaicSolution solution) {
-        int totalError = 0;
-        int rows = puzzle.getRow();
-        int cols = puzzle.getCol();
+       //ambil ukuran mosaic dari kromosom
+       int size = kromosom.getSize();
 
-        for (int r = 0; r < rows; r++) {
-            for (int c = 0; c < cols; c++) {
-                int expectedBlackCells = puzzle.getNumber(r, c);
-                if(expectedBlackCells == -1) continue; 
-                int actualBlackCells = countAdjacentBlackCells(solution, r, c);
-                totalError += Math.abs(expectedBlackCells - actualBlackCells);
-            }
-        }
-        return totalError;
-    }
+       for (int row = 0; row < size; row++) {
+           for (int col = 0; col < size; col++) {
+               int target = puzzle.getNumber(row, col);
+                if(target == -1) {
+                   continue;
+                } //lewati sel tanpa angka
+               int actual = countBlackNeighbors(kromosom, row, col, size);
+               totalError += Math.abs(target - actual);
+           }
+       }
 
-    //method menghitung jumlah sel hitam di sekitar sel tertentu
-    private static int countAdjacentBlackCells(MosaicSolution solution, int r, int c) {
-        int count = 0;
-        int rows = solution.getRow();
-        int cols = solution.getCol();
+    //fitness berada di rentang (0, 1], semakin kecil error semakin mendekati 1
+       return 1.0 / (1 + totalError); 
+   }
 
-        //loop melalui sel di sekitar (r, c)
-        for (int deltaRow = -1; deltaRow <= 1; deltaRow++) {
-            for (int deltaCol = -1; deltaCol <= 1; deltaCol++) {
-                int newRow = r + deltaRow;
-                int nCol = c + deltaCol;
+   private int countBlackNeighbors(Kromosom kromosom, int row, int col, int size) {
+       int count = 0;
 
-                //cek batas
-                if (newRow >= 0 && newRow < rows && nCol >= 0 && nCol < cols) {
-                    if (solution.isBlack(newRow, nCol)) {
-                        count++;
-                    }
-                }
-            }
-        }
-        return count;
-    }
+       //cek 8 tetangga dan sel itu sendiri
+       for (int deltaRow = -1; deltaRow <= 1; deltaRow++) {
+           for (int deltaCol = -1; deltaCol <= 1; deltaCol++) {
+               int newRow = row + deltaRow;
+               int newCol = col + deltaCol;
+
+               //cek batas papan
+               if (newRow >= 0 && newRow < size && newCol >= 0 && newCol < size) {
+                   if (kromosom.getBit(newRow, newCol)) {
+                       count++;
+                   }
+               }
+           }
+       }
+       return count;
+   }
 }
