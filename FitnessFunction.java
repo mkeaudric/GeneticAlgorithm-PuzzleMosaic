@@ -1,5 +1,10 @@
 public class FitnessFunction {
-   public double calculateFitness(Kromosom kromosom, MosaicPuzzle puzzle) {
+    private MosaicPuzzle puzzle;
+    
+    public FitnessFunction(MosaicPuzzle puzzle) {
+        this.puzzle = puzzle;
+    }
+    public double calculateFitness(Kromosom kromosom) {
        int totalError = 0;
 
        //ambil ukuran mosaic dari kromosom
