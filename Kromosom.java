@@ -2,8 +2,8 @@ import java.util.BitSet;
 import java.util.Random;
 
 public class Kromosom {
-    private BitSet genes;
-    private int length;
+    private BitSet genes; //representasi bit kromosom
+    private int length; //panjang kromosom (jumlah sel)
     private int size; //ukuran puzzle (row atau col)
 
     //konstruktor

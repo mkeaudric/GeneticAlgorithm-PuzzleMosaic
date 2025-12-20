@@ -4,6 +4,8 @@ public class FitnessFunction {
     public FitnessFunction(MosaicPuzzle puzzle) {
         this.puzzle = puzzle;
     }
+
+    //hitung fitness dengan melihat sel yang memiliki angka dan membandingkannya dengan jumlah sel hitam di sekitarnya
     public double calculateFitness(Kromosom kromosom) {
        int totalError = 0;
 
@@ -12,12 +14,20 @@ public class FitnessFunction {
 
        for (int row = 0; row < size; row++) {
            for (int col = 0; col < size; col++) {
-               int target = puzzle.getNumber(row, col);
+
+                //ambil angka target dari puzzle
+                int target = puzzle.getNumber(row, col);
+
+                //lewati sel tanpa angka
                 if(target == -1) {
                    continue;
-                } //lewati sel tanpa angka
-               int actual = countBlackNeighbors(kromosom, row, col, size);
-               totalError += Math.abs(target - actual);
+                } 
+
+                //hitung jumlah sel hitam di sekitar
+                int actual = countBlackNeighbors(kromosom, row, col, size);
+
+                //hitung selisih antara angka target dengan jumlah kotak hitam di sekitar
+                totalError += Math.abs(target - actual);
            }
        }
 

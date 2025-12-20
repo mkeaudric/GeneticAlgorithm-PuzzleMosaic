@@ -9,6 +9,7 @@ public class MosaicPuzzle{
         this.size = papan[0].length;
     }
 
+    //getter
     public int getSize(){
         return this.size;
     }
