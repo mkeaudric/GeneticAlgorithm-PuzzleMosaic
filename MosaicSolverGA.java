@@ -3,15 +3,13 @@ public class MosaicSolverGA {
     public static void main(String[] args) throws Exception {
         System.out.println("java MosaicSolver <filePeta.txt> <fileParameter.txt>");
 
-        // Baca peta
         String filePeta = args[0];
-        String parameter = args[1];
-        int seed = 12345;
+        String fileParameter = args[1];
+        int seed = 12345; // hardcode seed nya
         RNG.initialize(seed);
-        // males import package jadi gini dulu
-        // ntar fix ini jadi baca nya baca .txt nya pake BacaInput
+
         MosaicPuzzle puzzle = InputReader.bacaPuzzle(filePeta);
-        GaParam param = InputReader.bacaPuzzle(parameter);
+        GaParam param = InputReader.bacaPuzzle(fileParameter);
 
         // bagian GA
 
