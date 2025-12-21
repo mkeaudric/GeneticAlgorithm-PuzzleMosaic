@@ -1,8 +1,8 @@
 import java.util.BitSet;
-import java.util.Random;
 
 public class Kromosom {
     private BitSet genes; //representasi bit kromosom
+    private BitSet fixedAllele; //buat nandain alel yang udah pasti bagian solusi (1 artinya udah fix)
     private int length; //panjang kromosom (jumlah sel)
     private int size; //ukuran puzzle (row atau col)
 
@@ -11,16 +11,15 @@ public class Kromosom {
         this.size = size;
         this.length = size * size;
         this.genes = new BitSet(length);
+        this.fixedAllele = new BitSet(length);
     }
 
     public static Kromosom createRandomKromosom(int size, double probabilitasHitam) {
         Kromosom kromosom = new Kromosom(size);
 
-        Random rand = new Random();
-
         for (int i = 0; i < kromosom.length; i++) {
             //tentukan apakah sel ini hitam berdasarkan probabilitas
-            if(rand.nextDouble() < probabilitasHitam) {
+            if(RNG.rand.nextDouble() < probabilitasHitam && !kromosom.fixedAllele.get(i)) {
                 kromosom.setBit(i, true); //set sel jadi hitam
             }
         }

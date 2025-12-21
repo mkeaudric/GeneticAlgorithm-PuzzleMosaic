@@ -1,5 +1,3 @@
-import java.util.Random;
-
 public class GenerateProblem {
     // jadi generate kotak item dulu
     // baru generate angka disekitarnya
@@ -10,10 +8,10 @@ public class GenerateProblem {
     // probabilitas angka : angka 9 paling jarang muncul, 8 dan 0 kedua paling jarang, dst
 
     public static void main(String[] args) {
-        generatePuzzle(5, 12345);
+        // generatePuzzle(5, 12345);
     }
 
-    public static MosaicPuzzle generatePuzzle(int size, int seed){
+    public static MosaicPuzzle generatePuzzle(int size){
         int[][] papan = new int[size][size];
 
         boolean[][] kotakItem = new boolean[size][size];
@@ -24,14 +22,13 @@ public class GenerateProblem {
             for(j=0; j < size; j++)
                 papan[i][j] = -1;
 
-        // generate kotak item
-        Random rand = new Random(seed);
+        // generate kotak item;
         for (i=0; i < size; i++)
             for(j=0; j < size; j++)
-                if(rand.nextDouble() < 0.6)
+                if(RNG.rand.nextDouble() < 0.6)
                     kotakItem[i][j] = true; // true nandain item
 
-        debug(kotakItem);
+        // debug(kotakItem);
 
         double threshold = 0.5;
         // atas, atas kanan, kanan, bawah kanan, dst (jarum jam)
@@ -43,7 +40,7 @@ public class GenerateProblem {
             for(j=0; j < size; j++) {
                 // jadi akan skip penempatan angka secara random
                 // note makin hard si puzzlenya, angkanya makin banyak, jadi besarin si threshold
-                if(rand.nextDouble() >= threshold) continue;
+                if(RNG.rand.nextDouble() >= threshold) continue;
 
                 int num = 0; // ini buat ngitung berapa kotak item di sekitarnya
                 // ada 8 arah
@@ -56,12 +53,12 @@ public class GenerateProblem {
                 }
 
                 // munculin angka nya sesuai yg constraint probabilitas (angkanya ngasal)
-                if(num == 9) if(rand.nextDouble() >= 0.1) continue;
-                else if (num == 8 || num == 0) if(rand.nextDouble() >= 0.25) continue;
-                else if (num == 7 || num == 1) if(rand.nextDouble() >= 0.5) continue;
-                else if (num == 6 || num == 2) if(rand.nextDouble() >= 0.7) continue;
-                else if (num == 5 || num == 3) if(rand.nextDouble() >= 0.8) continue;
-                else if(rand.nextDouble() >= 0.95) continue;
+                if(num == 9) if(RNG.rand.nextDouble() >= 0.1) continue;
+                else if (num == 8 || num == 0) if(RNG.rand.nextDouble() >= 0.25) continue;
+                else if (num == 7 || num == 1) if(RNG.rand.nextDouble() >= 0.5) continue;
+                else if (num == 6 || num == 2) if(RNG.rand.nextDouble() >= 0.7) continue;
+                else if (num == 5 || num == 3) if(RNG.rand.nextDouble() >= 0.8) continue;
+                else if(RNG.rand.nextDouble() >= 0.95) continue;
 
                 papan[i][j] = num;
             }
