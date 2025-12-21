@@ -10,7 +10,10 @@ public class GenerateProblem {
     // probabilitas angka : angka 9 paling jarang muncul, 8 dan 0 kedua paling jarang, dst
 
     public static void main(String[] args) {
-        int size = Integer.parseInt(args[0]); // size si grid
+        generatePuzzle(5, 12345);
+    }
+
+    public static MosaicPuzzle generatePuzzle(int size, int seed){
         int[][] papan = new int[size][size];
 
         boolean[][] kotakItem = new boolean[size][size];
@@ -22,7 +25,7 @@ public class GenerateProblem {
                 papan[i][j] = -1;
 
         // generate kotak item
-        Random rand = new Random();
+        Random rand = new Random(seed);
         for (i=0; i < size; i++)
             for(j=0; j < size; j++)
                 if(rand.nextDouble() < 0.6)
@@ -66,10 +69,6 @@ public class GenerateProblem {
 
         debug(papan);
 
-        generatePuzzle(papan);
-    }
-
-    public static MosaicPuzzle generatePuzzle(int[][] papan){
         return new MosaicPuzzle(papan);
     }
 
