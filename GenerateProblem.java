@@ -1,3 +1,7 @@
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.util.Random;
+
 public class GenerateProblem {
     // jadi generate kotak item dulu
     // baru generate angka disekitarnya
@@ -6,13 +10,16 @@ public class GenerateProblem {
     // - tepi : angka <= 6
     // - sisanya : angka <= 9
     // probabilitas angka : angka 9 paling jarang muncul, 8 dan 0 kedua paling jarang, dst
-
     public static void main(String[] args) {
-        // generatePuzzle(5, 12345);
+        int size = Integer.parseInt(args[0]);
+        double threshold = Double.parseDouble(args[1]);
+        
+        generatePuzzle(size, threshold);
     }
 
-    public static MosaicPuzzle generatePuzzle(int size){
+    public static MosaicPuzzle generatePuzzle(int size, double threshold){
         int[][] papan = new int[size][size];
+        Random rand = new Random(); // ini random nya ga pake RNG karena ga hubungan langsung sama GA, jadi gpp pake new Random sendiri
 
         boolean[][] kotakItem = new boolean[size][size];
         int i, j, k;
@@ -25,12 +32,11 @@ public class GenerateProblem {
         // generate kotak item;
         for (i=0; i < size; i++)
             for(j=0; j < size; j++)
-                if(RNG.rand.nextDouble() < 0.6)
+                if(rand.nextDouble() < 0.6)
                     kotakItem[i][j] = true; // true nandain item
 
         // debug(kotakItem);
 
-        double threshold = 0.5;
         // atas, atas kanan, kanan, bawah kanan, dst (jarum jam)
         int[] arahY = {-1, -1, 0, 1, 1, 1, 0, -1};
         int[] arahX = {0, 1, 1, 1, 0, -1, -1, -1};
@@ -40,7 +46,7 @@ public class GenerateProblem {
             for(j=0; j < size; j++) {
                 // jadi akan skip penempatan angka secara random
                 // note makin hard si puzzlenya, angkanya makin banyak, jadi besarin si threshold
-                if(RNG.rand.nextDouble() >= threshold) continue;
+                if(rand.nextDouble() >= threshold) continue;
 
                 int num = 0; // ini buat ngitung berapa kotak item di sekitarnya
                 // ada 8 arah
@@ -53,24 +59,25 @@ public class GenerateProblem {
                 }
 
                 // munculin angka nya sesuai yg constraint probabilitas (angkanya ngasal)
-                if(num == 9) if(RNG.rand.nextDouble() >= 0.1) continue;
-                else if (num == 8 || num == 0) if(RNG.rand.nextDouble() >= 0.25) continue;
-                else if (num == 7 || num == 1) if(RNG.rand.nextDouble() >= 0.5) continue;
-                else if (num == 6 || num == 2) if(RNG.rand.nextDouble() >= 0.7) continue;
-                else if (num == 5 || num == 3) if(RNG.rand.nextDouble() >= 0.8) continue;
-                else if(RNG.rand.nextDouble() >= 0.95) continue;
+                if(num == 9) if(rand.nextDouble() >= 0.1) continue;
+                else if (num == 8 || num == 0) if(rand.nextDouble() >= 0.25) continue;
+                else if (num == 7 || num == 1) if(rand.nextDouble() >= 0.5) continue;
+                else if (num == 6 || num == 2) if(rand.nextDouble() >= 0.7) continue;
+                else if (num == 5 || num == 3) if(rand.nextDouble() >= 0.8) continue;
+                else if(rand.nextDouble() >= 0.95) continue;
 
                 papan[i][j] = num;
             }
         }
 
-        debug(papan);
+        // debug(papan);
+        print(papan, threshold);
 
         return new MosaicPuzzle(papan);
     }
 
     public static void debug(int[][] papan){
-        int i, j, size=papan[0].length;
+        int i, j, size=papan.length;
         for (i=0; i < size; i++) {
             for (j=0; j < size; j++) {
                 System.out.print(papan[i][j] + " ");
@@ -89,5 +96,24 @@ public class GenerateProblem {
             System.out.println();
         }
         System.out.println("-------------------");
+    }
+
+    public static void print(int[][] papan, double threshold){
+        int i, j, size=papan.length;
+        String difficulty = (threshold > 0.5) ? "hard" : "easy";
+        // mosaic-sizexsize-difficulty (c/: mosaic-5x5-easy)
+        String fileName = "mosaic-" + size + "x" + size + "-" + difficulty + ".txt";
+
+        try(PrintWriter writer = new PrintWriter(fileName)){
+            writer.println(size);
+            for(i=0; i < size; i++) {
+                for(j=0; j < size; j++){
+                    writer.print(papan[i][j] + " ");
+                }
+                writer.println();
+            }
+        } catch (IOException e){
+            System.err.println("Gagal eaaa");
+        }
     }
 }

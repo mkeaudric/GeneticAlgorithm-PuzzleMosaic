@@ -17,6 +17,8 @@ public class Kromosom {
     public static Kromosom createRandomKromosom(int size, double probabilitasHitam) {
         Kromosom kromosom = new Kromosom(size);
 
+        PenandaHeuristik.setFixedAllele(kromosom, puzzle);
+
         for (int i = 0; i < kromosom.length; i++) {
             //tentukan apakah sel ini hitam berdasarkan probabilitas
             if(RNG.rand.nextDouble() < probabilitasHitam && !kromosom.fixedAllele.get(i)) {
