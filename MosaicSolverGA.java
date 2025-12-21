@@ -5,7 +5,8 @@ public class MosaicSolverGA {
         // inisialisasi peta
         int size = Integer.parseInt(args[0]);
         int seed = Integer.parseInt(args[1]);
-        MosaicPuzzle puzzle = generatePuzzle(size, seed);
+        // males import package jadi gini dulu
+        MosaicPuzzle puzzle = GenerateProblem.generatePuzzle(size, seed);
 
         // bagian GA
         // 1. inisialisasi populasi
