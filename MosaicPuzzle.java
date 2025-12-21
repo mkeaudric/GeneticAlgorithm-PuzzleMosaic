@@ -3,10 +3,16 @@ public class MosaicPuzzle{
     private int size; //ukuran mosaic (row atau col)
 
     //constructor
-    public MosaicPuzzle(int[][] papan){
-        this.papan = papan;
-        this.size = papan.length;
-        this.size = papan[0].length;
+    public MosaicPuzzle(int size){
+        this.size = size;
+        this.papan = new int[size][size];
+
+        //inisialisasi papan dengan -1 (sel tanpa angka)
+        for(int r = 0; r < size; r++){
+            for(int c = 0; c < size; c++){
+                this.papan[r][c] = -1;
+            }
+        }
     }
 
     //getter
@@ -16,6 +22,11 @@ public class MosaicPuzzle{
 
     public int getNumber(int r, int c){
         return this.papan[r][c];
+    }
+
+    //setter
+    public void setNumber(int row, int col, int angka) {
+        papan[row][col] = angka;
     }
     
 }

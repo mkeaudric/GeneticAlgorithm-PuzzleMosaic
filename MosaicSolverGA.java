@@ -9,7 +9,12 @@ public class MosaicSolverGA {
         MosaicPuzzle puzzle = GenerateProblem.generatePuzzle(size);
 
         // bagian GA
+
+        //import fitness function
+        FitnessFunction fitnessFunction = new FitnessFunction(puzzle);
+
         // 1. inisialisasi populasi
+        Populasi populasi = new Populasi(100, size, 0.5, fitnessFunction);
         // 2. seleksi parent untuk populasi berikutnya
         // 3. crossover & mutasi
         // 4. ulang dari step 2 sampe fitness = 1 (ketemu solusi)
