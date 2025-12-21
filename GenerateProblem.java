@@ -1,5 +1,3 @@
-import java.util.Random;
-
 public class GenerateProblem {
     // jadi generate kotak item dulu
     // baru generate angka disekitarnya

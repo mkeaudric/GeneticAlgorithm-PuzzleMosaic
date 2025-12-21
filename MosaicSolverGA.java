@@ -1,6 +1,4 @@
 // sumber : https://natureofcode.com/genetic-algorithms/
-import java.util.Random;
-
 public class MosaicSolverGA {
     public static void main(String[] args) {
         // inisialisasi peta

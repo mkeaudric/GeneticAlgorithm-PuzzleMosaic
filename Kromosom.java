@@ -1,5 +1,4 @@
 import java.util.BitSet;
-import java.util.Random;
 
 public class Kromosom {
     private BitSet genes; //representasi bit kromosom
@@ -18,11 +17,9 @@ public class Kromosom {
     public static Kromosom createRandomKromosom(int size, double probabilitasHitam) {
         Kromosom kromosom = new Kromosom(size);
 
-        Random rand = new Random();
-
         for (int i = 0; i < kromosom.length; i++) {
             //tentukan apakah sel ini hitam berdasarkan probabilitas
-            if(rand.nextDouble() < probabilitasHitam && !kromosom.fixedAllele.get(i)) {
+            if(RNG.rand.nextDouble() < probabilitasHitam && !kromosom.fixedAllele.get(i)) {
                 kromosom.setBit(i, true); //set sel jadi hitam
             }
         }

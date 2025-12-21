@@ -1,13 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Populasi {
     private List<Individu> individuList; //daftar individu dalam populasi
     private int populationSize; //jumlah individu dalam populasi
     private double populationFitness; //total fitness populasi
     private int kromosomSize; //ukuran kromosom
-    private Random random;
     private FitnessFunction fitnessFunction; //fungsi fitness untuk evaluasi individu
     private Individu bestIndividu; //individu terbaik dalam populasi
 
@@ -15,7 +13,6 @@ public class Populasi {
         this.populationSize = populationSize;
         this.kromosomSize = kromosomSize;
         this.fitnessFunction = fitnessFunction;
-        this.random = new Random();
         this.individuList = new ArrayList<>();
 
         for(int i=0; i<populationSize; i++) {
