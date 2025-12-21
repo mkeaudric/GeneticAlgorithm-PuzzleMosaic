@@ -7,9 +7,10 @@ public class Populasi {
     private double populationFitness; //total fitness populasi
     private int kromosomSize; //ukuran kromosom
     private FitnessFunction fitnessFunction; //fungsi fitness untuk evaluasi individu
-    private Individu bestIndividu; //individu terbaik dalam populasi
+    private Individu bestIndividu; //individu terbaik dalam populasi, ambil beberapa (elitism)
     private MosaicPuzzle puzzle;
 
+    // probabilitasHitam bisa di hardcode aja
     public Populasi(int populationSize, int kromosomSize, double probabilitasHitam, FitnessFunction fitnessFunction, MosaicPuzzle puzzle) {
         this.populationSize = populationSize;
         this.kromosomSize = kromosomSize;
