@@ -6,6 +6,7 @@ public class MosaicSolverGA {
         int seed = Integer.parseInt(args[1]);
         RNG.initialize(seed);
         // males import package jadi gini dulu
+        // ntar fix ini jadi baca nya baca .txt nya pake BacaInput
         MosaicPuzzle puzzle = GenerateProblem.generatePuzzle(size);
 
         // bagian GA
