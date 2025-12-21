@@ -2,5 +2,7 @@
 // jadi menandakan kotak yang sudah diketahui secara pasti, dan tidak akan terpengaruh mutasi atau crossover ke depannya
 
 public class PenandaHeuristik {
-    
+    public void setFixedAllele(Kromosom kromosom, MosaicPuzzle puzzle){
+
+    }
 }
