@@ -9,7 +9,7 @@ public class MosaicSolverGA {
         RNG.initialize(seed);
 
         MosaicPuzzle puzzle = InputReader.bacaPuzzle(filePeta);
-        GaParam param = InputReader.bacaParameter(fileParameter);
+        GAParamater param = InputReader.bacaParameter(fileParameter);
 
         // bagian GA
 
@@ -18,7 +18,7 @@ public class MosaicSolverGA {
 
         // 1. inisialisasi populasi
         int size = puzzle.getSize() * puzzle.getSize();
-        Populasi populasi = new Populasi(100, size, 0.5, fitnessFunction, puzzle);
+        Populasi populasi = new Populasi(param.getPopulationSize(), size, param.getProbabilitasHitam(), fitnessFunction, puzzle);
         // 2. seleksi parent untuk populasi berikutnya
         // 3. crossover & mutasi
         // 4. ulang dari step 2 sampe fitness = 1 (ketemu solusi)

@@ -41,4 +41,42 @@ public class InputReader {
         br.close();
         return puzzle;
     }
+
+    public static GAParamater bacaParameter(String namaFile) throws Exception {
+        BufferedReader br = new BufferedReader(new FileReader(namaFile));
+
+        try{
+            String[] baris = new String[9];
+
+            for(int i = 0; i < 9; i++) {
+                baris[i] = br.readLine();
+                if(baris[i] == null) {
+                    br.close();
+                    throw new Exception("Parameter kurang di baris " + (i + 1));
+                }
+                baris[i] = baris[i].trim();
+            }
+            int totalGeneration = Integer.parseInt(baris[0]);
+            int populationSize = Integer.parseInt(baris[1]);
+            double crossoverRate = Double.parseDouble(baris[2]);
+            double mutationRate = Double.parseDouble(baris[3]);
+            double elitismPercent = Double.parseDouble(baris[4]);
+            int tournamentSize = Integer.parseInt(baris[5]);
+            String selectionMethod = baris[6];
+            String crossoverMethod = baris[7];
+            double probabilitasHitam = Double.parseDouble(baris[8]);
+
+            return new GAParamater(totalGeneration, populationSize, crossoverRate, mutationRate, elitismPercent, tournamentSize, selectionMethod, crossoverMethod, probabilitasHitam);
+        }
+        
+        finally {
+            br.close();
+        }
+
+        
+
+        
+
+        
+    }
 }
