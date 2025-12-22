@@ -38,8 +38,11 @@ public class MosaicSolverGA {
 
             // 1. Elitism
             int jumlahElitism = (int)(param.getElitismPercent() * param.getPopulationSize());
+            
             // clamp jumlahElitism ke rentang yang valid
             jumlahElitism = Math.max(0, Math.min(jumlahElitism, populasi.getPopulationSize()));
+
+            //masukin individu terbaik ke populasi baru
             newPopulation.addAll(populasi.getTopElitism(jumlahElitism));
             // 2. seleksi parent untuk populasi berikutnya
 
