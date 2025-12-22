@@ -17,7 +17,7 @@ public class GenerateProblem {
         generatePuzzle(size, threshold);
     }
 
-    public static MosaicPuzzle generatePuzzle(int size, double threshold){
+    public static void generatePuzzle(int size, double threshold){
         int[][] papan = new int[size][size];
         Random rand = new Random(); // ini random nya ga pake RNG karena ga hubungan langsung sama GA, jadi gpp pake new Random sendiri
 
@@ -72,8 +72,6 @@ public class GenerateProblem {
 
         // debug(papan);
         print(papan, threshold);
-
-        return new MosaicPuzzle(papan);
     }
 
     public static void debug(int[][] papan){
