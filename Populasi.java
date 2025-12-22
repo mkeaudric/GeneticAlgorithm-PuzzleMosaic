@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class Populasi {
@@ -9,7 +11,6 @@ public class Populasi {
     private Individu bestIndividu; //individu terbaik dalam populasi, ambil beberapa (elitism)
     private MosaicPuzzle puzzle;
 
-    // probabilitasHitam bisa di hardcode aja
     public Populasi(int populationSize, double probabilitasHitam, FitnessFunction fitnessFunction, MosaicPuzzle puzzle) {
         this.populationSize = populationSize;
         this.fitnessFunction = fitnessFunction;
@@ -28,6 +29,7 @@ public class Populasi {
         }
         //hitung fitness populasi awal
         evaluatePopulation();
+        Collections.sort(individuList);
     }
 
     public void evaluatePopulation() {
@@ -44,15 +46,36 @@ public class Populasi {
 
             //update individu terbaik
             if(bestIndividu == null || fitness > bestIndividu.getFitness()) {
-                bestIndividu = individu;
+                bestIndividu = individu.copy();
             }
         }
+
+        Collections.sort(individuList);
         
+    }
+
+    public void updatePopulation(List<Individu> newPopulation) {
+        this.individuList = newPopulation;
+        this.populationSize = newPopulation.size();
+        evaluatePopulation();
     }
 
     //getter dan setter
     public List<Individu> getIndividuList() {
         return individuList;
+    }
+
+    // Mengembalikan top-k individu untuk elitism sebagai salinan (preserve fitness)
+    public List<Individu> getTopElitism(int k) {
+        List<Individu> elites = new ArrayList<>();
+        if (k <= 0) return elites;
+        // pastikan terurut berdasarkan fitness tertinggi
+        Collections.sort(individuList);
+        k = Math.min(k, individuList.size());
+        for (int i = 0; i < k; i++) {
+            elites.add(individuList.get(i).copyForElitism());
+        }
+        return elites;
     }
 
     public void setIndividuList(List<Individu> newPopulation) {
