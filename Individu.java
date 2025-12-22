@@ -16,6 +16,29 @@ public class Individu implements Comparable<Individu> {
         return fitnessCalculated;
     }
 
+    
+    //Copy utk elitism yg menyimpan fitness
+    public Individu copyForElitism() {
+        Kromosom kromCopy = this.kromosom.copy();
+        Individu copy = new Individu(kromCopy, this.fitnessFunction);
+        copy.fitness = this.fitness;
+        copy.fitnessCalculated = this.fitnessCalculated;
+        return copy;
+    }
+
+    //Copy utk menghasilkan anak yang akan di crossover/mutasi (fitness dihitung ulang)
+    public Individu copyForOffspring() {
+        Kromosom kromCopy = this.kromosom.copy();
+        Individu copy = new Individu(kromCopy, this.fitnessFunction);
+        copy.resetFitness();
+        return copy;
+    }
+
+    // Backwards compatible alias: default copy preserves fitness (elitism behavior)
+    public Individu copy() {
+        return copyForElitism();
+    }
+
     //reset fitness agar dihitung ulang
     public void resetFitness() {
         this.fitness = Double.NEGATIVE_INFINITY;
@@ -24,8 +47,8 @@ public class Individu implements Comparable<Individu> {
 
     @Override
     public int compareTo(Individu other) {
-        //urutan menurun berdasarkan fitness
-        return Double.compare(other.fitness, this.fitness);
+        // urutan menurun berdasarkan fitness (ensure fitness evaluated)
+        return Double.compare(other.getFitness(), this.getFitness());
     }
 
     //hitung fitness menggunakan fungsi fitness

@@ -23,6 +23,8 @@ public class PenandaHeuristik {
                 if(puzzle.getNumber(i, j) == 9){
                     // ngeset semua di sekitar angka 9 jadi item, dan gaboleh diganti lagi ke depannya saat crossover & mutasi
                     kromosom.setBit(i, j, true);
+                    // mark the clue cell itself as fixed
+                    kromosom.setFixedAllele(i, j, true);
                     for(k=0; k < 8; k++){
                         int arahYcur = arahY[k];
                         int arahXcur = arahX[k];
@@ -38,7 +40,8 @@ public class PenandaHeuristik {
                         int arahXcur = arahX[k];
                         if(i + arahYcur >= 0 && i + arahYcur < size && j + arahXcur >= 0 && j + arahXcur < size){
                             kromosom.setBit(i + arahYcur, j + arahXcur, false);
-                            kromosom.setFixedAllele(i + arahYcur, j + arahXcur, false);
+                            // mark neighbor as fixed (white)
+                            kromosom.setFixedAllele(i + arahYcur, j + arahXcur, true);
                         }
                     }
                 }

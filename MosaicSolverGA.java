@@ -23,12 +23,24 @@ public class MosaicSolverGA {
         Crossover crossover = new Crossover();
 
         // 1. inisialisasi populasi
-        int size = puzzle.getSize() * puzzle.getSize();
-
         Populasi populasi = new Populasi(param.getPopulationSize(), param.getProbabilitasHitam(), fitnessFunction, puzzle);
 
+        // tampilkan ringkasan populasi awal
+        System.out.println("=== Inisialisasi Populasi ===");
+        System.out.println("Ukuran populasi: " + populasi.getPopulationSize());
+        System.out.printf("Best fitness awal: %.6f%n", populasi.getBestIndividu().getFitness());
+        System.out.printf("Average fitness awal: %.6f%n", populasi.getAverageFitness());
+        System.out.println("Best individu (visual):");
+        printKromosom(populasi.getBestIndividu().getKromosom());
+
         for(int generasi = 0; generasi < param.getTotalGeneration(); generasi++) {
-            List<Individu> newPopulation = new ArrayList<>();
+            List<Individu> newPopulation = new ArrayList<>(param.getPopulationSize());
+
+            // 1. Elitism
+            int jumlahElitism = (int)(param.getElitismPercent() * param.getPopulationSize());
+            // clamp jumlahElitism ke rentang yang valid
+            jumlahElitism = Math.max(0, Math.min(jumlahElitism, populasi.getPopulationSize()));
+            newPopulation.addAll(populasi.getTopElitism(jumlahElitism));
             // 2. seleksi parent untuk populasi berikutnya
 
             // 3. crossover & mutasi
@@ -37,5 +49,16 @@ public class MosaicSolverGA {
         
        
     }
-    
+
+    // helper: print kromosom sebagai grid (# = item/black, . = white)
+    private static void printKromosom(Kromosom k) {
+        int size = k.getSize();
+        for (int r = 0; r < size; r++) {
+            for (int c = 0; c < size; c++) {
+                System.out.print(k.getBit(r, c) ? "#" : ".");
+            }
+            System.out.println();
+        }
+    }
+
 }

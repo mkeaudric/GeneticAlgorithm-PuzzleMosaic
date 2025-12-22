@@ -22,7 +22,12 @@ public class Kromosom {
     public static Kromosom createRandomKromosom(double probabilitasHitam, MosaicPuzzle puzzle) {
         Kromosom kromosom = new Kromosom(puzzle.getSize(), puzzle);
 
-        PenandaHeuristik.setFixedAllele(kromosom);
+        try{
+            PenandaHeuristik.setFixedAllele(kromosom);
+        } catch(Exception e){
+            System.out.println("Tidak ada fixed allele yang diset");
+        }
+        
 
         for (int i = 0; i < kromosom.length; i++) {
             //tentukan apakah sel ini hitam berdasarkan probabilitas
@@ -56,7 +61,7 @@ public class Kromosom {
     }
 
     //mengembalikan panjang kromosom
-    public int Getlength() {
+    public int getlength() {
         return length;
     }
 
@@ -68,27 +73,34 @@ public class Kromosom {
     public BitSet getBitSet() {
         return (BitSet) genes.clone();
     }
-
-    //set fixed allele index ke...(array 1D)
-    public void setFixedAllele(int index, boolean value) {
-        genes.set(index, value);
+    //set alel yang sudah pasti pada index 1D
+    public void setFixedAllele(int index, boolean isFixed) {
+        fixedAllele.set(index, isFixed);
     }
 
-    //set fixed allele pada posisi (row, col)
-    public void setFixedAllele(int row, int col, boolean value) {
+    //set alel yang sudah pasti pada posisi (row,col)
+    public void setFixedAllele(int row, int col, boolean isFixed) {
         int index = row * size + col;
-        genes.set(index, value);
+        fixedAllele.set(index, isFixed);
     }
 
-    //get fixed allele index ke...(array 1D)
+    //check whether allele at index is fixed
     public boolean getFixedAllele(int index) {
-        return genes.get(index);
+        return fixedAllele.get(index);
     }
 
-    //get fixed allele pada posisi (row, col)
+    //check whether allele at (row,col) is fixed
     public boolean getFixedAllele(int row, int col) {
         int index = row * size + col;
-        return genes.get(index);
+        return fixedAllele.get(index);
+    }
+
+    //deep-copy kromosom
+    public Kromosom copy() {
+        Kromosom copy = new Kromosom(this.size, this.puzzle);
+        copy.genes = (BitSet) this.genes.clone();
+        copy.fixedAllele = (BitSet) this.fixedAllele.clone();
+        return copy;
     }
 
     public MosaicPuzzle getPuzzle(){
