@@ -2,7 +2,47 @@
 // jadi menandakan kotak yang sudah diketahui secara pasti, dan tidak akan terpengaruh mutasi atau crossover ke depannya
 
 public class PenandaHeuristik {
-    public void setFixedAllele(Kromosom kromosom, MosaicPuzzle puzzle){
+    // atas, atas kanan, kanan, bawah kanan, dst (jarum jam)
+    static int[] arahY = {-1, -1, 0, 1, 1, 1, 0, -1};
+    static int[] arahX = {0, 1, 1, 1, 0, -1, -1, -1};
 
+    public static void setFixedAllele(Kromosom kromosom){
+
+        // heuristik 1 : cek 0 dan 9, warnain sekitarnya
+        heuristic0and9(kromosom);
+
+        // heuristik 2 
+        
+    }
+
+    public static void heuristic0and9(Kromosom kromosom){
+        MosaicPuzzle puzzle = kromosom.getPuzzle();
+        int i, j, k, size=puzzle.getSize();
+        for(i=0; i < size; i++){
+            for(j=0; j < size; j++){
+                if(puzzle.getNumber(i, j) == 9){
+                    // ngeset semua di sekitar angka 9 jadi item, dan gaboleh diganti lagi ke depannya saat crossover & mutasi
+                    kromosom.setBit(i, j, true);
+                    for(k=0; k < 8; k++){
+                        int arahYcur = arahY[k];
+                        int arahXcur = arahX[k];
+                        if(i + arahYcur >= 0 && i + arahYcur < size && j + arahXcur >= 0 && j + arahXcur < size){
+                            kromosom.setBit(i + arahYcur, j + arahXcur, true);
+                            kromosom.setFixedAllele(i + arahYcur, j + arahXcur, true);
+                        }
+                    }
+                } else if (puzzle.getNumber(i, j) == 0){
+                    // ngeset semua di sekitar angka 0 jadi putih (bukan item), dan gaboleh diganti lagi ke depannya saat crossover & mutasi
+                    for(k=0; k < 8; k++){
+                        int arahYcur = arahY[k];
+                        int arahXcur = arahX[k];
+                        if(i + arahYcur >= 0 && i + arahYcur < size && j + arahXcur >= 0 && j + arahXcur < size){
+                            kromosom.setBit(i + arahYcur, j + arahXcur, false);
+                            kromosom.setFixedAllele(i + arahYcur, j + arahXcur, false);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

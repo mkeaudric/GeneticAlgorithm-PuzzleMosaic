@@ -5,19 +5,24 @@ public class Kromosom {
     private BitSet fixedAllele; //buat nandain alel yang udah pasti bagian solusi (1 artinya udah fix)
     private int length; //panjang kromosom (jumlah sel)
     private int size; //ukuran puzzle (row atau col)
+    private MosaicPuzzle puzzle;
 
     //konstruktor
-    public Kromosom(int size) {
+    public Kromosom(int size, MosaicPuzzle puzzle) {
         this.size = size;
         this.length = size * size;
         this.genes = new BitSet(length);
         this.fixedAllele = new BitSet(length);
+        this.puzzle = puzzle;
     }
 
-    public static Kromosom createRandomKromosom(int size, double probabilitasHitam) {
-        Kromosom kromosom = new Kromosom(size);
+    // item genes : 0 1 0 1 
+    // fixed allele : 0 1 1 0 
 
-        PenandaHeuristik.setFixedAllele(kromosom, puzzle);
+    public static Kromosom createRandomKromosom(int size, double probabilitasHitam, MosaicPuzzle puzzle) {
+        Kromosom kromosom = new Kromosom(size, puzzle);
+
+        PenandaHeuristik.setFixedAllele(kromosom);
 
         for (int i = 0; i < kromosom.length; i++) {
             //tentukan apakah sel ini hitam berdasarkan probabilitas
@@ -64,5 +69,29 @@ public class Kromosom {
         return (BitSet) genes.clone();
     }
 
+    //set fixed allele index ke...(array 1D)
+    public void setFixedAllele(int index, boolean value) {
+        genes.set(index, value);
+    }
 
+    //set fixed allele pada posisi (row, col)
+    public void setFixedAllele(int row, int col, boolean value) {
+        int index = row * size + col;
+        genes.set(index, value);
+    }
+
+    //get fixed allele index ke...(array 1D)
+    public boolean getFixedAllele(int index) {
+        return genes.get(index);
+    }
+
+    //get fixed allele pada posisi (row, col)
+    public boolean getFixedAllele(int row, int col) {
+        int index = row * size + col;
+        return genes.get(index);
+    }
+
+    public MosaicPuzzle getPuzzle(){
+        return puzzle;
+    }
 }
