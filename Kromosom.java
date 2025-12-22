@@ -19,8 +19,8 @@ public class Kromosom {
     // item genes : 0 1 0 1 
     // fixed allele : 0 1 1 0 
 
-    public static Kromosom createRandomKromosom(int size, double probabilitasHitam, MosaicPuzzle puzzle) {
-        Kromosom kromosom = new Kromosom(size, puzzle);
+    public static Kromosom createRandomKromosom(double probabilitasHitam, MosaicPuzzle puzzle) {
+        Kromosom kromosom = new Kromosom(puzzle.getSize(), puzzle);
 
         PenandaHeuristik.setFixedAllele(kromosom);
 
