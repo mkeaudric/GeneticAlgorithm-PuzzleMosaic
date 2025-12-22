@@ -9,7 +9,7 @@ public class MosaicSolverGA {
         RNG.initialize(seed);
 
         MosaicPuzzle puzzle = InputReader.bacaPuzzle(filePeta);
-        GaParam param = InputReader.bacaPuzzle(fileParameter);
+        GaParam param = InputReader.bacaParameter(fileParameter);
 
         // bagian GA
 
