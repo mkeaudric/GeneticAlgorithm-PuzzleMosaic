@@ -38,7 +38,7 @@ public class PenandaHeuristik {
         heuristic4Corner(kromosom);
 
         // heuristik terakhir : fill yang udah pasti, dari angka besar ke kecil (ga ngefek sih mau dari kecil ke besar juga) DONE
-        heuristicFillCertain(kromosom);
+        heuristicFillCertain(kromosom); // MASIH ERROR GTW KENAPA, LIHAT KOTAK DI KIRI BAWAH, MESTINYA 3 3 GA JADI ITEM
     }
 
     // heuristik 1
@@ -173,8 +173,8 @@ public class PenandaHeuristik {
     private static void heuristicFillCertain(Kromosom kromosom){
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int i, j, size = puzzle.getSize();
-        for(i=0; i < size-1; i++){
-            for(j=0; j < size-1; j++){
+        for(i=0; i < size; i++){
+            for(j=0; j < size; j++){
                 int curNum = puzzle.getNumber(i, j); // angka di kotak (i, j)
                 // kalo udah ada n hitam yg fixed disekitarnya, sisa kotaknya pasti putih
                 if(curNum != -1 && countNeighbours(i, j, kromosom, true) == curNum) fillAll(i, j, kromosom, false);
