@@ -304,36 +304,36 @@ public class PenandaHeuristik {
         return(!checkCorner(i, j, size) && (i == 0 || i == size-1 || j == 0 || j == size-1));
     }
 
-    private static boolean checkAdjacent3Whites(int i, int j, Kromosom kromosom){
-        int[] arahY = {-1, 0, 1, 0};
-        int[] arahX = {0, 1, 0, -1};
-        int k, size = kromosom.getSize();
-        for(k=0; k < 4; k++){
-            int arahYcur = i + arahY[k];
-            int arahXcur = j + arahX[k];
-            // kalau dia ga melebihi constraint, dan kalau dia allele nya udah fixed, dan warnanya putih
-            if(arahYcur >= 0 && arahYcur < size && arahXcur >= 0 && arahXcur < size
-                && kromosom.getFixedAllele(arahYcur, arahXcur) && !kromosom.getBit(arahYcur, arahXcur)){
-                // cek ke samping dari si kotak putih itu (apakah ada kotak putih di kiri dan kanannya)
-                if(k%2 == 0){ // kalau k nya genap (artinya lagi cek yang arah atas/bawah, jadi cek nya horizontal)
-                    boolean kiri = false, kanan = false;
-                    if(arahXcur - 1 >= 0 && kromosom.getFixedAllele(arahYcur, arahXcur - 1) && !kromosom.getBit(arahYcur, arahXcur - 1))
-                        kiri = true;
-                    if(arahXcur + 1 < size && kromosom.getFixedAllele(arahYcur, arahXcur + 1) && !kromosom.getBit(arahYcur, arahXcur + 1))
-                        kanan = true;
-                    // kalau kiri dan kanannya putih, jadi ada 3 kotak putih sebaris, return true
-                    return kiri && kanan; 
-                } else{ // k nya ganjil (artinya lagi cek yang kiri/kanan, jadi cek nya vertikal)
-                    boolean atas = false, bawah = false;
-                    if(arahYcur - 1 >= 0 && kromosom.getFixedAllele(arahYcur - 1, arahXcur) && !kromosom.getBit(arahYcur - 1, arahXcur))
-                        atas = true;
-                    if(arahYcur + 1 < size && kromosom.getFixedAllele(arahYcur + 1, arahXcur) && !kromosom.getBit(arahYcur + 1, arahXcur))
-                        bawah = true;
-                    // kalau atas dan bawahnya putih, kado ada 3 kotak putih sebaris, return true
-                    return atas && bawah;
-                }
-            }
-        }
-        return false;
-    }
+    // private static boolean checkAdjacent3Whites(int i, int j, Kromosom kromosom){
+    //     int[] arahY = {-1, 0, 1, 0};
+    //     int[] arahX = {0, 1, 0, -1};
+    //     int k, size = kromosom.getSize();
+    //     for(k=0; k < 4; k++){
+    //         int arahYcur = i + arahY[k];
+    //         int arahXcur = j + arahX[k];
+    //         // kalau dia ga melebihi constraint, dan kalau dia allele nya udah fixed, dan warnanya putih
+    //         if(arahYcur >= 0 && arahYcur < size && arahXcur >= 0 && arahXcur < size
+    //             && kromosom.getFixedAllele(arahYcur, arahXcur) && !kromosom.getBit(arahYcur, arahXcur)){
+    //             // cek ke samping dari si kotak putih itu (apakah ada kotak putih di kiri dan kanannya)
+    //             if(k%2 == 0){ // kalau k nya genap (artinya lagi cek yang arah atas/bawah, jadi cek nya horizontal)
+    //                 boolean kiri = false, kanan = false;
+    //                 if(arahXcur - 1 >= 0 && kromosom.getFixedAllele(arahYcur, arahXcur - 1) && !kromosom.getBit(arahYcur, arahXcur - 1))
+    //                     kiri = true;
+    //                 if(arahXcur + 1 < size && kromosom.getFixedAllele(arahYcur, arahXcur + 1) && !kromosom.getBit(arahYcur, arahXcur + 1))
+    //                     kanan = true;
+    //                 // kalau kiri dan kanannya putih, jadi ada 3 kotak putih sebaris, return true
+    //                 return kiri && kanan; 
+    //             } else{ // k nya ganjil (artinya lagi cek yang kiri/kanan, jadi cek nya vertikal)
+    //                 boolean atas = false, bawah = false;
+    //                 if(arahYcur - 1 >= 0 && kromosom.getFixedAllele(arahYcur - 1, arahXcur) && !kromosom.getBit(arahYcur - 1, arahXcur))
+    //                     atas = true;
+    //                 if(arahYcur + 1 < size && kromosom.getFixedAllele(arahYcur + 1, arahXcur) && !kromosom.getBit(arahYcur + 1, arahXcur))
+    //                     bawah = true;
+    //                 // kalau atas dan bawahnya putih, kado ada 3 kotak putih sebaris, return true
+    //                 return atas && bawah;
+    //             }
+    //         }
+    //     }
+    //     return false;
+    // }
 }

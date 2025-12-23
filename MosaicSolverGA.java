@@ -26,23 +26,38 @@ public class MosaicSolverGA {
         System.out.println("Selection method: '" + param.getSelectionMethod() + "'");
         System.out.println("Crossover method: '" + param.getCrossoverMethod() + "'");
 
-        // simple validation for crossover method (accept 'one-point' with hyphen)
-        String cm = param.getCrossoverMethod() == null ? "" : param.getCrossoverMethod().trim().toLowerCase();
-        if (cm.equals("single-point") || cm.equals("single_point") || cm.equals("singlepoint")) {
+        String rawMethod = param.getCrossoverMethod() == null ? "" : param.getCrossoverMethod().trim().toLowerCase();
+
+        // method lama gw ganti, jadi kalo mau k-point pake "k-point-n"
+        // Default nya
+        String method = "single-point"; 
+        int k = 1; 
+
+        if (rawMethod.contains("single") || rawMethod.contains("one")) {
+            method = "single-point";
             System.out.println("Crossover method recognized as: single-point");
-        } else if (cm.equals("uniform") || cm.equals("uniform-crossover") || cm.equals("uniform_crossover")) {
+        } else if (rawMethod.contains("uniform")) {
+            method = "uniform";
             System.out.println("Crossover method recognized as: uniform");
-        } else if (cm.equals("two-point") || cm.equals("two_point") || cm.equals("two-point")) {
-            System.out.println("Crossover method recognized as: two-point");
-        } else if (cm.isEmpty()) {
-            System.out.println("Crossover method is empty");
+        } else if (rawMethod.startsWith("k-point") || rawMethod.startsWith("k_point")) {
+            method = "k-point";
+            // Parsing angka di akhirannya
+            String[] parts = rawMethod.split("[-_]"); // regex gajelas njir, sumber : https://stackoverflow.com/questions/2911005/how-to-cut-string-with-two-regular-expression-and
+            // isi parts nya jadi k, point, n 
+            if (parts.length >= 3) {
+                try {
+                    k = Integer.parseInt(parts[2]);
+                } catch (NumberFormatException e) {
+                    System.out.println("Format angka k salah. Default k=1 (sama aja kek single-point).");
+                }
+            }
+            System.out.println("Crossover method recognized as: k-point with k = " + k);
         } else {
-            System.out.println("Warning: unknown crossover method '" + param.getCrossoverMethod() + "' — expected 'one-point' or 'uniform'");
+            System.out.println("Warning: unknown method '" + rawMethod + "'. Defaulting to single-point.");
         }
 
-        // bagian GA
+        // BAGIAN GA
 
-        //import fitness function
         FitnessFunction fitnessFunction = new FitnessFunction(puzzle);
         Selection seleksi = new Selection();
 
@@ -55,38 +70,38 @@ public class MosaicSolverGA {
         System.out.printf("Best fitness awal: %.6f%n", populasi.getBestIndividu().getFitness());
         System.out.printf("Average fitness awal: %.6f%n", populasi.getAverageFitness());
         System.out.println("Best individu (visual):");
-        printKromosom(populasi.getBestIndividu().getKromosom());
+        // debug, print gridnya
+        populasi.getBestIndividu().getKromosom().printCurrentFixedKromosomAsGrid();
 
         Crossover crossover = new Crossover(fitnessFunction);
         
-        // ... (Inside the generations loop)
         for(int generasi = 0; generasi < param.getTotalGeneration(); generasi++) {
             List<Individu> newPopulation = new ArrayList<>(param.getPopulationSize());
 
-            // 1. ELITISM: Copy top performers directly
+            // 1. elitism
             int jumlahElitism = (int)(param.getElitismPercent() * param.getPopulationSize());
             jumlahElitism = Math.max(0, Math.min(jumlahElitism, populasi.getPopulationSize()));
             newPopulation.addAll(populasi.getTopElitism(jumlahElitism));
 
-            // 2. FILL THE REST OF THE POPULATION
+            // 2. isi populasi berikutnya
             while (newPopulation.size() < param.getPopulationSize()) {
-                // SELECTION: Pick two parents
+                // selection (masih pake tournament)
                 Individu parent1 = seleksi.tournamentSelection(populasi, param.getTournamentSize());
                 Individu parent2 = seleksi.tournamentSelection(populasi, param.getTournamentSize());
 
-                // CROSSOVER: Create a child
-                Individu[] offspringArray = crossover.crossover(parent1, parent2, param.getCrossoverMethod());
+                // crossover
+                Individu[] offspringArray = crossover.crossover(parent1, parent2, method, k);
                 Individu offspring = offspringArray[0];
 
-                // MUTATION: Apply your mutation logic to the NEW child
+                // mutasi
                 if (RNG.rand.nextDouble() < param.getMutationRate()) {
-                    Kromosom k = offspring.getKromosom();
-                    double someBitMutationRate = 1.0 / k.getlength(); 
+                    Kromosom kromosom = offspring.getKromosom();
+                    double someBitMutationRate = 1.0 / kromosom.getLength(); 
                     
-                    for (int i = 0; i < k.getlength(); i++) {
-                        if (!k.getFixedAllele(i)) {
+                    for (int i = 0; i < kromosom.getLength(); i++) {
+                        if (!kromosom.getFixedAllele(i)) {
                             if (RNG.rand.nextDouble() < someBitMutationRate) { 
-                                k.setBit(i, !k.getBit(i));
+                                kromosom.setBit(i, !kromosom.getBit(i));
                                 offspring.resetFitness(); 
                             }
                         }
@@ -95,69 +110,18 @@ public class MosaicSolverGA {
                 newPopulation.add(offspring);
             }
 
-            // 3. UPDATE THE POPULATION
+            // 3. update populasi
             populasi.setIndividuList(newPopulation);
 
-            // 4. PRINT PROGRESS
+            // 4. debug
             System.out.printf("Generasi %d | Best Fitness: %.6f | Avg Fitness: %.6f%n", 
                             generasi, populasi.getBestIndividu().getFitness(), populasi.getAverageFitness());
 
-            // Exit early if solution found
-            if (populasi.getBestIndividu().getFitness() >= 1.0) {
+            // kalo ada fitness yang == 1 (ketemu solusi), terminate
+            if (populasi.getBestIndividu().getFitness() == 1.0) {
                 System.out.println("Solusi ditemukan pada generasi " + generasi);
                 break;
             }
         }
-
-        for(int generasi = 0; generasi < param.getTotalGeneration(); generasi++) {
-            List<Individu> newPopulation = new ArrayList<>(param.getPopulationSize());
-
-            // 1. Elitism
-            int jumlahElitism = (int)(param.getElitismPercent() * param.getPopulationSize());
-
-            // clamp jumlahElitism ke rentang yang valid
-            jumlahElitism = Math.max(0, Math.min(jumlahElitism, populasi.getPopulationSize()));
-
-            //masukin individu terbaik ke populasi baru
-            newPopulation.addAll(populasi.getTopElitism(jumlahElitism));
-            // 2. seleksi parent untuk populasi berikutnya
-
-            // 3. crossover & mutasi
-            
-            for (Individu offspring : newPopulation) {
-                if (RNG.rand.nextDouble() < param.getMutationRate()) {
-                    Kromosom k = offspring.getKromosom();
-
-                    double someBitMutationRate = 1.0 / k.getlength(); // 0.01; mutation rate
-                    
-                    for (int i = 0; i < k.getlength(); i++) {
-                        // Check if this bit is allowed to change
-                        if (!k.getFixedAllele(i)) {
-                            // Apply mutation to individual bits
-                            if (RNG.rand.nextDouble() < someBitMutationRate) { 
-                                boolean currentBit = k.getBit(i);
-                                k.setBit(i, !currentBit);
-                                offspring.resetFitness(); // Ensure fitness is recalculated 
-                            }
-                        }
-                    }
-                }
-            }
-            // 4. ulang dari step 2 sampe fitness = 1 (ketemu solusi)
-        }
-        
-       
     }
-
-    // helper: print kromosom sebagai grid (# = item/black, . = white)
-    private static void printKromosom(Kromosom k) {
-        int size = k.getSize();
-        for (int r = 0; r < size; r++) {
-            for (int c = 0; c < size; c++) {
-                System.out.print(k.getBit(r, c) ? "#" : ".");
-            }
-            System.out.println();
-        }
-    }
-
 }
