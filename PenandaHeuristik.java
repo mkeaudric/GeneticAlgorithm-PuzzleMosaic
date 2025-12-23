@@ -38,7 +38,7 @@ public class PenandaHeuristik {
         heuristic4Corner(kromosom);
 
         // heuristik terakhir : fill yang udah pasti, dari angka besar ke kecil (ga ngefek sih mau dari kecil ke besar juga) DONE
-        heuristicFillCertain(kromosom); // MASIH ERROR GTW KENAPA, LIHAT KOTAK DI KIRI BAWAH, MESTINYA 3 3 GA JADI ITEM
+        heuristicFillCertain(kromosom);
     }
 
     // heuristik 1
@@ -173,13 +173,22 @@ public class PenandaHeuristik {
     private static void heuristicFillCertain(Kromosom kromosom){
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int i, j, size = puzzle.getSize();
+        
+        int numberOfNeighbours;
+        // corner <= 4, tepi <= 6, lainnya <= 9
+        
         for(i=0; i < size; i++){
             for(j=0; j < size; j++){
                 int curNum = puzzle.getNumber(i, j); // angka di kotak (i, j)
+
+                if(checkCorner(i, j, size)) numberOfNeighbours = 4;
+                else if(checkEdge(i, j, size)) numberOfNeighbours = 6;
+                else numberOfNeighbours = 9;
+
                 // kalo udah ada n hitam yg fixed disekitarnya, sisa kotaknya pasti putih
                 if(curNum != -1 && countNeighbours(i, j, kromosom, true) == curNum) fillAll(i, j, kromosom, false);
                 // atau kalo udah ada 9 - n putih yang fixed disekitarnya, sisa kotaknya pasti hitam
-                if(curNum != -1 && countNeighbours(i, j, kromosom, false) == (9 - curNum)) fillAll(i, j, kromosom, true);
+                if(curNum != -1 && countNeighbours(i, j, kromosom, false) == (numberOfNeighbours - curNum)) fillAll(i, j, kromosom, true);
             }
         }
     }
@@ -220,7 +229,8 @@ public class PenandaHeuristik {
                 int newRow = i + deltaRow;
                 int newCol = j + deltaCol;
                 if (newRow >= 0 && newRow < size && newCol >= 0 && newCol < size) {
-                    if ((black && kromosom.getBit(newRow, newCol)) || (!black && !kromosom.getBit(newRow, newCol))) ct++;
+                    if ((black && kromosom.getFixedAllele(newRow, newCol) && kromosom.getBit(newRow, newCol)) 
+                        || (!black && kromosom.getFixedAllele(newRow, newCol) && !kromosom.getBit(newRow, newCol))) ct++;
                 }
             }
         }
