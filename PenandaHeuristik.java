@@ -7,6 +7,12 @@ public class PenandaHeuristik {
         // heuristik 1 : cek 0 dan 9, warnain sekitarnya DONE
         heuristic0and9(kromosom);
 
+        // heuristik 9 : cek angka 6 di tepi (dan juga di tepi 3 kotak yang udah pasti putih) DONE
+        heuristic6Edge(kromosom);
+        
+        // heuristik 10 : cek angka 4 di corner (dan juga di corner 2 kotak yang udah pasti putih)
+        heuristic4Corner(kromosom);
+
         // heuristik 2 : dua angka selisih 2 di tepi peta atau tepi 2 kotak putih DONE
         heuristicDiffBy2onEdge(kromosom); // penamaannya gg sih
 
@@ -31,12 +37,6 @@ public class PenandaHeuristik {
         // kalo pair, pasti 3 kotak yang berseberangan itu sama jumlah item/putihnya
         heuristicPairAdjacent0Block(kromosom);
 
-        // heuristik 9 : cek angka 6 di tepi (dan juga di tepi 3 kotak yang udah pasti putih) DONE
-        heuristic6Edge(kromosom);
-        
-        // heuristik 10 : cek angka 4 di corner (dan juga di corner 2 kotak yang udah pasti putih)
-        heuristic4Corner(kromosom);
-
         // heuristik terakhir : fill yang udah pasti, dari angka besar ke kecil (ga ngefek sih mau dari kecil ke besar juga) DONE
         heuristicFillCertain(kromosom);
     }
@@ -58,7 +58,40 @@ public class PenandaHeuristik {
         }
     }
 
-    // heuristik 2 (pengecekan 2 kotak bersebalahan dengan selisih 2 gw pisah untuk yang edge dan yang di non-edge, beda sama yg 6 krn lebih gampang)
+    // heuristik 2 
+    private static void heuristic6Edge(Kromosom kromosom) {
+        // jadi gw ceknya pake loop seluruh papan yang bukan corner (6 gabisa di corner)
+        MosaicPuzzle puzzle = kromosom.getPuzzle();
+        int i, j, size = puzzle.getSize();
+        // atas kiri ke atas kanan
+        for(j=1; j < size-1; j++){ // 1 sampai size-2 karena corner gabisa
+            if(puzzle.getNumber(0, j) == 6) fillAll(0, j, kromosom, true);
+        }
+        // atas kiri ke bawah kiri
+        for(i=1; i < size-1; i++){
+            if(puzzle.getNumber(i, 0) == 6) fillAll(0, j, kromosom, true);
+        }
+        // bawah kiri ke bawah kanan
+        for(j=1; j < size-1; j++){
+            if(puzzle.getNumber(size-1, j) == 6) fillAll(size-1, j, kromosom, true);
+        }
+        // atas kanan ke bawah kanan
+        for(i=1; i < size-1; i++){
+            if(puzzle.getNumber(i, size-1) == 6) fillAll(i, size-1, kromosom, true);
+        }
+    }
+
+    // heuristik 3
+    private static void heuristic4Corner(Kromosom kromosom) {
+        MosaicPuzzle puzzle = kromosom.getPuzzle();
+        int size = puzzle.getSize();
+        if(puzzle.getNumber(0, 0) == 4) fillAll(0, 0, kromosom, true);
+        if(puzzle.getNumber(0, size-1) == 4) fillAll(0, size-1, kromosom, true);
+        if(puzzle.getNumber(size-1, 0) == 4) fillAll(size-1, 0, kromosom, true);
+        if(puzzle.getNumber(size-1, size-1) == 4) fillAll(size-1, size-1, kromosom, true);
+    }
+
+    // heuristik 4 (pengecekan 2 kotak bersebalahan dengan selisih 2 gw pisah untuk yang edge dan yang di non-edge, beda sama yg 6 krn lebih gampang)
     private static void heuristicDiffBy2onEdge(Kromosom kromosom) {
         // ga cuma tepi tapi juga 4 kotak putih yang udah fixed juga bisa jadi kayak tepi, tapi saya implementasi di heuristik yang berbeda
         MosaicPuzzle puzzle = kromosom.getPuzzle();
@@ -111,61 +144,33 @@ public class PenandaHeuristik {
         }
     }
 
-    // heuristik 3
+    // heuristik 5
     private static void heuristicDiffBy5Diag(Kromosom kromosom) {
         
     }
 
-    // heuristik 4
+    // heuristik 6
     private static void heuristicDiffBy6Adjacent1Block(Kromosom kromosom) {
 
     }
 
-    // heuristik 5
+    // heuristik 7
     private static void heuristicDiffBy3Adjacent0Block(Kromosom kromosom) {
 
     }
 
-    // heuristik 6
+    // heuristik 8
     private static void heuristicDiffBy2Adjacent0Block1Clue(Kromosom kromosom) {
         
     }
 
-    // heuristik 7
+    // heuristik 9
     private static void heuristicDiffBy1Adjacent0Block2Clue(Kromosom kromosom) {
         
     }
 
-    // heuristik 8
-    private static void heuristicPairAdjacent0Block(Kromosom kromosom) {
-        
-    }
-
-    // heuristik 9 (ini gw gabung pengecekan di edge sama yang di 3 kotak yang pasti putih, krn implementasinya cukup kecil)
-    private static void heuristic6Edge(Kromosom kromosom) {
-        // sebenernya ga cuma tepi aja, tapi bisa kalau ada barisan 3 kotak yang udah pasti putih (misal sekitar angka 0)
-        // jadi gw ceknya pake loop seluruh papan yang bukan corner (6 gabisa di corner)
-        MosaicPuzzle puzzle = kromosom.getPuzzle();
-        int i, j, size = puzzle.getSize();
-        for(i=0; i < size; i++){
-            for(j=0; j < size; j++){
-                if(checkCorner(i, j, size)) continue; // kalo corner, gamungkin (sebenernya gausah cek juga karena pasti ga ada 6 di corner)
-                if(puzzle.getNumber(i, j) == 6){
-                    // kalau 6 ada di edge, langsung warnain item sekitarnya
-                    if(checkEdge(i, j, size)){
-                        fillAll(i, j, kromosom, true);
-                    }
-                    // kalau 6 bukan di edge, lihat apakah ada barisan 3 kotak putih (yang sudah pasti) di sekitarnya
-                    if(checkAdjacent3Whites(i, j, kromosom)){
-                        fillAll(i, j, kromosom, true);
-                    }
-                }
-            }
-        }
-    }
-
     // heuristik 10
-    private static void heuristic4Corner(Kromosom kromosom) {
+    private static void heuristicPairAdjacent0Block(Kromosom kromosom) {
         
     }
 
@@ -173,13 +178,22 @@ public class PenandaHeuristik {
     private static void heuristicFillCertain(Kromosom kromosom){
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int i, j, size = puzzle.getSize();
+
+        int numberOfNeighbours;
+        // corner <= 4, tepi <= 6, lainnya <= 9
+
         for(i=0; i < size-1; i++){
             for(j=0; j < size-1; j++){
                 int curNum = puzzle.getNumber(i, j); // angka di kotak (i, j)
+
+                if(checkCorner(i, j, size)) numberOfNeighbours = 4;
+                else if(checkEdge(i, j, size)) numberOfNeighbours = 6;
+                else numberOfNeighbours = 9;
+
                 // kalo udah ada n hitam yg fixed disekitarnya, sisa kotaknya pasti putih
                 if(curNum != -1 && countNeighbours(i, j, kromosom, true) == curNum) fillAll(i, j, kromosom, false);
                 // atau kalo udah ada 9 - n putih yang fixed disekitarnya, sisa kotaknya pasti hitam
-                if(curNum != -1 && countNeighbours(i, j, kromosom, false) == (9 - curNum)) fillAll(i, j, kromosom, true);
+                if(curNum != -1 && countNeighbours(i, j, kromosom, false) == (numberOfNeighbours - curNum)) fillAll(i, j, kromosom, true);
             }
         }
     }
@@ -220,7 +234,8 @@ public class PenandaHeuristik {
                 int newRow = i + deltaRow;
                 int newCol = j + deltaCol;
                 if (newRow >= 0 && newRow < size && newCol >= 0 && newCol < size) {
-                    if ((black && kromosom.getBit(newRow, newCol)) || (!black && !kromosom.getBit(newRow, newCol))) ct++;
+                    if ((black && kromosom.getFixedAllele(newRow, newCol) && kromosom.getBit(newRow, newCol)) 
+                        || (!black && kromosom.getFixedAllele(newRow, newCol) && !kromosom.getBit(newRow, newCol))) ct++;
                 }
             }
         }

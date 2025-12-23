@@ -5,5 +5,5 @@
 0.05
 20
 tournament
-two-point
+uniform
 0.3
