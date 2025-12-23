@@ -62,7 +62,7 @@ public class Kromosom {
     }
 
     //mengembalikan panjang kromosom
-    public int getlength() {
+    public int getLength() {
         return length;
     }
 
