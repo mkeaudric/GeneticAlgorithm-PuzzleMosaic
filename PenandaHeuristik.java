@@ -5,7 +5,7 @@ public class PenandaHeuristik {
     public static void setFixedAllele(Kromosom kromosom){
 
         // heuristik 1 : cek 0 dan 9, warnain sekitarnya DONE
-        // heuristic0and9(kromosom);
+        heuristic0and9(kromosom);
 
         // heuristik 2 : dua angka selisih 2 di tepi peta atau tepi 2 kotak putih DONE
         heuristicDiffBy2onEdge(kromosom); // penamaannya gg sih
@@ -32,10 +32,10 @@ public class PenandaHeuristik {
         heuristicPairAdjacent0Block(kromosom);
 
         // heuristik 9 : cek angka 6 di tepi (dan juga di tepi 3 kotak yang udah pasti putih) DONE
-        // heuristic6Edge(kromosom);
+        heuristic6Edge(kromosom);
         
         // heuristik 10 : cek angka 4 di corner (dan juga di corner 2 kotak yang udah pasti putih)
-        // heuristic4Corner(kromosom);
+        heuristic4Corner(kromosom);
 
         // heuristik terakhir : fill yang udah pasti, dari angka besar ke kecil (ga ngefek sih mau dari kecil ke besar juga) DONE
         heuristicFillCertain(kromosom);
@@ -173,22 +173,13 @@ public class PenandaHeuristik {
     private static void heuristicFillCertain(Kromosom kromosom){
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int i, j, size = puzzle.getSize();
-        
-        int numberOfNeighbours;
-        // corner <= 4, tepi <= 6, lainnya <= 9
-        
-        for(i=0; i < size; i++){
-            for(j=0; j < size; j++){
+        for(i=0; i < size-1; i++){
+            for(j=0; j < size-1; j++){
                 int curNum = puzzle.getNumber(i, j); // angka di kotak (i, j)
-
-                if(checkCorner(i, j, size)) numberOfNeighbours = 4;
-                else if(checkEdge(i, j, size)) numberOfNeighbours = 6;
-                else numberOfNeighbours = 9;
-
                 // kalo udah ada n hitam yg fixed disekitarnya, sisa kotaknya pasti putih
                 if(curNum != -1 && countNeighbours(i, j, kromosom, true) == curNum) fillAll(i, j, kromosom, false);
                 // atau kalo udah ada 9 - n putih yang fixed disekitarnya, sisa kotaknya pasti hitam
-                if(curNum != -1 && countNeighbours(i, j, kromosom, false) == (numberOfNeighbours - curNum)) fillAll(i, j, kromosom, true);
+                if(curNum != -1 && countNeighbours(i, j, kromosom, false) == (9 - curNum)) fillAll(i, j, kromosom, true);
             }
         }
     }
@@ -229,8 +220,7 @@ public class PenandaHeuristik {
                 int newRow = i + deltaRow;
                 int newCol = j + deltaCol;
                 if (newRow >= 0 && newRow < size && newCol >= 0 && newCol < size) {
-                    if ((black && kromosom.getFixedAllele(newRow, newCol) && kromosom.getBit(newRow, newCol)) 
-                        || (!black && kromosom.getFixedAllele(newRow, newCol) && !kromosom.getBit(newRow, newCol))) ct++;
+                    if ((black && kromosom.getBit(newRow, newCol)) || (!black && !kromosom.getBit(newRow, newCol))) ct++;
                 }
             }
         }
