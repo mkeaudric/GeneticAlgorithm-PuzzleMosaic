@@ -16,10 +16,10 @@ public class GAParamater {
         this.crossoverRate = crossoverRate;
         this.mutationRate = mutationRate;
         this.elitismPercent = elitismPercent;
-        this.probabilitasHitam = probabilitasHitam;
+        this.tournamentSize = tournamentSize;
         this.selectionMethod = selectionMethod;
         this.crossoverMethod = crossoverMethod;
-        this.tournamentSize = tournamentSize;
+        this.probabilitasHitam = probabilitasHitam;
     }
 
     public int getTotalGeneration() {

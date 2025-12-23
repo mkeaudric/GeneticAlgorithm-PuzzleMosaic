@@ -15,12 +15,35 @@ public class MosaicSolverGA {
         MosaicPuzzle puzzle = InputReader.bacaPuzzle(filePeta);
         GAParamater param = InputReader.bacaParameter(fileParameter);
 
+        // cetak parameter GA untuk verifikasi
+        System.out.println("=== GA Parameters ===");
+        System.out.println("Total generations: " + param.getTotalGeneration());
+        System.out.println("Population size: " + param.getPopulationSize());
+        System.out.printf("Crossover rate: %.4f%n", param.getCrossoverRate());
+        System.out.printf("Mutation rate: %.4f%n", param.getMutationRate());
+        System.out.printf("Elitism percent: %.4f%n", param.getElitismPercent());
+        System.out.println("Tournament size: " + param.getTournamentSize());
+        System.out.println("Selection method: '" + param.getSelectionMethod() + "'");
+        System.out.println("Crossover method: '" + param.getCrossoverMethod() + "'");
+
+        // simple validation for crossover method (accept 'one-point' with hyphen)
+        String cm = param.getCrossoverMethod() == null ? "" : param.getCrossoverMethod().trim().toLowerCase();
+        if (cm.equals("one-point") || cm.equals("one_point") || cm.equals("onepoint")) {
+            System.out.println("Crossover method recognized as: one-point");
+        } else if (cm.equals("uniform") || cm.equals("uniform-crossover") || cm.equals("uniform_crossover")) {
+            System.out.println("Crossover method recognized as: uniform");
+        } else if (cm.isEmpty()) {
+            System.out.println("Crossover method is empty");
+        } else {
+            System.out.println("Warning: unknown crossover method '" + param.getCrossoverMethod() + "' — expected 'one-point' or 'uniform'");
+        }
+
         // bagian GA
 
         //import fitness function
         FitnessFunction fitnessFunction = new FitnessFunction(puzzle);
         Selection seleksi = new Selection();
-        Crossover crossover = new Crossover();
+        //Crossover crossover = new Crossover(param.getCrossoverRate());
 
         // 1. inisialisasi populasi
         Populasi populasi = new Populasi(param.getPopulationSize(), param.getProbabilitasHitam(), fitnessFunction, puzzle);
@@ -38,8 +61,11 @@ public class MosaicSolverGA {
 
             // 1. Elitism
             int jumlahElitism = (int)(param.getElitismPercent() * param.getPopulationSize());
+
             // clamp jumlahElitism ke rentang yang valid
             jumlahElitism = Math.max(0, Math.min(jumlahElitism, populasi.getPopulationSize()));
+
+            //masukin individu terbaik ke populasi baru
             newPopulation.addAll(populasi.getTopElitism(jumlahElitism));
             // 2. seleksi parent untuk populasi berikutnya
 
