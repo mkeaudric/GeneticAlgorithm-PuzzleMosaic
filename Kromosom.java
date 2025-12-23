@@ -22,6 +22,7 @@ public class Kromosom {
     public static Kromosom createRandomKromosom(double probabilitasHitam, MosaicPuzzle puzzle) {
         Kromosom kromosom = new Kromosom(puzzle.getSize(), puzzle);
 
+        //cek apakah ada fixed allele yang diset
         try{
             PenandaHeuristik.setFixedAllele(kromosom);
         } catch(Exception e){
