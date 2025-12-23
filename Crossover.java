@@ -65,6 +65,24 @@ public class Crossover {
     }
 
     private Individu[] twoPointCrossover(Individu parent1, Individu parent2) {
-        
+        int length = parent1.getKromosom().getlength();
+
+        Kromosom firstChild = parent1.getKromosom().copy();
+        Kromosom secondChild = parent2.getKromosom().copy();
+
+        int p1_idx = RNG.rand.nextInt(length);
+        int p2_idx = RNG.rand.nextInt(length);
+        int start = Math.min(p1_idx, p2_idx);
+        int end = Math.max(p1_idx, p2_idx);
+
+        for (int i = start; i <= end; i++) {
+            if (!firstChild.getFixedAllele(i)) {
+                boolean temp = firstChild.getBit(i);
+                firstChild.setBit(i, secondChild.getBit(i));
+                secondChild.setBit(i, temp);
+            }
+        }
+
+        return new Individu[] {new Individu(firstChild, fitnessFunction), new Individu(secondChild, fitnessFunction)};
     }
 }
