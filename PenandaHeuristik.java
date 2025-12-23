@@ -5,7 +5,7 @@ public class PenandaHeuristik {
     public static void setFixedAllele(Kromosom kromosom){
 
         // heuristik 1 : cek 0 dan 9, warnain sekitarnya DONE
-        heuristic0and9(kromosom);
+        // heuristic0and9(kromosom);
 
         // heuristik 2 : dua angka selisih 2 di tepi peta atau tepi 2 kotak putih DONE
         heuristicDiffBy2onEdge(kromosom); // penamaannya gg sih
@@ -32,10 +32,10 @@ public class PenandaHeuristik {
         heuristicPairAdjacent0Block(kromosom);
 
         // heuristik 9 : cek angka 6 di tepi (dan juga di tepi 3 kotak yang udah pasti putih) DONE
-        heuristic6Edge(kromosom);
+        // heuristic6Edge(kromosom);
         
         // heuristik 10 : cek angka 4 di corner (dan juga di corner 2 kotak yang udah pasti putih)
-        heuristic4Corner(kromosom);
+        // heuristic4Corner(kromosom);
 
         // heuristik terakhir : fill yang udah pasti, dari angka besar ke kecil (ga ngefek sih mau dari kecil ke besar juga) DONE
         heuristicFillCertain(kromosom);
