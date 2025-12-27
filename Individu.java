@@ -35,9 +35,9 @@ public class Individu implements Comparable<Individu> {
     }
 
     // Backwards compatible alias: default copy preserves fitness (elitism behavior)
-    public Individu copy() {
-        return copyForElitism();
-    }
+    // public Individu copy() {
+    //     return copyForElitism();
+    // }
 
     //reset fitness agar dihitung ulang
     public void resetFitness() {

@@ -67,10 +67,18 @@ public class MosaicSolverGA {
 
             //masukin individu terbaik ke populasi baru
             newPopulation.addAll(populasi.getTopElitism(jumlahElitism));
-            // 2. seleksi parent untuk populasi berikutnya
 
-            // 3. crossover & mutasi
-            // 4. ulang dari step 2 sampe fitness = 1 (ketemu solusi)
+            while(newPopulation.size() < param.getPopulationSize()) {
+                // seleksi parent
+                
+
+                // crossover
+
+                // mutasi
+
+                // tambahkan offspring ke populasi baru
+                newPopulation.add(offspring);
+            }
         }
         
        
