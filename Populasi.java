@@ -33,29 +33,19 @@ public class Populasi {
 
     public void evaluatePopulation() {
         populationFitness = 0;
-        bestIndividu = null;
 
-        //hitung total fitness dan individu terbaik
         for(Individu individu : individuList) {
-            //ambil fitness individu
-            double fitness = individu.getFitness();
-
-            //tambahkan fitness ke total fitness populasi   
-            populationFitness += fitness;
-
-            //update individu terbaik
-            if(bestIndividu == null || fitness > bestIndividu.getFitness()) {
-                bestIndividu = individu.copyForElitism();
-            }
+            populationFitness += individu.getFitness();
         }
-        Collections.sort(individuList);
-    }
 
-    // public void updatePopulation(List<Individu> newPopulation) {
-    //     this.individuList = newPopulation;
-    //     this.populationSize = newPopulation.size();
-    //     evaluatePopulation();
-    // }
+        //Sort individu berdasarkan fitness
+        Collections.sort(individuList);
+
+        //Ambil individu terbaik
+        if (!individuList.isEmpty()) {
+            bestIndividu = individuList.get(0).copyForElitism();
+        }
+    }
 
     //getter dan setter
     public List<Individu> getIndividuList() {

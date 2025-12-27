@@ -62,7 +62,7 @@ public class Kromosom {
     }
 
     //mengembalikan panjang kromosom
-    public int getlength() {
+    public int getLength() {
         return length;
     }
 
@@ -74,6 +74,7 @@ public class Kromosom {
     public BitSet getBitSet() {
         return (BitSet) genes.clone();
     }
+    
     //set alel yang sudah pasti pada index 1D
     public void setFixedAllele(int index, boolean isFixed) {
         fixedAllele.set(index, isFixed);
@@ -106,5 +107,17 @@ public class Kromosom {
 
     public MosaicPuzzle getPuzzle(){
         return puzzle;
+    }
+
+    // method buat bantu ngecek heuristik aja, print si kromosom yang udah fixed saat ini
+    public void printCurrentFixedKromosomAsGrid(){
+        int i, j;
+        for(i=0; i < size; i++){
+            for(j=0; j < size; j++){
+                if(!this.getFixedAllele(i, j)) System.out.print(". "); // Unknown, masih belum fixed
+                else System.out.print(this.getBit(i, j) ? "B " : "W ");
+            }
+            System.out.println();
+        }
     }
 }
