@@ -29,35 +29,22 @@ public class Populasi {
         }
         //hitung fitness populasi awal
         evaluatePopulation();
-        Collections.sort(individuList);
     }
 
     public void evaluatePopulation() {
         populationFitness = 0;
-        bestIndividu = null;
 
-        //hitung total fitness dan individu terbaik
         for(Individu individu : individuList) {
-            //ambil fitness individu
-            double fitness = individu.getFitness();
-
-            //tambahkan fitness ke total fitness populasi   
-            populationFitness += fitness;
-
-            //update individu terbaik
-            if(bestIndividu == null || fitness > bestIndividu.getFitness()) {
-                bestIndividu = individu.copy();
-            }
+            populationFitness += individu.getFitness();
         }
 
+        //Sort individu berdasarkan fitness
         Collections.sort(individuList);
-        
-    }
 
-    public void updatePopulation(List<Individu> newPopulation) {
-        this.individuList = newPopulation;
-        this.populationSize = newPopulation.size();
-        evaluatePopulation();
+        //Ambil individu terbaik
+        if (!individuList.isEmpty()) {
+            bestIndividu = individuList.get(0).copyForElitism();
+        }
     }
 
     //getter dan setter
@@ -69,8 +56,7 @@ public class Populasi {
     public List<Individu> getTopElitism(int k) {
         List<Individu> elites = new ArrayList<>();
         if (k <= 0) return elites;
-        // pastikan terurut berdasarkan fitness tertinggi
-        Collections.sort(individuList);
+    
         k = Math.min(k, individuList.size());
         for (int i = 0; i < k; i++) {
             elites.add(individuList.get(i).copyForElitism());
