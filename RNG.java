@@ -7,4 +7,5 @@ public class RNG {
     public static void initialize(int seed){
         rand = new Random(seed);
     }
+
 }
