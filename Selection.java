@@ -17,7 +17,7 @@ public class Selection {
             case "random":
                 return randomSelection(populasi);
             default:
-                return tournamentSelection(populasi, param.getTournamentSize());
+                return randomSelection(populasi);
         }
     }
 
