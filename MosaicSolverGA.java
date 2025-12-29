@@ -86,8 +86,8 @@ public class MosaicSolverGA {
             // 2. isi populasi berikutnya
             while (newPopulation.size() < param.getPopulationSize()) {
                 // selection (masih pake tournament)
-                Individu parent1 = seleksi.tournamentSelection(populasi, param.getTournamentSize());
-                Individu parent2 = seleksi.tournamentSelection(populasi, param.getTournamentSize());
+                Individu parent1 = seleksi.select(populasi, param);
+                Individu parent2 = seleksi.select(populasi, param);
 
                 // crossover
                 Individu[] offspringArray = crossover.crossover(parent1, parent2, method, k);
