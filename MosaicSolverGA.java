@@ -89,25 +89,27 @@ public class MosaicSolverGA {
                 Individu parent1 = seleksi.select(populasi, param);
                 Individu parent2 = seleksi.select(populasi, param);
 
-                // crossover
-                Individu[] offspringArray = crossover.crossover(parent1, parent2, method, k);
-                Individu offspring = offspringArray[0];
+                // Crossover
+                Individu[] offsprings = crossover.crossover(parent1, parent2, method, k);
 
                 // mutasi
-                if (RNG.rand.nextDouble() < param.getMutationRate()) {
-                    Kromosom kromosom = offspring.getKromosom();
-                    double someBitMutationRate = 1.0 / kromosom.getLength(); 
-                    
-                    for (int i = 0; i < kromosom.getLength(); i++) {
-                        if (!kromosom.getFixedAllele(i)) {
-                            if (RNG.rand.nextDouble() < someBitMutationRate) { 
-                                kromosom.setBit(i, !kromosom.getBit(i));
-                                offspring.resetFitness(); 
+                for (Individu offspring : offsprings) {
+                    if (newPopulation.size() < param.getPopulationSize()) {
+                        // Mutasi per bit
+                        boolean mutated = false;
+                        Kromosom kromosom = offspring.getKromosom();
+                        for (int i = 0; i < kromosom.getLength(); i++) {
+                            if (!kromosom.getFixedAllele(i)) {
+                                if (RNG.rand.nextDouble() < param.getMutationRate()) {
+                                    kromosom.setBit(i, !kromosom.getBit(i));
+                                    mutated = true;
+                                }
                             }
                         }
+                        if (mutated) offspring.resetFitness();
+                        newPopulation.add(offspring);
                     }
                 }
-                newPopulation.add(offspring);
             }
 
             // 3. update populasi
