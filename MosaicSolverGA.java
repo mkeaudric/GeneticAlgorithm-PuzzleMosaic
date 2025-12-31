@@ -85,7 +85,6 @@ public class MosaicSolverGA {
 
             // 2. isi populasi berikutnya
             while (newPopulation.size() < param.getPopulationSize()) {
-                // selection (masih pake tournament)
                 Individu parent1 = seleksi.select(populasi, param);
                 Individu parent2 = seleksi.select(populasi, param);
 
@@ -113,7 +112,7 @@ public class MosaicSolverGA {
                                 }
                             }
                         }
-                        PenandaHeuristik.heuristicFillCertain(offspring.getKromosom());
+                        // PenandaHeuristik.heuristicFillCertain(offspring.getKromosom());
                         if (mutated) offspring.resetFitness();
                         newPopulation.add(offspring);
                     }
@@ -130,7 +129,7 @@ public class MosaicSolverGA {
             // kalo ada fitness yang == 1 (ketemu solusi), terminate
             if (Math.abs(populasi.getBestIndividu().getFitness() - 1.0) < 1e-6) {
                 System.out.println("Solusi ditemukan pada generasi " + generasi);
-                populasi.getBestIndividu().getKromosom().printCurrentFixedKromosomAsGrid();
+                populasi.getBestIndividu().getKromosom().printCurrentKromosomAsGrid();
                 break;
             }
         }

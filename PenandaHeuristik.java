@@ -146,7 +146,7 @@ public class PenandaHeuristik {
 
     // heuristik 5
     private static void heuristicDiffBy5Diag(Kromosom kromosom) {
-        
+        // ga mungkin di row 0, row n-1, col 0, col n-1
     }
 
     // heuristik 6
