@@ -90,7 +90,14 @@ public class MosaicSolverGA {
                 Individu parent2 = seleksi.select(populasi, param);
 
                 // Crossover
-                Individu[] offsprings = crossover.crossover(parent1, parent2, method, k);
+                Individu[] offsprings;
+
+                if(RNG.rand.nextDouble() < param.getCrossoverRate()) {
+                    offsprings = crossover.crossover(parent1, parent2, method, k);
+                } else {
+                    // ga crossover, anaknya sama aja kaya parentnya (tapi harus copy for offspring biar fitness nya direset)
+                    offsprings = new Individu[] { parent1.copyForOffspring(), parent2.copyForOffspring()};
+                }
 
                 // mutasi
                 for (Individu offspring : offsprings) {
@@ -106,6 +113,7 @@ public class MosaicSolverGA {
                                 }
                             }
                         }
+                        PenandaHeuristik.heuristicFillCertain(offspring.getKromosom());
                         if (mutated) offspring.resetFitness();
                         newPopulation.add(offspring);
                     }
@@ -120,8 +128,9 @@ public class MosaicSolverGA {
                             generasi, populasi.getBestIndividu().getFitness(), populasi.getAverageFitness());
 
             // kalo ada fitness yang == 1 (ketemu solusi), terminate
-            if (populasi.getBestIndividu().getFitness() == 1.0) {
+            if (Math.abs(populasi.getBestIndividu().getFitness() - 1.0) < 1e-6) {
                 System.out.println("Solusi ditemukan pada generasi " + generasi);
+                populasi.getBestIndividu().getKromosom().printCurrentFixedKromosomAsGrid();
                 break;
             }
         }

@@ -114,8 +114,9 @@ public class Kromosom {
         int i, j;
         for(i=0; i < size; i++){
             for(j=0; j < size; j++){
-                if(!this.getFixedAllele(i, j)) System.out.print(". "); // Unknown, masih belum fixed
-                else System.out.print(this.getBit(i, j) ? "B " : "W ");
+                //if(!this.getFixedAllele(i, j)) System.out.print(". "); // Unknown, masih belum fixed
+                //else 
+                System.out.print(this.getBit(i, j) ? "B " : "W ");
             }
             System.out.println();
         }

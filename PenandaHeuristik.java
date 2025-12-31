@@ -49,10 +49,10 @@ public class PenandaHeuristik {
             for(j=0; j < size; j++){
                 if(puzzle.getNumber(i, j) == 9){
                     // ngeset semua di sekitar angka 9 dan 9 itu sendiri jadi item, dan gaboleh diganti lagi ke depannya saat crossover & mutasi
-                    fillAll(i, j, kromosom, true);
+                    fillSafe(i, j, kromosom, true);
                 } else if (puzzle.getNumber(i, j) == 0){
                     // ngeset semua di sekitar angka 0 dan 0 itu sendiri jadi putih (bukan item), dan gaboleh diganti lagi ke depannya saat crossover & mutasi
-                    fillAll(i, j, kromosom, false);
+                    fillSafe(i, j, kromosom, false);
                 }
             }
         }
@@ -65,19 +65,19 @@ public class PenandaHeuristik {
         int i, j, size = puzzle.getSize();
         // atas kiri ke atas kanan
         for(j=1; j < size-1; j++){ // 1 sampai size-2 karena corner gabisa
-            if(puzzle.getNumber(0, j) == 6) fillAll(0, j, kromosom, true);
+            if(puzzle.getNumber(0, j) == 6) fillSafe(0, j, kromosom, true);
         }
         // atas kiri ke bawah kiri
         for(i=1; i < size-1; i++){
-            if(puzzle.getNumber(i, 0) == 6) fillAll(0, j, kromosom, true);
+            if(puzzle.getNumber(i, 0) == 6) fillSafe(i, 0, kromosom, true);
         }
         // bawah kiri ke bawah kanan
         for(j=1; j < size-1; j++){
-            if(puzzle.getNumber(size-1, j) == 6) fillAll(size-1, j, kromosom, true);
+            if(puzzle.getNumber(size-1, j) == 6) fillSafe(size-1, j, kromosom, true);
         }
         // atas kanan ke bawah kanan
         for(i=1; i < size-1; i++){
-            if(puzzle.getNumber(i, size-1) == 6) fillAll(i, size-1, kromosom, true);
+            if(puzzle.getNumber(i, size-1) == 6) fillSafe(i, size-1, kromosom, true);
         }
     }
 
@@ -85,10 +85,10 @@ public class PenandaHeuristik {
     private static void heuristic4Corner(Kromosom kromosom) {
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int size = puzzle.getSize();
-        if(puzzle.getNumber(0, 0) == 4) fillAll(0, 0, kromosom, true);
-        if(puzzle.getNumber(0, size-1) == 4) fillAll(0, size-1, kromosom, true);
-        if(puzzle.getNumber(size-1, 0) == 4) fillAll(size-1, 0, kromosom, true);
-        if(puzzle.getNumber(size-1, size-1) == 4) fillAll(size-1, size-1, kromosom, true);
+        if(puzzle.getNumber(0, 0) == 4) fillSafe(0, 0, kromosom, true);
+        if(puzzle.getNumber(0, size-1) == 4) fillSafe(0, size-1, kromosom, true);
+        if(puzzle.getNumber(size-1, 0) == 4) fillSafe(size-1, 0, kromosom, true);
+        if(puzzle.getNumber(size-1, size-1) == 4) fillSafe(size-1, size-1, kromosom, true);
     }
 
     // heuristik 4 (pengecekan 2 kotak bersebalahan dengan selisih 2 gw pisah untuk yang edge dan yang di non-edge, beda sama yg 6 krn lebih gampang)
@@ -175,25 +175,67 @@ public class PenandaHeuristik {
     }
 
     // heuristik 11
-    private static void heuristicFillCertain(Kromosom kromosom){
+    // private static void heuristicFillCertain(Kromosom kromosom){
+    //     MosaicPuzzle puzzle = kromosom.getPuzzle();
+    //     int i, j, size = puzzle.getSize();
+
+    //     int numberOfNeighbours;
+    //     // corner <= 4, tepi <= 6, lainnya <= 9
+
+    //     for(i=0; i < size-1; i++){
+    //         for(j=0; j < size-1; j++){
+    //             int curNum = puzzle.getNumber(i, j); // angka di kotak (i, j)
+
+    //             if(checkCorner(i, j, size)) numberOfNeighbours = 4;
+    //             else if(checkEdge(i, j, size)) numberOfNeighbours = 6;
+    //             else numberOfNeighbours = 9;
+
+    //             // kalo udah ada n hitam yg fixed disekitarnya, sisa kotaknya pasti putih
+    //             if(curNum != -1 && countNeighbours(i, j, kromosom, true) == curNum) fillAll(i, j, kromosom, false);
+    //             // atau kalo udah ada 9 - n putih yang fixed disekitarnya, sisa kotaknya pasti hitam
+    //             if(curNum != -1 && countNeighbours(i, j, kromosom, false) == (numberOfNeighbours - curNum)) fillAll(i, j, kromosom, true);
+    //         }
+    //     }
+    // }
+
+    public static void heuristicFillCertain(Kromosom kromosom) {
         MosaicPuzzle puzzle = kromosom.getPuzzle();
-        int i, j, size = puzzle.getSize();
+        int size = puzzle.getSize();
 
-        int numberOfNeighbours;
-        // corner <= 4, tepi <= 6, lainnya <= 9
+        // Loop harus sampai size, bukan size-1
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                int curNum = puzzle.getNumber(i, j);
+                if (curNum == -1) continue;
 
-        for(i=0; i < size-1; i++){
-            for(j=0; j < size-1; j++){
-                int curNum = puzzle.getNumber(i, j); // angka di kotak (i, j)
+                // Hitung berapa banyak tetangga yang SUDAH kita kunci sebagai HITAM
+                int fixedBlack = 0;
+                int unknown = 0;
+                
+                // Cek 9 tetangga
+                for (int r = i-1; r <= i+1; r++) {
+                    for (int c = j-1; c <= j+1; c++) {
+                        if (r >= 0 && r < size && c >= 0 && c < size) {
+                            if (kromosom.getFixedAllele(r, c)) {
+                                if (kromosom.getBit(r, c)) fixedBlack++;
+                            } else {
+                                unknown++; // Kotak yang belum diputuskan
+                            }
+                        }
+                    }
+                }
 
-                if(checkCorner(i, j, size)) numberOfNeighbours = 4;
-                else if(checkEdge(i, j, size)) numberOfNeighbours = 6;
-                else numberOfNeighbours = 9;
+                // LOGIKA 1: Jika jumlah HITAM yang sudah fix == angka puzzle
+                // Maka semua yang 'unknown' harus jadi PUTIH
+                if (fixedBlack == curNum && unknown > 0) {
+                    fillSafe(i, j, kromosom, false);
+                }
 
-                // kalo udah ada n hitam yg fixed disekitarnya, sisa kotaknya pasti putih
-                if(curNum != -1 && countNeighbours(i, j, kromosom, true) == curNum) fillAll(i, j, kromosom, false);
-                // atau kalo udah ada 9 - n putih yang fixed disekitarnya, sisa kotaknya pasti hitam
-                if(curNum != -1 && countNeighbours(i, j, kromosom, false) == (numberOfNeighbours - curNum)) fillAll(i, j, kromosom, true);
+                // LOGIKA 2: Jika (Hitam yang fix + Unknown) == angka puzzle
+                // Maka semua yang 'unknown' harus jadi HITAM
+                if (fixedBlack + unknown == curNum && unknown > 0) {
+                    fillSafe(i, j, kromosom, true);
+                }
             }
         }
     }
@@ -201,25 +243,17 @@ public class PenandaHeuristik {
 
     // FUNGSI UTILITAS
 
-    // fill semua di sekitar kotak (i, j) dan kotak (i, j) itu sendiri (yang belum fixed)
-    private static void fillAll(int i, int j, Kromosom kromosom, Boolean black){ // Boolean black -> true : black, false : white
-        int k, size = kromosom.getSize();
-        int[] arahY = {-1, -1, 0, 1, 1, 1, 0, -1};
-        int[] arahX = {0, 1, 1, 1, 0, -1, -1, -1};
-
-        // isi kotak itu sendiri
-        if(!kromosom.getFixedAllele(i, j)){
-            kromosom.setBit(i, j, black);
-            kromosom.setFixedAllele(i, j, true);
-        }
-
-        // isi kotak di sekitarnya
-        for(k=0; k < 8; k++){
-            int arahYcur = i + arahY[k];
-            int arahXcur = j + arahX[k];
-            if(arahYcur >= 0 && arahYcur < size && arahXcur >= 0 && arahXcur < size && !kromosom.getFixedAllele(arahYcur, arahXcur)){
-                kromosom.setBit(arahYcur, arahXcur, black);
-                kromosom.setFixedAllele(arahYcur, arahXcur, true);
+    // fill semua kotak di sekitar (r,c) termasuk (r,c) itu sendiri
+    private static void fillSafe(int r, int c, Kromosom kromosom, boolean isBlack) {
+        int size = kromosom.getSize();
+        for (int i = r - 1; i <= r + 1; i++) {
+            for (int j = c - 1; j <= c + 1; j++) {
+                if (i >= 0 && i < size && j >= 0 && j < size) {
+                    if (!kromosom.getFixedAllele(i, j)) { // Kunci Utama: Jangan timpa yang sudah fix
+                        kromosom.setBit(i, j, isBlack);
+                        kromosom.setFixedAllele(i, j, true);
+                    }
+                }
             }
         }
     }
