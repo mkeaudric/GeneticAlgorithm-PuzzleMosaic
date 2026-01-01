@@ -146,7 +146,44 @@ public class PenandaHeuristik {
 
     // heuristik 5
     private static void heuristicDiffBy5Diag(Kromosom kromosom) {
+        MosaicPuzzle puzzle = kromosom.getPuzzle();
+        int i, j, size = puzzle.getSize();
+        boolean setBlack;
+        
         // ga mungkin di row 0, row n-1, col 0, col n-1
+        // ngecek (kolom dari kiri ke kanan, baris dari atas ke bawah) diagonal kotak (i, j) & (i+1, j+1)
+        // artinya hanya perlu iterasi sampai size-2 (untuk kolom dan baris)
+        for(i = 1; i < size-2; i++){
+            for(j = 1; j < size-2; j++){
+                int topNum = puzzle.getNumber(i, j);
+                int bottomNum = puzzle.getNumber(i+1, j+1);
+                if(topNum == -1 || bottomNum == -1) continue; 
+                if(Math.abs(topNum - bottomNum) == 5){
+                    setBlack = (topNum > bottomNum);
+                    fill3CellsAdjacentHor(i, j, kromosom, true, setBlack);
+                    fill3CellsAdjacentVert(i, j, kromosom, true, setBlack);
+                    fill3CellsAdjacentHor(i+1, j+1, kromosom, false, !setBlack);
+                    fill3CellsAdjacentVert(i+1, j+1, kromosom, false, !setBlack);
+                }
+            }
+        }
+
+        // ngecek (kolom dari kiri ke kanan, baris dari atas ke bawah) diagonal kotak (i+1, j) & (i, j+1)
+        // berarti kotak atasnya dari kolom 2 hingga size-1, dan barisnya tetep sama kayak sebelumnya dari 1 hingga size-2
+        for(i = 2; i < size-1; i++){
+            for(j = 1; j < size-2; j++){
+                int topNum = puzzle.getNumber(i+1, j);
+                int bottomNum = puzzle.getNumber(i, j+1);
+                if(topNum == -1 || bottomNum == -1) continue; 
+                if(Math.abs(topNum - bottomNum) == 5){
+                    setBlack = (topNum > bottomNum);
+                    fill3CellsAdjacentHor(i+1, j, kromosom, false, setBlack);
+                    fill3CellsAdjacentVert(i+1, j, kromosom, true, setBlack);
+                    fill3CellsAdjacentHor(i, j+1, kromosom, true, !setBlack);
+                    fill3CellsAdjacentVert(i, j+1, kromosom, false, !setBlack);
+                }
+            }
+        }
     }
 
     // heuristik 6
