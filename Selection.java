@@ -11,7 +11,7 @@ public class Selection {
             case "roulette":
                 return rouletteWheelSelection(populasi);
             case "tournament":
-                return tournamentSelection(populasi, param.getTournamentSize());
+                return tournamentSelection(populasi, param.getSelectionSize());
             case "rank":
                 return rankSelection(populasi);
             case "random":

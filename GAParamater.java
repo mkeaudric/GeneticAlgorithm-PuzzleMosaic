@@ -4,19 +4,19 @@ public class GAParamater {
     private final double crossoverRate; // probabilitas terjadinya crossover antara dua individu
     private final double mutationRate; // probabilitas terjadinya mutasi pada individu
     private final double elitismPercent; // persentase individu terbaik yang dipertahankan ke generasi berikutnya
-    private final int tournamentSize; // ukuran turnamen untuk seleksi individu
+    private final int SelectionSize; // ukuran turnamen untuk seleksi individu
     private final String selectionMethod; // metode seleksi yang digunakan (misalnya "tournament", "roulette wheel", dll)
     private final String crossoverMethod; // metode crossover yang digunakan (misalnya "one-point", "two-point", dll)
     private final double probabilitasHitam; //
     
 
-    public GAParamater(int totalGeneration, int populationSize, double crossoverRate, double mutationRate, double elitismPercent, int tournamentSize, String selectionMethod, String crossoverMethod, double probabilitasHitam) {
+    public GAParamater(int totalGeneration, int populationSize, double crossoverRate, double mutationRate, double elitismPercent, int SelectionSize, String selectionMethod, String crossoverMethod, double probabilitasHitam) {
         this.totalGeneration = totalGeneration; 
         this.populationSize = populationSize; 
         this.crossoverRate = crossoverRate;
         this.mutationRate = mutationRate;
         this.elitismPercent = elitismPercent;
-        this.tournamentSize = tournamentSize;
+        this.SelectionSize = SelectionSize;
         this.selectionMethod = selectionMethod;
         this.crossoverMethod = crossoverMethod;
         this.probabilitasHitam = probabilitasHitam;
@@ -42,8 +42,8 @@ public class GAParamater {
         return elitismPercent;
     }
 
-    public int getTournamentSize() {
-        return tournamentSize;
+    public int getSelectionSize() {
+        return SelectionSize;
     }
 
     public String getSelectionMethod() {
