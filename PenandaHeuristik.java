@@ -4,23 +4,23 @@
 public class PenandaHeuristik {
     public static void setFixedAllele(Kromosom kromosom){
 
-        // heuristik 1 : cek 0 dan 9, warnain sekitarnya DONE
-        heuristic0and9(kromosom);
+        // heuristik 1 : cek 0 dan 9, warnain sekitarnya
+        heuristic0and9(kromosom); // DONE
 
-        // heuristik 2 : cek angka 6 di tepi (dan juga di tepi 3 kotak yang udah pasti putih) DONE
-        heuristic6Edge(kromosom);
+        // heuristik 2 : cek angka 6 di tepi (dan juga di tepi 3 kotak yang udah pasti putih)
+        heuristic6Edge(kromosom); // DONE
         
-        // heuristik 3 : cek angka 4 di corner (dan juga di corner 2 kotak yang udah pasti putih)
-        heuristic4Corner(kromosom);
+        // heuristik 3 : cek angka 4 di corner
+        heuristic4Corner(kromosom); // DONE
 
-        // heuristik 4 : dua angka selisih 2 di tepi peta atau tepi 2 kotak putih DONE
-        heuristicDiffBy2onEdge(kromosom); // penamaannya gg sih
+        // heuristik 4 : dua angka selisih 2 di tepi peta atau tepi 2 kotak putih
+        heuristicDiffBy2onEdge(kromosom); // DONE
 
-        // heuristik 5 : dua angka bersebelahan secara diagonal dengan selisih 5 DONE
-        heuristicDiffBy5Diag(kromosom);
+        // heuristik 5 : dua angka bersebelahan secara diagonal dengan selisih 5
+        heuristicDiffBy5Diag(kromosom); // DONE
 
-        // heuristik 6 : dua angka selisih 6 yang bersebelahan vertikal/horizontal dengan jarak 1 kotak di antaranya DONE
-        heuristicDiffBy6Adjacent1Block(kromosom); // plis cuma kepikiran ini namannya
+        // heuristik 6 : dua angka selisih 6 yang bersebelahan vertikal/horizontal dengan jarak 1 kotak di antaranya
+        heuristicDiffBy6Adjacent1Block(kromosom); // DONE
 
         // heuristik 7 : dua angka bersebelahan vertikal/horizontal dengan selisih 3
         // jika selisih 3, maka angka yang kecil bersebelahan dengan 3 kotak putih, angka yang besar bersebelahan dengan 3 kotak hitam 
@@ -37,8 +37,8 @@ public class PenandaHeuristik {
         // kalo pair, pasti 3 kotak yang berseberangan itu sama jumlah item/putihnya
         heuristicPairAdjacent0Block(kromosom);
 
-        // heuristik terakhir : fill yang udah pasti, dari angka besar ke kecil (ga ngefek sih mau dari kecil ke besar juga) DONE
-        heuristicFillCertain(kromosom);
+        // heuristik terakhir : fill yang udah pasti, dari angka besar ke kecil (ga ngefek sih mau dari kecil ke besar juga)
+        heuristicFillCertain(kromosom); // DONE
     }
 
     // heuristik 1
