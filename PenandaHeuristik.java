@@ -7,33 +7,33 @@ public class PenandaHeuristik {
         // heuristik 1 : cek 0 dan 9, warnain sekitarnya DONE
         heuristic0and9(kromosom);
 
-        // heuristik 9 : cek angka 6 di tepi (dan juga di tepi 3 kotak yang udah pasti putih) DONE
+        // heuristik 2 : cek angka 6 di tepi (dan juga di tepi 3 kotak yang udah pasti putih) DONE
         heuristic6Edge(kromosom);
         
-        // heuristik 10 : cek angka 4 di corner (dan juga di corner 2 kotak yang udah pasti putih)
+        // heuristik 3 : cek angka 4 di corner (dan juga di corner 2 kotak yang udah pasti putih)
         heuristic4Corner(kromosom);
 
-        // heuristik 2 : dua angka selisih 2 di tepi peta atau tepi 2 kotak putih DONE
+        // heuristik 4 : dua angka selisih 2 di tepi peta atau tepi 2 kotak putih DONE
         heuristicDiffBy2onEdge(kromosom); // penamaannya gg sih
 
-        // heuristik 3 : dua angka bersebelahan secara diagonal dengan selisih 5
+        // heuristik 5 : dua angka bersebelahan secara diagonal dengan selisih 5 DONE
         heuristicDiffBy5Diag(kromosom);
 
-        // heuristik 4 : dua angka selisih 6 yang bersebelahan vertikal/horizontal dengan jarak 1 kotak di antaranya
+        // heuristik 6 : dua angka selisih 6 yang bersebelahan vertikal/horizontal dengan jarak 1 kotak di antaranya DONE
         heuristicDiffBy6Adjacent1Block(kromosom); // plis cuma kepikiran ini namannya
 
-        // heuristik 5 : dua angka bersebelahan vertikal/horizontal dengan selisih 3
+        // heuristik 7 : dua angka bersebelahan vertikal/horizontal dengan selisih 3
         // jika selisih 3, maka angka yang kecil bersebelahan dengan 3 kotak putih, angka yang besar bersebelahan dengan 3 kotak hitam 
         heuristicDiffBy3Adjacent0Block(kromosom);
         
-        // heuristik 6 : dua angka bersebelahan vertikal/horizontal dengan selisih 2 + 1 clue
+        // heuristik 8 : dua angka bersebelahan vertikal/horizontal dengan selisih 2 + 1 clue
         // (tapi belum pasti posisi kotak hitamnya, jadi serahkan ke genetic algorithm saja kalo emg gaada clue)
         heuristicDiffBy2Adjacent0Block1Clue(kromosom); // RIP nama fungsi
 
-        // heuristik 7 : dua angka bersebelahan vertikal/horizontal dengan selisih 1 + 2 clue
+        // heuristik 9 : dua angka bersebelahan vertikal/horizontal dengan selisih 1 + 2 clue
         heuristicDiffBy1Adjacent0Block2Clue(kromosom);
 
-        // heuristik 8 : dua angka bersebelahan vertikal/horizontal yang sama (pair)
+        // heuristik 10 : dua angka bersebelahan vertikal/horizontal yang sama (pair)
         // kalo pair, pasti 3 kotak yang berseberangan itu sama jumlah item/putihnya
         heuristicPairAdjacent0Block(kromosom);
 
@@ -190,7 +190,55 @@ public class PenandaHeuristik {
     private static void heuristicDiffBy6Adjacent1Block(Kromosom kromosom) {
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int i, j, size = puzzle.getSize();
+        boolean setBlack;
         
+        // - x - y - (cek yang horizontal dulu, kolom dari kiri ke kanan, baris dari atas ke bawah) 
+        // jadi dari kolom 1 hingga size-4 (< size-3)
+        // dari baris 1 hingga size-2 (< size-1)
+        for(i = 1; i < size-1; i++){
+            for(j = 1; j < size-3; j++){
+                int leftNum = puzzle.getNumber(i, j);
+                int rightNum = puzzle.getNumber(i, j+2);
+                if(leftNum == -1 || rightNum == -1) continue; 
+                if(Math.abs(leftNum - rightNum) == 6){
+                    setBlack = (leftNum > rightNum);
+                    // isi, c/: kalo leftNum > rightNum
+                    // B B - W W
+                    // B 7 - 1 W
+                    // B B - W W
+                    fill3CellsAdjacentVert(i, j, kromosom, true, setBlack);
+                    fill3CellsMiddle(i, j, kromosom, false, setBlack);
+                    fill3CellsAdjacentVert(i, j+2, kromosom, false, !setBlack);
+                    fill3CellsMiddle(i, j+2, kromosom, false, !setBlack);
+                }
+            }
+        }
+
+        // -
+        // x
+        // -
+        // y
+        // -
+        // kebalikannya aja untuk loop i dan j nya
+        // B B B
+        // B 7 B
+        // - - - 
+        // W 1 W
+        // W W W
+        for(i = 1; i < size-3; i++){
+            for(j = 1; j < size-1; j++){
+                int topNum = puzzle.getNumber(i, j);
+                int bottomNum = puzzle.getNumber(i+2, j);
+                if(topNum == -1 || bottomNum == -1) continue; 
+                if(Math.abs(topNum - bottomNum) == 6){
+                    setBlack = (topNum > bottomNum);
+                    fill3CellsAdjacentHor(i, j, kromosom, true, setBlack);
+                    fill3CellsMiddle(i, j, kromosom, true, setBlack);
+                    fill3CellsAdjacentHor(i+2, j, kromosom, false, !setBlack);
+                    fill3CellsMiddle(i+2, j, kromosom, true, !setBlack);
+                }
+            }
+        }
     }
 
     // heuristik 7
@@ -283,6 +331,9 @@ public class PenandaHeuristik {
     // FUNGSI UTILITAS
 
     // fill semua kotak di sekitar (r,c) termasuk (r,c) itu sendiri
+    // * * *
+    // * c *
+    // * * *
     private static void fillSafe(int r, int c, Kromosom kromosom, boolean isBlack) {
         int size = kromosom.getSize();
         for (int i = r - 1; i <= r + 1; i++) {
@@ -315,6 +366,13 @@ public class PenandaHeuristik {
         return ct;
     }
 
+    // pembantu untuk ngisi 3 cell lurus tetangganya
+
+    // * * * 
+    //   c
+    // ATAU
+    //   c
+    // * * *
     private static void fill3CellsAdjacentHor(int i, int j, Kromosom kromosom, Boolean top, Boolean black){
         int k, size = kromosom.getSize();
         if(top){
@@ -342,6 +400,9 @@ public class PenandaHeuristik {
         }
     }
 
+    // *          *
+    // * c ATAU c *
+    // *          *
     private static void fill3CellsAdjacentVert(int i, int j, Kromosom kromosom, Boolean left, Boolean black){
         int k, size = kromosom.getSize();
         if(left){
@@ -369,6 +430,32 @@ public class PenandaHeuristik {
         }
     }
 
+    // pembantu untuk isi 3 cell lurus di tengah (termasuk cell itu sendiri)
+
+    // * c *
+    // ATAU
+    // *
+    // c
+    // *
+    private static void fill3CellsMiddle(int i, int j, Kromosom kromosom, Boolean horizontal, Boolean black){
+        int k, size = kromosom.getSize();
+        if(horizontal){
+            for(k=j-1; k <= j+1; k++){
+                if(k >= 0 && k < size){
+                    kromosom.setBit(i, k, black);
+                    kromosom.setFixedAllele(i, k, true);
+                }
+            }
+        } else{
+            for(k=i-1; k <= i+1; k++){
+                if(k >= 0 && k < size){
+                    kromosom.setBit(k, j, black);
+                    kromosom.setFixedAllele(k, j, true);
+                }
+            }
+        }
+    }
+    
     private static boolean checkCorner(int i, int j, int size){
         return ((i == 0 && j == 0) || (i == 0 && j == size-1) || (i == size-1 && j == 0) || (i == size-1 && j == size-1));
     }
