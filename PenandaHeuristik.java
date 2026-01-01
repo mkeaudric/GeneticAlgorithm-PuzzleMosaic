@@ -24,11 +24,11 @@ public class PenandaHeuristik {
 
         // heuristik 7 : dua angka bersebelahan vertikal/horizontal dengan selisih 3
         // jika selisih 3, maka angka yang kecil bersebelahan dengan 3 kotak putih, angka yang besar bersebelahan dengan 3 kotak hitam 
-        heuristicDiffBy3Adjacent0Block(kromosom);
+        heuristicDiffBy3Adjacent0Block(kromosom); // DONE
         
         // heuristik 8 : dua angka bersebelahan vertikal/horizontal dengan selisih 2 + 1 clue
         // (tapi belum pasti posisi kotak hitamnya, jadi serahkan ke genetic algorithm saja kalo emg gaada clue)
-        heuristicDiffBy2Adjacent0Block1Clue(kromosom); // RIP nama fungsi
+        heuristicDiffBy2Adjacent0Block1Clue(kromosom);
 
         // heuristik 9 : dua angka bersebelahan vertikal/horizontal dengan selisih 1 + 2 clue
         heuristicDiffBy1Adjacent0Block2Clue(kromosom);
@@ -243,7 +243,45 @@ public class PenandaHeuristik {
 
     // heuristik 7
     private static void heuristicDiffBy3Adjacent0Block(Kromosom kromosom) {
+        MosaicPuzzle puzzle = kromosom.getPuzzle();
+        int i, j, size = puzzle.getSize();
+        boolean setBlack;
 
+        // untuk horizontal (ngecek kiri ke kanan), dia mulai dari baris 1 sampai size-2 (karena ga mungkin di tepi), kolom dari 0 sampai size-2
+        for(i = 1; i < size-1; i++){
+            for(j = 0; j < size-1; j++){
+                int leftNum = puzzle.getNumber(i, j);
+                int rightNum = puzzle.getNumber(i, j+1);
+                if(leftNum == -1 || rightNum == -1) continue;
+                if(Math.abs(leftNum - rightNum) == 3){
+                    setBlack = (leftNum > rightNum);
+                    // isi, c/: kalo leftNum > rightNum
+                    // B     W
+                    // B 4 1 W
+                    // B     W
+                    fill3CellsAdjacentVert(i, j, kromosom, true, setBlack);
+                    fill3CellsAdjacentVert(i, j+1, kromosom, false, !setBlack);
+                }
+            }
+        }
+
+        // untuk vertikal (ngecek atas ke bawah), dia mulai dari kolom 1 sampai size-2 (karena ga mungkin di tepi), barisnya dari 0 sampai size-2
+        for(i = 0; i < size-1; i++){
+            for(j = 1; j < size-1; j++){
+                int topNum = puzzle.getNumber(i, j);
+                int bottomNum = puzzle.getNumber(i+1, j);
+                if(topNum == -1 || bottomNum == -1) continue;
+                if(Math.abs(topNum - bottomNum) == 3){
+                    setBlack = (topNum > bottomNum);
+                    // isi, c/: kalo topNum > bottomNum
+                    // B B B
+                    //   4
+                    // W W W
+                    fill3CellsAdjacentVert(i, j, kromosom, true, setBlack);
+                    fill3CellsAdjacentVert(i+1, j, kromosom, false, !setBlack);
+                }
+            }
+        }
     }
 
     // heuristik 8
