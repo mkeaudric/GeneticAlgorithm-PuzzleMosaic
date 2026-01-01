@@ -19,21 +19,20 @@ public class Kromosom {
     // item genes : 0 1 0 1 
     // fixed allele : 0 1 1 0 
 
-    public static Kromosom createRandomKromosom(double probabilitasHitam, MosaicPuzzle puzzle) {
+    public static Kromosom createRandomKromosom(double probabilitasHitam, MosaicPuzzle puzzle, Kromosom heuristicTemplate) {
         Kromosom kromosom = new Kromosom(puzzle.getSize(), puzzle);
 
-        //cek apakah ada fixed allele yang diset
-        try{
-            PenandaHeuristik.setFixedAllele(kromosom);
-        } catch(Exception e){
-            System.out.println("Tidak ada fixed allele yang diset");
-        }
-        
+        kromosom.fixedAllele = (BitSet)heuristicTemplate.fixedAllele.clone(); //salin fixed allele
+        kromosom.genes = (BitSet)heuristicTemplate.genes.clone(); //salin warna yg udah fixed
 
         for (int i = 0; i < kromosom.length; i++) {
-            //tentukan apakah sel ini hitam berdasarkan probabilitas
-            if(RNG.rand.nextDouble() < probabilitasHitam && !kromosom.fixedAllele.get(i)) {
-                kromosom.setBit(i, true); //set sel jadi hitam
+            if(!kromosom.fixedAllele.get(i)){
+                //tentukan apakah sel ini hitam berdasarkan probabilitas
+                if(RNG.rand.nextDouble() < probabilitasHitam) {
+                    kromosom.setBit(i, true); //set sel jadi hitam
+                } else{
+                    kromosom.setBit(i, false); //gaperlu sih tapi buat jaga" aja
+                }
             }
         }
         return kromosom;

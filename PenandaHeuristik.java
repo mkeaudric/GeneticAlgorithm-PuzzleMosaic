@@ -188,7 +188,9 @@ public class PenandaHeuristik {
 
     // heuristik 6
     private static void heuristicDiffBy6Adjacent1Block(Kromosom kromosom) {
-
+        MosaicPuzzle puzzle = kromosom.getPuzzle();
+        int i, j, size = puzzle.getSize();
+        
     }
 
     // heuristik 7

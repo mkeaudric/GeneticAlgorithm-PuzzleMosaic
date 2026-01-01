@@ -17,9 +17,17 @@ public class Populasi {
         this.individuList = new ArrayList<>();
         this.puzzle = puzzle;
 
+        // panggil PenandaHeuristik sekali aja disini, nanti pas bikin kromosom biar ga panggil berkali" tinggal copy aja template
+        Kromosom heuristicTemplate = new Kromosom(puzzle.getSize(), puzzle);
+        try {
+            PenandaHeuristik.setFixedAllele(heuristicTemplate);
+        } catch(Exception e){
+            System.out.println("Tidak ada fixed allele yang diset");
+        }
+
         for(int i=0; i<populationSize; i++) {
             //buat kromosom acak
-            Kromosom kromosom = Kromosom.createRandomKromosom(probabilitasHitam, puzzle);
+            Kromosom kromosom = Kromosom.createRandomKromosom(probabilitasHitam, puzzle, heuristicTemplate);
 
             //buat individu dengan kromosom dan fungsi fitness
             Individu individu = new Individu(kromosom, fitnessFunction);
