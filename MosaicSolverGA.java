@@ -132,7 +132,8 @@ public class MosaicSolverGA {
                 populasi.getBestIndividu().getKromosom().printCurrentKromosomAsGrid();
                 break;
             }
-            populasi.getBestIndividu().getKromosom().printCurrentKromosomAsGrid();
+            
         }
+        populasi.getBestIndividu().getKromosom().printCurrentKromosomAsGrid();
     }
 }
