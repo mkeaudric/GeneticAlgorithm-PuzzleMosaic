@@ -81,10 +81,6 @@ public class Populasi {
         return populationSize;
     }
 
-    public double getPopulationFitness() {
-        return populationFitness;
-    }
-
     public Individu getBestIndividu() {
         return bestIndividu;
     }

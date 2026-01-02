@@ -71,7 +71,7 @@ public class MosaicSolverGA {
         System.out.printf("Average fitness awal: %.6f%n", populasi.getAverageFitness());
         System.out.println("Best individu (visual):");
         // debug, print gridnya
-        populasi.getBestIndividu().getKromosom().printCurrentFixedKromosomAsGrid();
+        populasi.getBestIndividu().getKromosom().printCurrentFixedKromosom();
 
         Crossover crossover = new Crossover(fitnessFunction);
 
@@ -141,7 +141,7 @@ public class MosaicSolverGA {
             // kalo ada fitness yang == 1 (ketemu solusi), terminate
             if (Math.abs(populasi.getBestIndividu().getFitness() - 1.0) < 1e-6) {
                 System.out.println("Solusi ditemukan pada generasi " + generasi);
-                populasi.getBestIndividu().getKromosom().printCurrentKromosomAsGrid();
+                populasi.getBestIndividu().getKromosom().printCurrentKromosom();
                 ditemukan = true;
                 break;
                 
@@ -149,7 +149,7 @@ public class MosaicSolverGA {
             
         }
         if(!ditemukan){
-            populasi.getBestIndividu().getKromosom().printCurrentKromosomAsGrid();
+            populasi.getBestIndividu().getKromosom().printCurrentKromosom();
         }
        
     }

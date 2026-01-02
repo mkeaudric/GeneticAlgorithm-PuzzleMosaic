@@ -109,7 +109,7 @@ public class Kromosom {
     }
 
     // method buat bantu ngecek heuristik aja, print si kromosom yang udah fixed saat ini
-    public void printCurrentFixedKromosomAsGrid(){
+    public void printCurrentFixedKromosom(){
         int i, j;
         for(i=0; i < size; i++){
             for(j=0; j < size; j++){
@@ -120,7 +120,7 @@ public class Kromosom {
         }
     }
 
-    public void printCurrentKromosomAsGrid(){
+    public void printCurrentKromosom(){
         int i, j;
         for(i=0; i < size; i++){
             for(j=0; j < size; j++){

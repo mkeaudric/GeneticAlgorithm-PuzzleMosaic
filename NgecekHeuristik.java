@@ -34,6 +34,6 @@ public class NgecekHeuristik {
 
         PenandaHeuristik.setFixedAllele(kromosom);
 
-        kromosom.printCurrentFixedKromosomAsGrid();
+        kromosom.printCurrentFixedKromosom();
     }
 }
