@@ -104,25 +104,28 @@ public class MosaicSolverGA {
                 for (Individu offspring : offsprings) {
                     if (newPopulation.size() < param.getPopulationSize()) {
                         // Mutasi per bit
-                        boolean mutated = false;
+                        boolean perluResetFitness = false;
                         Kromosom kromosom = offspring.getKromosom();
                         for (int i = 0; i < kromosom.getLength(); i++) {
                             if (!kromosom.getFixedAllele(i)) {
                                 if (RNG.rand.nextDouble() < param.getMutationRate()) {
                                     kromosom.setBit(i, !kromosom.getBit(i));
-                                    mutated = true;
+                                    perluResetFitness = true;
                                 }
                             }
                         }
 
-                        boolean adaPerubahan;
+                        boolean adaPerubahanHeuristik;
                         int limit = 0;
                         do {
-                            adaPerubahan = PenandaHeuristik.heuristicFillCertain(offspring.getKromosom());
+                            adaPerubahanHeuristik = PenandaHeuristik.heuristicFillCertain(offspring.getKromosom());
+                            if(adaPerubahanHeuristik){
+                                perluResetFitness = true;
+                            }
                             limit++;
-                        } while(adaPerubahan && limit < 10);
-                        
-                        if (mutated) offspring.resetFitness();
+                        } while(adaPerubahanHeuristik && limit < 10);
+
+                        if (perluResetFitness) offspring.resetFitness();
                         newPopulation.add(offspring);
                     }
                 }
@@ -132,7 +135,7 @@ public class MosaicSolverGA {
             populasi.setIndividuList(newPopulation);
 
             // 4. debug
-            if(generasi % 100 == 0){
+            if(generasi % 1000 == 0){
                 System.out.printf("Generasi %d | Best Fitness: %.6f | Avg Fitness: %.6f%n", 
                                 generasi, populasi.getBestIndividu().getFitness(), populasi.getAverageFitness());
             }
@@ -141,6 +144,7 @@ public class MosaicSolverGA {
             // kalo ada fitness yang == 1 (ketemu solusi), terminate
             if (Math.abs(populasi.getBestIndividu().getFitness() - 1.0) < 1e-6) {
                 System.out.println("Solusi ditemukan pada generasi " + generasi);
+                System.out.println("Best Fitness: " + populasi.getBestIndividu().getFitness());
                 populasi.getBestIndividu().getKromosom().printCurrentKromosom();
                 ditemukan = true;
                 break;
