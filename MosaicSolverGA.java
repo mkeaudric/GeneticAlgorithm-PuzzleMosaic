@@ -114,7 +114,14 @@ public class MosaicSolverGA {
                                 }
                             }
                         }
-                        // PenandaHeuristik.heuristicFillCertain(offspring.getKromosom());
+
+                        boolean adaPerubahan;
+                        int limit = 0;
+                        do {
+                            adaPerubahan = PenandaHeuristik.heuristicFillCertain(offspring.getKromosom());
+                            limit++;
+                        } while(adaPerubahan && limit < 10);
+                        
                         if (mutated) offspring.resetFitness();
                         newPopulation.add(offspring);
                     }

@@ -59,7 +59,7 @@ public class PenandaHeuristik {
     }
 
     // heuristik 2 
-    private static void heuristic6Edge(Kromosom kromosom) {
+    public static void heuristic6Edge(Kromosom kromosom) {
         // jadi gw ceknya pake loop seluruh papan yang bukan corner (6 gabisa di corner)
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int i, j, size = puzzle.getSize();
@@ -82,7 +82,7 @@ public class PenandaHeuristik {
     }
 
     // heuristik 3
-    private static void heuristic4Corner(Kromosom kromosom) {
+    public static void heuristic4Corner(Kromosom kromosom) {
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int size = puzzle.getSize();
         if(puzzle.getNumber(0, 0) == 4) fillSafe(0, 0, kromosom, true);
@@ -92,7 +92,7 @@ public class PenandaHeuristik {
     }
 
     // heuristik 4 (pengecekan 2 kotak bersebalahan dengan selisih 2 gw pisah untuk yang edge dan yang di non-edge, beda sama yg 6 krn lebih gampang)
-    private static void heuristicDiffBy2onEdge(Kromosom kromosom) {
+    public static void heuristicDiffBy2onEdge(Kromosom kromosom) {
         // ga cuma tepi tapi juga 4 kotak putih yang udah fixed juga bisa jadi kayak tepi, tapi saya implementasi di heuristik yang berbeda
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int i, j, size = puzzle.getSize();
@@ -145,7 +145,7 @@ public class PenandaHeuristik {
     }
 
     // heuristik 5
-    private static void heuristicDiffBy5Diag(Kromosom kromosom) {
+    public static void heuristicDiffBy5Diag(Kromosom kromosom) {
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int i, j, size = puzzle.getSize();
         boolean setBlack;
@@ -187,7 +187,7 @@ public class PenandaHeuristik {
     }
 
     // heuristik 6
-    private static void heuristicDiffBy6Adjacent1Block(Kromosom kromosom) {
+    public static void heuristicDiffBy6Adjacent1Block(Kromosom kromosom) {
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int i, j, size = puzzle.getSize();
         boolean setBlack;
@@ -242,7 +242,7 @@ public class PenandaHeuristik {
     }
 
     // heuristik 7
-    private static void heuristicDiffBy3Adjacent0Block(Kromosom kromosom) {
+    public static void heuristicDiffBy3Adjacent0Block(Kromosom kromosom) {
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int i, j, size = puzzle.getSize();
         boolean setBlack;
@@ -285,7 +285,7 @@ public class PenandaHeuristik {
     }
 
     // heuristik 8
-    private static void heuristicDiffBy2Adjacent0Block1Clue(Kromosom kromosom) {
+    public static void heuristicDiffBy2Adjacent0Block1Clue(Kromosom kromosom) {
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int i, j, size = puzzle.getSize();
         // gapake setBlack karena agak lebih ribet si pengecekannya (karena harus cek berapa tetangga hitam/putih nya)
@@ -373,7 +373,7 @@ public class PenandaHeuristik {
     }
 
     // heuristik 9
-    private static void heuristicDiffBy1Adjacent0Block2Clue(Kromosom kromosom) {
+    public static void heuristicDiffBy1Adjacent0Block2Clue(Kromosom kromosom) {
         // LITERALLY SAMA PERSIS KEK HEURISTIK 8
         // bahkan ini kodenya bisa digabung, tapi gw pisah aja biar lebih kebaca gitu? kalo digabung lebih rapih sih
         // heuristik kotak bersebelahan beda 3, 2, 1 (0 : pair beda sendiri) literally sama implementasinya cuman beda jumlah clue 
@@ -421,7 +421,7 @@ public class PenandaHeuristik {
     }
 
     // heuristik 10
-    private static void heuristicPairAdjacent0Block(Kromosom kromosom) {
+    public static void heuristicPairAdjacent0Block(Kromosom kromosom) {
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int i, j, size = puzzle.getSize();
 
@@ -536,9 +536,10 @@ public class PenandaHeuristik {
     //     }
     // }
 
-    public static void heuristicFillCertain(Kromosom kromosom) {
+    public static boolean heuristicFillCertain(Kromosom kromosom) {
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int size = puzzle.getSize();
+        boolean changed = false;
 
         // Loop harus sampai size, bukan size-1
         for (int i = 0; i < size; i++) {
@@ -567,15 +568,18 @@ public class PenandaHeuristik {
                 // Maka semua yang 'unknown' harus jadi PUTIH
                 if (fixedBlack == curNum && unknown > 0) {
                     fillSafe(i, j, kromosom, false);
+                    changed = true;
                 }
 
                 // LOGIKA 2: Jika (Hitam yang fix + Unknown) == angka puzzle
                 // Maka semua yang 'unknown' harus jadi HITAM
                 if (fixedBlack + unknown == curNum && unknown > 0) {
                     fillSafe(i, j, kromosom, true);
+                    changed = true;
                 }
             }
         }
+        return changed;
     }
 
 
