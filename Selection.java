@@ -39,9 +39,6 @@ public class Selection {
     // RANK SELECTION  linear rank selection     https://stackoverflow.com/questions/13659815/ranking-selection-in-genetic-algorithm-code
     private Individu rankSelection(Populasi populasi) {
         List<Individu> individuList = new ArrayList<>(populasi.getIndividuList());
-        
-        // Urutkan fitness dari terendah ke tertinggi 
-        Collections.sort(individuList, (a, b) -> Double.compare(a.getFitness(), b.getFitness()));
 
         int n = individuList.size();
         int totalRankSum = n * (n + 1) / 2; // Rumus deret: 1+2+3...+N
@@ -50,13 +47,13 @@ public class Selection {
         int cumulativeRank = 0;
 
         for (int i = 0; i < n; i++) {
-            int rank = i + 1; // Peringkat 1 untuk index 0, dst.
+            int rank = n - i; // Rank tertinggi untuk individu terbaik
             cumulativeRank += rank;
             if (cumulativeRank >= spin) {
                 return individuList.get(i).copyForOffspring();
             }
         }
-        return individuList.get(n - 1).copyForOffspring();
+        return individuList.get(0).copyForOffspring();
     }
 
     // TOURNAMENT SELECTION 
