@@ -277,8 +277,8 @@ public class PenandaHeuristik {
                     // B B B
                     //   4
                     // W W W
-                    fill3CellsAdjacentVert(i, j, kromosom, true, setBlack);
-                    fill3CellsAdjacentVert(i+1, j, kromosom, false, !setBlack);
+                    fill3CellsAdjacentHor(i, j, kromosom, true, setBlack);
+                    fill3CellsAdjacentHor(i+1, j, kromosom, false, !setBlack);
                 }
             }
         }
