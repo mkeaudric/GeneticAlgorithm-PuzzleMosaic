@@ -28,14 +28,14 @@ public class PenandaHeuristik {
         
         // heuristik 8 : dua angka bersebelahan vertikal/horizontal dengan selisih 2 + 1 clue
         // (tapi belum pasti posisi kotak hitamnya, jadi serahkan ke genetic algorithm saja kalo emg gaada clue)
-        heuristicDiffBy2Adjacent0Block1Clue(kromosom);
+        heuristicDiffBy2Adjacent0Block1Clue(kromosom); // DONE
 
         // heuristik 9 : dua angka bersebelahan vertikal/horizontal dengan selisih 1 + 2 clue
-        heuristicDiffBy1Adjacent0Block2Clue(kromosom);
+        heuristicDiffBy1Adjacent0Block2Clue(kromosom); // DONE (IMPLEMENTASINYA SAMA PERSIS KEK HEURISTIK 8, cuman beda jml clue)
 
         // heuristik 10 : dua angka bersebelahan vertikal/horizontal yang sama (pair)
         // kalo pair, pasti 3 kotak yang berseberangan itu sama jumlah item/putihnya
-        heuristicPairAdjacent0Block(kromosom);
+        heuristicPairAdjacent0Block(kromosom); // DONE
 
         // heuristik terakhir : fill yang udah pasti, dari angka besar ke kecil (ga ngefek sih mau dari kecil ke besar juga)
         heuristicFillCertain(kromosom); // DONE
@@ -286,17 +286,230 @@ public class PenandaHeuristik {
 
     // heuristik 8
     private static void heuristicDiffBy2Adjacent0Block1Clue(Kromosom kromosom) {
-        
+        MosaicPuzzle puzzle = kromosom.getPuzzle();
+        int i, j, size = puzzle.getSize();
+        // gapake setBlack karena agak lebih ribet si pengecekannya (karena harus cek berapa tetangga hitam/putih nya)
+        // jadi langsung aja if(leftNum - rightNum == 2) dan sebaliknya
+
+        // untuk horizontal (ngecek kiri ke kanan), dia mulai dari baris 1 sampai size-2 (karena ga mungkin di tepi), kolom dari 0 sampai size-2
+        for(i = 1; i < size-1; i++){
+            for(j = 0; j < size-1; j++){
+                int leftNum = puzzle.getNumber(i, j);
+                int rightNum = puzzle.getNumber(i, j+1);
+                if(leftNum == -1 || rightNum == -1) continue;
+                if(leftNum - rightNum == 2){
+                    // c/: angka di leftNum sudah terisi 1 kotak putih
+                    // W     W
+                    // B 4 2 W
+                    // B     W
+                    // c/: angka di rightNum sudah terisi 1 kotak hitam
+                    // B     B
+                    // B 4 2 W
+                    // B     W
+                    // kalau ada 1 putih di kiri, atau ada 1 hitam di kanan (karena konfigurasi sama jadi di OR aja lgs)
+                    if(count3CellsAdjacentVert(i, j, kromosom, true, false) == 1 || count3CellsAdjacentVert(i, j+1, kromosom, false, true) == 1){
+                        fill3CellsAdjacentVert(i, j, kromosom, true, true); // isi kotak sisa di kiri (i, j) dengan hitam
+                        fill3CellsAdjacentVert(i, j+1, kromosom, false, false); // isi kotak sisa di kanan (i, j) dengan putih
+                    }
+                } else if (rightNum - leftNum == 2){
+                    // c/: angka di rightNum sudah terisi 1 kotak putih
+                    // W     W
+                    // W 2 4 B
+                    // W     B
+                    // c/: angka di leftNum sudah terisi 1 kotak hitam
+                    // B     B
+                    // W 2 4 B
+                    // W     B
+                    // kalau ada 1 putih di kanan, atau ada 1 hitam di kiri (karena konfigurasi sama jadi di OR aja lgs)
+                    if(count3CellsAdjacentVert(i, j+1, kromosom, false, false) == 1 || count3CellsAdjacentVert(i, j, kromosom, true, true) == 1){
+                        fill3CellsAdjacentVert(i, j, kromosom, true, false); // isi kotak sisa di kiri (i, j) dengan putih
+                        fill3CellsAdjacentVert(i, j+1, kromosom, false, true); // isi kotak sisa di kanan (i, j) dengan hitam
+                    }
+                }
+            }
+        }
+
+        // untuk vertikal (ngecek atas ke bawah), dia mulai dari kolom 1 sampai size-2 (karena ga mungkin di tepi), barisnya dari 0 sampai size-2
+        for(i = 0; i < size-1; i++){
+            for(j = 1; j < size-1; j++){
+                int topNum = puzzle.getNumber(i, j);
+                int bottomNum = puzzle.getNumber(i+1, j);
+                if(topNum == -1 || bottomNum == -1) continue;
+                if(topNum - bottomNum == 2){
+                    // c/: angka di topNum sudah terisi 1 kotak putih
+                    // W B B
+                    //   4
+                    //   2
+                    // W W W
+                    // c/: angka di bottomNum sudah terisi 1 kotak hitam
+                    // B B B
+                    //   4
+                    //   2
+                    // B W W
+                    // kalau ada 1 putih di atas, atau ada 1 hitam dibawah (karena konfigurasi sama jadi di OR aja lgs)
+                    if(count3CellsAdjacentHor(i, j, kromosom, true, false) == 1 || count3CellsAdjacentHor(i+1, j, kromosom, false, true) == 1){
+                        fill3CellsAdjacentHor(i, j, kromosom, true, true); // isi kotak sisa di atas (i, j) dengan hitam
+                        fill3CellsAdjacentHor(i+1, j, kromosom, false, false); // isi kotak sisa di bawah (i+1, j) dengan putih
+                    }
+                } else if(bottomNum - topNum == 2){
+                    // c/: angka di topNum sudah terisi 1 kotak hitam
+                    // B W W
+                    //   2
+                    //   4
+                    // B B B
+                    // c/: angka di bottomNum sudah terisi 1 kotak putih
+                    // W W W
+                    //   2
+                    //   4
+                    // W B B
+                    // kalau ada 1 hitam di atas, atau ada 1 putih dibawah (karena konfigurasi sama jadi di OR aja lgs)
+                    if(count3CellsAdjacentHor(i, j, kromosom, true, true) == 1 || count3CellsAdjacentHor(i+1, j, kromosom, false, false) == 1){
+                        fill3CellsAdjacentHor(i, j, kromosom, true, false); // isi kotak sisa di atas (i, j) dengan putih
+                        fill3CellsAdjacentHor(i+1, j, kromosom, false, true); // isi kotak sisa di bawah (i+1, j) dengan hitam
+                    }
+                }
+            }
+        }
     }
 
     // heuristik 9
     private static void heuristicDiffBy1Adjacent0Block2Clue(Kromosom kromosom) {
-        
+        // LITERALLY SAMA PERSIS KEK HEURISTIK 8
+        // bahkan ini kodenya bisa digabung, tapi gw pisah aja biar lebih kebaca gitu? kalo digabung lebih rapih sih
+        // heuristik kotak bersebelahan beda 3, 2, 1 (0 : pair beda sendiri) literally sama implementasinya cuman beda jumlah clue 
+        MosaicPuzzle puzzle = kromosom.getPuzzle();
+        int i, j, size = puzzle.getSize();
+
+        for(i = 1; i < size-1; i++){
+            for(j = 0; j < size-1; j++){
+                int leftNum = puzzle.getNumber(i, j);
+                int rightNum = puzzle.getNumber(i, j+1);
+                if(leftNum == -1 || rightNum == -1) continue;
+                if(leftNum - rightNum == 1){
+                    if(count3CellsAdjacentVert(i, j, kromosom, true, false) == 2 || count3CellsAdjacentVert(i, j+1, kromosom, false, true) == 2){
+                        fill3CellsAdjacentVert(i, j, kromosom, true, true); // isi kotak sisa di kiri (i, j) dengan hitam
+                        fill3CellsAdjacentVert(i, j+1, kromosom, false, false); // isi kotak sisa di kanan (i, j) dengan putih
+                    }
+                } else if (rightNum - leftNum == 1){
+                    if(count3CellsAdjacentVert(i, j+1, kromosom, false, false) == 2 || count3CellsAdjacentVert(i, j, kromosom, true, true) == 2){
+                        fill3CellsAdjacentVert(i, j, kromosom, true, false); // isi kotak sisa di kiri (i, j) dengan putih
+                        fill3CellsAdjacentVert(i, j+1, kromosom, false, true); // isi kotak sisa di kanan (i, j) dengan hitam
+                    }
+                }
+            }
+        }
+
+        // untuk vertikal (ngecek atas ke bawah), dia mulai dari kolom 1 sampai size-2 (karena ga mungkin di tepi), barisnya dari 0 sampai size-2
+        for(i = 0; i < size-1; i++){
+            for(j = 1; j < size-1; j++){
+                int topNum = puzzle.getNumber(i, j);
+                int bottomNum = puzzle.getNumber(i+1, j);
+                if(topNum == -1 || bottomNum == -1) continue;
+                if(topNum - bottomNum == 1){
+                    if(count3CellsAdjacentHor(i, j, kromosom, true, false) == 2 || count3CellsAdjacentHor(i+1, j, kromosom, false, true) == 2){
+                        fill3CellsAdjacentHor(i, j, kromosom, true, true); // isi kotak sisa di atas (i, j) dengan hitam
+                        fill3CellsAdjacentHor(i+1, j, kromosom, false, false); // isi kotak sisa di bawah (i+1, j) dengan putih
+                    }
+                } else if(bottomNum - topNum == 1){
+                    if(count3CellsAdjacentHor(i, j, kromosom, true, true) == 2 || count3CellsAdjacentHor(i+1, j, kromosom, false, false) == 2){
+                        fill3CellsAdjacentHor(i, j, kromosom, true, false); // isi kotak sisa di atas (i, j) dengan putih
+                        fill3CellsAdjacentHor(i+1, j, kromosom, false, true); // isi kotak sisa di bawah (i+1, j) dengan hitam
+                    }
+                }
+            }
+        }
     }
 
     // heuristik 10
     private static void heuristicPairAdjacent0Block(Kromosom kromosom) {
-        
+        MosaicPuzzle puzzle = kromosom.getPuzzle();
+        int i, j, size = puzzle.getSize();
+
+        // untuk pair ini bisa di tepi, misal tepi nya yg tanda T 
+        // T
+        // T 6 6
+        // T
+        // pair ini simetris, jumlah hitam/putih di 3 barisan kotak yang bersebelahan 2 angka yang pair pasti sama
+        // c/: kalau pair 3
+        // B     W      B     B      B     B
+        // W 3 3 W  ,   B 3 3 W  ,   B 3 3 B
+        // W     B      W     B      B     B
+        // tepi itu bisa dianggap warna putih (ya jelas lah ya)
+        // T            W     W
+        // T 6 6   ->   W 6 6 W
+        // T            W     W
+
+        // untuk horizontal (ngecek kiri ke kanan), dia mulai dari baris 0 sampai size-1, kolomnya dari 0 sampai size-2 (karena cek nya dgn j+1)
+        // ini karena pair bisa ada di semua tempat
+        for(i = 0; i < size; i++){
+            for(j = 0; j < size-1; j++){
+                int leftNum = puzzle.getNumber(i, j);
+                int rightNum = puzzle.getNumber(i, j+1);
+                if(leftNum == -1 || rightNum == -1) continue;
+                if(leftNum == rightNum){
+                    // kalo di tepi, jadi white
+                    if(j == 0){
+                        fill3CellsAdjacentVert(i, j+1, kromosom, false, false);
+                    } else if(j == size-2){
+                        fill3CellsAdjacentVert(i, j, kromosom, true, false);
+                    }
+
+                    // 3 di kiri udah fixed semua
+                    if(count3FixedCellsAdjacentVert(i, j, kromosom, true) == 3){
+                        // kalo hitam di kiri == hitam di kanan (dan kiri udah fix), berarti sisanya yang kanan putih semua
+                        // atau kalau putih di kiri == putih di kanan (dan kiri udah fix), berarti sisanya di kanan hitam semua
+                        if(count3CellsAdjacentVert(i, j, kromosom, true, true) == count3CellsAdjacentVert(i, j+1, kromosom, false, true)){
+                            fill3CellsAdjacentVert(i, j+1, kromosom, false, false); // warnain kotak sisa di kanan (i, j+1) jadi putih
+                        } else if(count3CellsAdjacentVert(i, j, kromosom, true, false) == count3CellsAdjacentVert(i, j+1, kromosom, false, false)){
+                            fill3CellsAdjacentVert(i, j+1, kromosom, false, true); // warnain kotak sisa di kanan (i, j+1) jadi hitam
+                        }
+                    } else if (count3FixedCellsAdjacentVert(i, j+1, kromosom, false) == 3) { // 3 di kanan udah fixed semua
+                        // kalo hitam di kanan == hitam di kiri (dan kanan udah fix), berarti sisanya yang kiri putih semua
+                        // atau kalau putih di kanan == putih di kiri (dan kanan udah fix), berarti sisanya di kiri hitam semua
+                        if(count3CellsAdjacentVert(i, j+1, kromosom, false, true) == count3CellsAdjacentVert(i, j, kromosom, true, true)){
+                            fill3CellsAdjacentVert(i, j, kromosom, true, false); // warnain kotak sisa di kiri (i, j) jadi putih
+                        } else if(count3CellsAdjacentVert(i, j+1, kromosom, false, false) == count3CellsAdjacentVert(i, j, kromosom, true, false)){
+                            fill3CellsAdjacentVert(i, j, kromosom, true, true); // warnain kotak sisa di kiri (i, j) jadi hitam
+                        }
+                    }
+                }
+            }
+        }
+
+        // untuk vertikal (ngecek atas ke bawah), dia mulai dari baris 0 sampai size-2 (karena cek nya dgn i+1), kolomnya dari 0 sampai size-1
+        for(i = 0; i < size-1; i++){
+            for(j = 0; j < size; j++){
+                int topNum = puzzle.getNumber(i, j);
+                int bottomNum = puzzle.getNumber(i+1, j);
+                if(topNum == -1 || bottomNum == -1) continue;
+                if(topNum == bottomNum){
+                    // kalo di tepi, jadi white
+                    if(i == 0){
+                        fill3CellsAdjacentHor(i+1, j, kromosom, false, false);
+                    } else if(i == size-2){
+                        fill3CellsAdjacentHor(i, j, kromosom, true, false);
+                    }
+
+                    // 3 di atas udah fixed semua
+                    if(count3FixedCellsAdjacentHor(i, j, kromosom, true) == 3){
+                        // kalo hitam di atas == hitam di bawah (dan atas udah fix), berarti sisanya yang bawah putih semua
+                        // atau kalau putih di atas == putih di bawah (dan atas udah fix), berarti sisanya di bawah hitam semua
+                        if(count3CellsAdjacentHor(i, j, kromosom, true, true) == count3CellsAdjacentHor(i+1, j, kromosom, false, true)){
+                            fill3CellsAdjacentHor(i+1, j, kromosom, false, false); // warnain kotak sisa di bawah (i+1, j) jadi putih
+                        } else if(count3CellsAdjacentHor(i, j, kromosom, true, false) == count3CellsAdjacentHor(i+1, j, kromosom, false, false)){
+                            fill3CellsAdjacentHor(i+1, j, kromosom, false, true); // warnain kotak sisa di bawah (i+1, j) jadi hitam
+                        }
+                    } else if (count3FixedCellsAdjacentHor(i+1, j, kromosom, false) == 3) { // 3 di bawah udah fixed semua
+                        if(count3CellsAdjacentHor(i+1, j, kromosom, false, true) == count3CellsAdjacentHor(i, j, kromosom, true, true)){
+                            fill3CellsAdjacentHor(i, j, kromosom, true, false); // warnain kotak sisa di atas (i, j) jadi putih
+                        } else if(count3CellsAdjacentHor(i+1, j, kromosom, false, false) == count3CellsAdjacentHor(i, j, kromosom, true, false)){
+                            fill3CellsAdjacentHor(i, j, kromosom, true, true); // warnain kotak sisa di atas (i, j) jadi hitam
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     // heuristik 11
@@ -387,22 +600,22 @@ public class PenandaHeuristik {
     }
 
     // ini mirip spt yang di FitnessFunction, tapi gw kasih parameter black buat cek warna hitam atau putih (bisa lgs masukin parameter)
-    private static int countNeighbours(int i, int j, Kromosom kromosom, Boolean black){
-        int ct = 0, size = kromosom.getSize();
+    // private static int countNeighbours(int i, int j, Kromosom kromosom, Boolean black){
+    //     int ct = 0, size = kromosom.getSize();
 
-        //cek 8 tetangga dan sel itu sendiri
-        for (int deltaRow = -1; deltaRow <= 1; deltaRow++) {
-            for (int deltaCol = -1; deltaCol <= 1; deltaCol++) {
-                int newRow = i + deltaRow;
-                int newCol = j + deltaCol;
-                if (newRow >= 0 && newRow < size && newCol >= 0 && newCol < size) {
-                    if ((black && kromosom.getFixedAllele(newRow, newCol) && kromosom.getBit(newRow, newCol)) 
-                        || (!black && kromosom.getFixedAllele(newRow, newCol) && !kromosom.getBit(newRow, newCol))) ct++;
-                }
-            }
-        }
-        return ct;
-    }
+    //     //cek 8 tetangga dan sel itu sendiri
+    //     for (int deltaRow = -1; deltaRow <= 1; deltaRow++) {
+    //         for (int deltaCol = -1; deltaCol <= 1; deltaCol++) {
+    //             int newRow = i + deltaRow;
+    //             int newCol = j + deltaCol;
+    //             if (newRow >= 0 && newRow < size && newCol >= 0 && newCol < size) {
+    //                 if ((black && kromosom.getFixedAllele(newRow, newCol) && kromosom.getBit(newRow, newCol)) 
+    //                     || (!black && kromosom.getFixedAllele(newRow, newCol) && !kromosom.getBit(newRow, newCol))) ct++;
+    //             }
+    //         }
+    //     }
+    //     return ct;
+    // }
 
     // pembantu untuk ngisi 3 cell lurus tetangganya
 
@@ -418,7 +631,7 @@ public class PenandaHeuristik {
             if(i-1 >= 0){
                 // fill 3 kotak secara horizontal
                 for(k=j-1; k <= j+1; k++){
-                    if(k >= 0 && k < size){
+                    if(k >= 0 && k < size && !kromosom.getFixedAllele(i-1, k)){
                         kromosom.setBit(i-1, k, black);
                         kromosom.setFixedAllele(i-1, k, true);
                     }
@@ -429,7 +642,7 @@ public class PenandaHeuristik {
             if(i+1 < size){
                 // fill 3 kotak secara horizontal
                 for(k=j-1; k <= j+1; k++){
-                    if(k >= 0 && k < size){
+                    if(k >= 0 && k < size && !kromosom.getFixedAllele(i+1, k)){
                         kromosom.setBit(i+1, k, black);
                         kromosom.setFixedAllele(i+1, k, true);
                     }
@@ -448,7 +661,7 @@ public class PenandaHeuristik {
             if(j-1 >= 0){
                 // fill 3 kotak secara vertikal
                 for(k=i-1; k <= i+1; k++){
-                    if(k >= 0 && k < size){
+                    if(k >= 0 && k < size && !kromosom.getFixedAllele(k, j-1)){
                         kromosom.setBit(k, j-1, black);
                         kromosom.setFixedAllele(k, j-1, true);
                     }
@@ -459,13 +672,95 @@ public class PenandaHeuristik {
             if(j+1 < size){
                 // fill 3 kotak secara vertikal
                 for(k=i-1; k <= i+1; k++){
-                    if(k >= 0 && k < size){
+                    if(k >= 0 && k < size && !kromosom.getFixedAllele(k, j+1)){
                         kromosom.setBit(k, j+1, black);
                         kromosom.setFixedAllele(k, j+1, true);
                     }
                 }
             }
         }
+    }
+
+    // pebantu untuk cek banyak kotak putih/hitam di samping kotak (i, j)
+    // contoh, menghitung banyak kotak putih di samping kiri kotak (i, j) 
+    // B
+    // W c   ->   return 2
+    // W
+    private static int count3CellsAdjacentHor(int i, int j, Kromosom kromosom, Boolean top, Boolean black){
+        int k, size = kromosom.getSize(), ct = 0;
+        if(top){
+            // kalau ga melebihi batas atas
+            if(i-1 >= 0){
+                for(k=j-1; k <= j+1; k++){
+                    if(k >= 0 && k < size && kromosom.getBit(i-1, k) == black && kromosom.getFixedAllele(i-1, k)) ct++;
+                }
+            }
+        } else{
+            // kalau ga melebihi batas bawah
+            if(i+1 < size){
+                for(k=j-1; k <= j+1; k++){
+                    if(k >= 0 && k < size && kromosom.getBit(i+1, k) == black && kromosom.getFixedAllele(i+1, k)) ct++;
+                }
+            }
+        }
+        return ct;
+    }
+
+    private static int count3CellsAdjacentVert(int i, int j, Kromosom kromosom, Boolean left, Boolean black){
+        int k, size = kromosom.getSize(), ct = 0;
+        if(left){
+            if(j-1 >= 0){
+                for(k=i-1; k <= i+1; k++){
+                    if(k >= 0 && k < size && kromosom.getBit(k, j-1) == black && kromosom.getFixedAllele(k, j-1)) ct++;
+                }
+            }
+        } else{
+            if(j+1 < size){
+                for(k=i-1; k <= i+1; k++){
+                    if(k >= 0 && k < size && kromosom.getBit(k, j+1) == black && kromosom.getFixedAllele(k, j+1)) ct++;
+                }
+            }
+        }
+        return ct;
+    }
+
+    // pembantu buat check berapa yang fix, literally sama kek yang count3Cells, tapi ini ngitung yang fixed bukan yg warna apa
+    private static int count3FixedCellsAdjacentHor(int i, int j, Kromosom kromosom, Boolean top){
+        int k, size = kromosom.getSize(), ct = 0;
+        if(top){
+            // kalau ga melebihi batas atas
+            if(i-1 >= 0){
+                for(k=j-1; k <= j+1; k++){
+                    if(k >= 0 && k < size && kromosom.getFixedAllele(i-1, k)) ct++;
+                }
+            }
+        } else{
+            // kalau ga melebihi batas bawah
+            if(i+1 < size){
+                for(k=j-1; k <= j+1; k++){
+                    if(k >= 0 && k < size && kromosom.getFixedAllele(i+1, k)) ct++;
+                }
+            }
+        }
+        return ct;
+    }
+
+    private static int count3FixedCellsAdjacentVert(int i, int j, Kromosom kromosom, Boolean left){
+        int k, size = kromosom.getSize(), ct = 0;
+        if(left){
+            if(j-1 >= 0){
+                for(k=i-1; k <= i+1; k++){
+                    if(k >= 0 && k < size && kromosom.getFixedAllele(k, j-1)) ct++;
+                }
+            }
+        } else{
+            if(j+1 < size){
+                for(k=i-1; k <= i+1; k++){
+                    if(k >= 0 && k < size && kromosom.getFixedAllele(k, j+1)) ct++;
+                }
+            }
+        }
+        return ct;
     }
 
     // pembantu untuk isi 3 cell lurus di tengah (termasuk cell itu sendiri)
@@ -494,13 +789,13 @@ public class PenandaHeuristik {
         }
     }
     
-    private static boolean checkCorner(int i, int j, int size){
-        return ((i == 0 && j == 0) || (i == 0 && j == size-1) || (i == size-1 && j == 0) || (i == size-1 && j == size-1));
-    }
+    // private static boolean checkCorner(int i, int j, int size){
+    //     return ((i == 0 && j == 0) || (i == 0 && j == size-1) || (i == size-1 && j == 0) || (i == size-1 && j == size-1));
+    // }
 
-    private static boolean checkEdge(int i, int j, int size){
-        return(!checkCorner(i, j, size) && (i == 0 || i == size-1 || j == 0 || j == size-1));
-    }
+    // private static boolean checkEdge(int i, int j, int size){
+    //     return(!checkCorner(i, j, size) && (i == 0 || i == size-1 || j == 0 || j == size-1));
+    // }
 
     // private static boolean checkAdjacent3Whites(int i, int j, Kromosom kromosom){
     //     int[] arahY = {-1, 0, 1, 0};
