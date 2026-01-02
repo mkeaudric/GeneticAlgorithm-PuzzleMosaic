@@ -135,7 +135,7 @@ public class MosaicSolverGA {
             populasi.setIndividuList(newPopulation);
 
             // 4. debug
-            if(generasi % 1000 == 0){
+            if(generasi % 100 == 0){
                 System.out.printf("Generasi %d | Best Fitness: %.6f | Avg Fitness: %.6f%n", 
                                 generasi, populasi.getBestIndividu().getFitness(), populasi.getAverageFitness());
             }
