@@ -3,6 +3,13 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Kelas Populasi merepresentasikan kumpulan individu (solusi kandidat) dalam satu generasi.
+ * Bertanggung jawab untuk inisialisasi, evaluasi, dan manajemen elitism.
+ * @author Kelompok AI Mosaic
+ * @version 1.0
+ */
+
 public class Populasi {
     private List<Individu> individuList; //daftar individu dalam populasi
     private int populationSize; //jumlah individu dalam populasi
@@ -11,6 +18,13 @@ public class Populasi {
     private Individu bestIndividu; //individu terbaik dalam populasi, ambil beberapa (elitism)
     private MosaicPuzzle puzzle;
 
+    /**
+     * Konstruktor untuk membuat populasi baru.
+     * * @param populationSize    Jumlah total individu yang akan dibuat.
+     * @param probabilitasHitam Probabilitas awal kemunculan kotak hitam pada kromosom.
+     * @param fitnessFunction   Fungsi untuk mengevaluasi kualitas individu.
+     * @param puzzle            Data puzzle Mosaic yang menjadi acuan.
+     */
     public Populasi(int populationSize, double probabilitasHitam, FitnessFunction fitnessFunction, MosaicPuzzle puzzle) {
         this.populationSize = populationSize;
         this.fitnessFunction = fitnessFunction;
@@ -60,7 +74,11 @@ public class Populasi {
         return individuList;
     }
 
-    // Mengembalikan top-k individu untuk elitism sebagai salinan (preserve fitness)
+    /**
+     * Mengambil daftar individu terbaik sebanyak k (elitism) untuk diteruskan ke generasi berikutnya.
+     * *@param k Jumlah individu elit yang ingin diambil.
+     * @return top-k individu untuk elitism sebagai salinan (preserve fitness).
+     */
     public List<Individu> getTopElitism(int k) {
         List<Individu> elites = new ArrayList<>();
         if (k <= 0) return elites;
