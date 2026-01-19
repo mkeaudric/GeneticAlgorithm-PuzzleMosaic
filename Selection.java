@@ -1,9 +1,23 @@
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Collections;
+
+/**
+ * Kelas Selection, bertanggung jawab untuk memilih individu dari populasi yang akan digunakan sebagai parent untuk proses reproduksi.
+ * Mendukung berbagai metode seleksi standar dalam Algoritma Genetik.
+ * Sumber Utama: 
+ * @link https://www.tutorialspoint.com/genetic_algorithms/genetic_algorithms_parent_selection.htm
+ * @author Kelompok AI Mosaic
+ * @version 1.0
+ */
 
 public class Selection {
 
+    /**
+     * Metode utama untuk memilih individu berdasarkan parameter yang ditentukan.
+     * @param populasi Objek populasi yang berisi daftar individu saat ini.
+     * @param param Objek parameter GA yang menentukan metode seleksi yang digunakan.
+     * @return Individu hasil copy
+     */
     public Individu select(Populasi populasi, GAParamater param) {
         String method = param.getSelectionMethod().toLowerCase();
         
@@ -21,7 +35,13 @@ public class Selection {
         }
     }
 
-    // ROULETTE WHEEL SELECTION https://www.woodruff.dev/day-6-roulette-tournaments-and-elites-exploring-selection-strategies/
+    // ROULETTE WHEEL SELECTION 
+    /**
+     * Individu dengan fitness lebih tinggi memiliki peluang lebih besar untuk terpilih
+     * @link https://www.woodruff.dev/day-6-roulette-tournaments-and-elites-exploring-selection-strategies/
+     * @param populasi Daftar populasi yang tersedia.
+     * @return Individu terpilih.
+     */
     private Individu rouletteWheelSelection(Populasi populasi) {
         List<Individu> individuList = populasi.getIndividuList();
         double totalFitness = 0;
@@ -36,7 +56,14 @@ public class Selection {
         return individuList.get(individuList.size() - 1).copyForOffspring();
     }
 
-    // RANK SELECTION  linear rank selection     https://stackoverflow.com/questions/13659815/ranking-selection-in-genetic-algorithm-code
+    // RANK SELECTION  linear rank selection
+    /**
+     * Mengurangi bias pada individu yang terlalu dominan dengan cara memberikan peluang. 
+     * berdasarkan urutan (rank), bukan nilai fitness absolut.
+     * @link https://stackoverflow.com/questions/13659815/ranking-selection-in-genetic-algorithm-code
+     * @param populasi Daftar populasi yang tersedia.
+     * @return Individu terpilih.
+     */    
     private Individu rankSelection(Populasi populasi) {
         List<Individu> individuList = new ArrayList<>(populasi.getIndividuList());
 
@@ -57,6 +84,12 @@ public class Selection {
     }
 
     // TOURNAMENT SELECTION 
+    /**
+     * Memilih beberapa individu secara acak dan mengambil yang terbaik di antaranya.
+     * @param populasi Daftar populasi yang tersedia.
+     * @param tournamentSize Jumlah kontestan terpilih dalam satu turnamen.
+     * @return Individu dengan fitnesss terbaik dari hasil turnamen.
+     */
     private Individu tournamentSelection(Populasi populasi, int tournamentSize) { // (Tournamen Size pilih)
         List<Individu> individuList = populasi.getIndividuList();
         Individu best = null;
@@ -71,7 +104,12 @@ public class Selection {
         return best.copyForOffspring();
     }
 
-    // RANDOM SELECTION 
+    //RANDOM SELECTION
+    /**
+     * Memilih individu secara acak tanpa memperhatikan nilai fitness.
+     * @param populasi Daftar populasi yang tersedia.
+     * @return Individu terpilih secara acak.
+     */
     private Individu randomSelection(Populasi populasi) {
         List<Individu> individuList = populasi.getIndividuList();
         return individuList.get(RNG.rand.nextInt(individuList.size())).copyForOffspring();

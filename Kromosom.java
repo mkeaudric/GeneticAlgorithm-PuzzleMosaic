@@ -1,5 +1,13 @@
 import java.util.BitSet;
 
+/**
+ * Kelas Kromosom merepresentasikan struktur data genetik dari sebuah solusi Mosaic Puzzle.
+ * Menggunakan {@link BitSet} untuk efisiensi memori dalam menyimpan status sel (Hitam/Putih).
+ * Memiliki mekanisme 'Fixed Allele' untuk mengunci sel yang sudah dipastikan kebenarannya 
+ * melalui teknik heuristik agar tidak berubah selama proses evolusi.
+ * @author Kelompok AI Mosaic
+ * @version 1.0
+ */
 public class Kromosom {
     private BitSet genes; //representasi bit kromosom
     private BitSet fixedAllele; //buat nandain alel yang udah pasti bagian solusi (1 artinya udah fix)
@@ -7,7 +15,11 @@ public class Kromosom {
     private int size; //ukuran puzzle (row atau col)
     private MosaicPuzzle puzzle;
 
-    //konstruktor
+    /**
+     * Konstruktor untuk menginisialisasi kromosom kosong dengan ukuran tertentu.
+     * @param size Dimensi puzzle.
+     * @param puzzle Referensi puzzle utama.
+     */
     public Kromosom(int size, MosaicPuzzle puzzle) {
         this.size = size;
         this.length = size * size;
@@ -19,6 +31,13 @@ public class Kromosom {
     // item genes : 0 1 0 1 
     // fixed allele : 0 1 1 0 
 
+    /**
+     * Factory method untuk membuat kromosom acak berdasarkan template heuristik.
+     * @param probabilitasHitam Peluang sebuah sel non-fixed diatur menjadi hitam.
+     * @param puzzle Referensi puzzle utama.
+     * @param heuristicTemplate Template yang mengandung gen-gen yang sudah dikunci oleh sistem.
+     * @return Objek Kromosom baru yang sudah terinisialisasi.
+     */
     public static Kromosom createRandomKromosom(double probabilitasHitam, MosaicPuzzle puzzle, Kromosom heuristicTemplate) {
         Kromosom kromosom = new Kromosom(puzzle.getSize(), puzzle);
 
@@ -38,23 +57,41 @@ public class Kromosom {
         return kromosom;
     }
 
-    //set bit index ke...(array 1D)
+    /**
+     * Set bit index ke...(array 1D).
+     * @param index Indeks ke-n dalam BitSet.
+     * @param value true untuk Hitam, false untuk Putih.
+     */
     public void setBit(int index, boolean value) {
         genes.set(index, value);
     }
 
-    //set bit pada posisi (row, col)
+    /**
+     * Mengatur nilai bit berdasarkan koordinat baris dan kolom (2D).
+     * @param row Indeks baris.
+     * @param col Indeks kolom.
+     * @param value true untuk Hitam, false untuk Putih.
+     */
     public void setBit(int row, int col, boolean value) {
         int index = row * size + col;
         genes.set(index, value);
     }
 
-    //get bit index ke...(array 1D)
+    /**
+     * Mendapat bit index ke...(array 1D)
+     * @param index Indeks linear.
+     * @return Status sel (true/false).
+     */
     public boolean getBit(int index) {
         return genes.get(index);
     }
 
-    //get bit pada posisi (row, col)
+    /**
+     * Mendapatkan nilai bit pada koordinat baris dan kolom (2D).
+     * @param row Indeks baris.
+     * @param col Indeks kolom.
+     * @return Status sel pada koordinat tersebut.
+     */
     public boolean getBit(int row, int col) {
         int index = row * size + col;
         return genes.get(index);
@@ -69,12 +106,19 @@ public class Kromosom {
         return size;
     }
 
-    //mengembalikan salinan BitSet genes
+    /**
+     * Mengambil salinan BitSet genes agar data asli tidak termodifikasi dari luar.
+     * @return Salinan dari BitSet genes.
+     */
     public BitSet getBitSet() {
         return (BitSet) genes.clone();
     }
     
-    //set alel yang sudah pasti pada index 1D
+    /**
+     * Menandai alel sebagai 'Fixed' agar tidak berubah pada index 1D.
+     * @param index Indeks linear.
+     * @param isFixed true jika ingin dikunci.
+     */
     public void setFixedAllele(int index, boolean isFixed) {
         fixedAllele.set(index, isFixed);
     }
@@ -96,7 +140,10 @@ public class Kromosom {
         return fixedAllele.get(index);
     }
 
-    //deep-copy kromosom
+    /**
+     * Membuat deep-copy dari kromosom saat ini.
+     * @return Objek Kromosom baru yang identik.
+     */
     public Kromosom copy() {
         Kromosom copy = new Kromosom(this.size, this.puzzle);
         copy.genes = (BitSet) this.genes.clone();

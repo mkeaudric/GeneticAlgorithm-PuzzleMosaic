@@ -1,7 +1,16 @@
-// heuristik ini dipakai untuk menandakan mana kotak yang udah pasti item/putih di awal generasi populasi
-// jadi menandakan kotak yang sudah diketahui secara pasti, dan tidak akan terpengaruh mutasi atau crossover ke depannya
+/**
+ * Kelas PenandaHeuristik berfungsi untuk mengidentifikasi dan menandai kotak-kotak (allele) pada puzzle Mosaic yang sudah pasti berwarna hitam atau putih berdasarkan logika heuristik.
+ * jadi menandakan kotak yang sudah diketahui secara pasti, dan tidak akan terpengaruh mutasi atau crossover ke depannya
+ * @author Kelompok AI Mosaic
+ * @version 1.0
+ */
 
 public class PenandaHeuristik {
+
+    /**
+     * Metode utama untuk menjalankan seluruh rangkaian aturan heuristik pada sebuah kromosom.
+     * * @param kromosom Objek kromosom yang akan diproses dan ditandai.
+     */ 
     public static void setFixedAllele(Kromosom kromosom){
 
         // heuristik 1 : cek 0 dan 9, warnain sekitarnya
@@ -41,7 +50,10 @@ public class PenandaHeuristik {
         heuristicFillCertain(kromosom); // DONE
     }
 
-    // heuristik 1
+    /**
+     * Heuristik 1: Menandai angka 0 (semua tetangga putih) dan 9 (semua tetangga hitam).
+     * @param kromosom Objek kromosom yang diproses.
+     */
     public static void heuristic0and9(Kromosom kromosom){
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int i, j, size = puzzle.getSize();
@@ -58,7 +70,11 @@ public class PenandaHeuristik {
         }
     }
 
-    // heuristik 2 
+    /**
+     * Heuristik 2: Menandai angka 6 yang berada di tepi papan.
+     * Karena di tepi hanya ada 6 tetangga, maka semuanya harus hitam.
+     * @param kromosom Objek kromosom yang diproses.
+     */
     public static void heuristic6Edge(Kromosom kromosom) {
         // jadi gw ceknya pake loop seluruh papan yang bukan corner (6 gabisa di corner)
         MosaicPuzzle puzzle = kromosom.getPuzzle();
@@ -81,7 +97,11 @@ public class PenandaHeuristik {
         }
     }
 
-    // heuristik 3
+    /**
+     * Heuristik 3: Menandai angka 4 di sudut papan.
+     * Sudut hanya memiliki 4 tetangga, jika angka puzzle 4, maka semuanya hitam.
+     * @param kromosom Objek kromosom yang diproses.
+     */
     public static void heuristic4Corner(Kromosom kromosom) {
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int size = puzzle.getSize();
@@ -91,6 +111,10 @@ public class PenandaHeuristik {
         if(puzzle.getNumber(size-1, size-1) == 4) fillSafe(size-1, size-1, kromosom, true);
     }
 
+    /**
+     * Heuristik 4: Menangani dua angka berselisih 2 di tepi papan.
+     * @param kromosom Objek kromosom yang diproses.
+     */
     // heuristik 4 (pengecekan 2 kotak bersebalahan dengan selisih 2 gw pisah untuk yang edge dan yang di non-edge, beda sama yg 6 krn lebih gampang)
     public static void heuristicDiffBy2onEdge(Kromosom kromosom) {
         // ga cuma tepi tapi juga 4 kotak putih yang udah fixed juga bisa jadi kayak tepi, tapi saya implementasi di heuristik yang berbeda
@@ -144,7 +168,10 @@ public class PenandaHeuristik {
         }
     }
 
-    // heuristik 5
+    /**
+     * Heuristik 5: Dua angka bersebelahan secara diagonal dengan selisih 5.
+     * @param kromosom Objek kromosom yang diproses.
+     */
     public static void heuristicDiffBy5Diag(Kromosom kromosom) {
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int i, j, size = puzzle.getSize();
@@ -186,7 +213,10 @@ public class PenandaHeuristik {
         }
     }
 
-    // heuristik 6
+    /**
+     * Heuristik 6: Dua angka selisih 6 yang bersebelahan (1 Jarak).
+     * @param kromosom Objek kromosom yang diproses.
+     */
     public static void heuristicDiffBy6Adjacent1Block(Kromosom kromosom) {
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int i, j, size = puzzle.getSize();
@@ -241,7 +271,10 @@ public class PenandaHeuristik {
         }
     }
 
-    // heuristik 7
+    /**
+     * Heuristik 7: Dua angka bersebelahan (0 jarak) dengan selisih 3.
+     * @param kromosom Objek kromosom yang diproses.
+     */
     public static void heuristicDiffBy3Adjacent0Block(Kromosom kromosom) {
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int i, j, size = puzzle.getSize();
@@ -284,7 +317,10 @@ public class PenandaHeuristik {
         }
     }
 
-    // heuristik 8
+    /**
+     * Heuristik 8 : Selisih 2 dengan 1 clue.
+     * @param kromosom Objek kromosom yang diproses.
+     */
     public static void heuristicDiffBy2Adjacent0Block1Clue(Kromosom kromosom) {
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int i, j, size = puzzle.getSize();
@@ -372,7 +408,10 @@ public class PenandaHeuristik {
         }
     }
 
-    // heuristik 9
+     /**
+     * Heuristik 9 : Selisih 1 dengan 2 clue.
+     * @param kromosom Objek kromosom yang diproses.
+     */
     public static void heuristicDiffBy1Adjacent0Block2Clue(Kromosom kromosom) {
         // LITERALLY SAMA PERSIS KEK HEURISTIK 8
         // bahkan ini kodenya bisa digabung, tapi gw pisah aja biar lebih kebaca gitu? kalo digabung lebih rapih sih
@@ -420,7 +459,10 @@ public class PenandaHeuristik {
         }
     }
 
-    // heuristik 10
+    /**
+     * Heuristik 10: Angka berpasangan (Pair) yang sama.
+     * @param kromosom Objek kromosom yang diproses.
+     */
     public static void heuristicPairAdjacent0Block(Kromosom kromosom) {
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int i, j, size = puzzle.getSize();
@@ -536,6 +578,11 @@ public class PenandaHeuristik {
     //     }
     // }
 
+    /**
+     * Heuristik 11: Pengisian logis berdasarkan jumlah tetangga hitam yang sudah dikunci.
+     * @param kromosom Objek kromosom yang diproses.
+     * @return boolean True jika ada perubahan pada status fixed sel.
+     */
     public static boolean heuristicFillCertain(Kromosom kromosom) {
         MosaicPuzzle puzzle = kromosom.getPuzzle();
         int size = puzzle.getSize();
@@ -589,6 +636,12 @@ public class PenandaHeuristik {
     // * * *
     // * c *
     // * * *
+    /**
+     * Mengisi area 3x3 di sekitar r,c dengan status fixed.
+     * @param r Baris pusat.
+     * @param c Kolom pusat.
+     * @param isBlack Warna yang diset.
+     */
     private static void fillSafe(int r, int c, Kromosom kromosom, boolean isBlack) {
         int size = kromosom.getSize();
         for (int i = r - 1; i <= r + 1; i++) {
@@ -628,6 +681,15 @@ public class PenandaHeuristik {
     // ATAU
     //   c
     // * * *
+
+    /**
+     * Mengisi 3 kotak secara horizontal di atas atau di bawah baris i.
+     * @param i        Indeks baris pusat.
+     * @param j        Indeks kolom pusat.
+     * @param kromosom Objek kromosom yang akan dimodifikasi..
+     * @param top      Jika true mengisi baris i-1, jika false mengisi baris i+1.
+     * @param black    Warna yang diset.
+     */
     private static void fill3CellsAdjacentHor(int i, int j, Kromosom kromosom, Boolean top, Boolean black){
         int k, size = kromosom.getSize();
         if(top){
@@ -658,6 +720,15 @@ public class PenandaHeuristik {
     // *          *
     // * c ATAU c *
     // *          *
+
+    /**
+     * Mengisi 3 kotak secara vertikal di sisi kiri atau kanan kolom j.
+     * @param i        Indeks baris pusat.
+     * @param j        Indeks kolom pusat.
+     * @param kromosom Objek kromosom yang akan dimodifikasi.
+     * @param left     Jika true mengisi kolom j-1, jika false mengisi kolom j+1.
+     * @param black    Warna yang diset.
+     */
     private static void fill3CellsAdjacentVert(int i, int j, Kromosom kromosom, Boolean left, Boolean black){
         int k, size = kromosom.getSize();
         if(left){
@@ -690,6 +761,11 @@ public class PenandaHeuristik {
     // B
     // W c   ->   return 2
     // W
+
+    /**
+     * Menghitung jumlah kotak dengan warna tertentu (hitam/putih) yang sudah fixed pada 3 kotak horizontal (di atas atau di bawah baris i).
+     * * @return Jumlah kotak yang sesuai kriteria.
+     */
     private static int count3CellsAdjacentHor(int i, int j, Kromosom kromosom, Boolean top, Boolean black){
         int k, size = kromosom.getSize(), ct = 0;
         if(top){
@@ -774,6 +850,11 @@ public class PenandaHeuristik {
     // *
     // c
     // *
+
+    /**
+     * Mengisi 3 cell lurus yang melewati titik tengah (i, j).
+     * @param horizontal Jika true mengisi sebaris (i), jika false mengisi sekolom (j).
+     */
     private static void fill3CellsMiddle(int i, int j, Kromosom kromosom, Boolean horizontal, Boolean black){
         int k, size = kromosom.getSize();
         if(horizontal){

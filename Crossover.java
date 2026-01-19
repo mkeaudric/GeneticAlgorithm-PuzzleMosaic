@@ -1,17 +1,37 @@
-// http://ijcs.net/ijcs/index.php/ijcs/article/view/4596/934
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Kelas Crossover bertanggung jawab untuk melakukan operasi perkawinan silang 
+ * antara dua individu (parent) untuk menghasilkan keturunan (offspring).
+ * Mendukung metode Single-Point, Uniform, dan K-Point Crossover.
+ * Referensi Utama: 
+ * - Konsep Crossover: http://ijcs.net/ijcs/index.php/ijcs/article/view/4596/934
+ * - Random Range: https://www.baeldung.com/java-generating-random-numbers-in-range
+ * @author Kelompok AI Mosaic
+ * @version 1.0
+ */
+
 public class Crossover {
     private FitnessFunction fitnessFunction;
 
+    /**
+     * Konstruktor untuk menginisialisasi Crossover dengan referensi fungsi fitness.
+     * @param fitnessFunction Objek fungsi fitness untuk mengevaluasi individu baru.
+     */
     public Crossover(FitnessFunction fitnessFunction) {
         this.fitnessFunction = fitnessFunction;
     }
 
-    // kita pake 2 parent, hasilnya 2 anak
+    /**
+     * Metode utama untuk melakukan crossover berdasarkan parameter yang dipilih.
+     * @param parent1 Individu orang tua pertama.
+     * @param parent2 Individu orang tua kedua.
+     * @param crossoverMethod Nama metode crossover ("single-point", "uniform", "k-point").
+     * @param k Jumlah titik potong (hanya digunakan untuk k-point).
+     * @return Array berisi dua individu baru sebagai keturunan.
+     */
     public Individu[] crossover(Individu parent1, Individu parent2, String crossoverMethod, int k) {
         switch (crossoverMethod) {
             case "single-point":
@@ -26,9 +46,16 @@ public class Crossover {
         }
     }
     
+    /**
+     * Melakukan Single-Point Crossover.
+     * Menentukan satu titik acak dan menukar seluruh segmen setelah titik tersebut.
+     * @param parent1 Orang tua 1.
+     * @param parent2 Orang tua 2.
+     * @return Array berisi dua keturunan.
+     */
     private Individu[] singlePointCrossover(Individu parent1, Individu parent2) {
         int i, length = parent1.getKromosom().getLength();
-        int crossoverPoint = RNG.rand.nextInt(length-1) + 1; // sumber : https://www.baeldung.com/java-generating-random-numbers-in-range
+        int crossoverPoint = RNG.rand.nextInt(length-1) + 1; 
         // kalo dari 0 (nextInt(length-1) aja gapake + 1), dia jadi sama persis sama satu parentnya
         
         Kromosom firstChild = parent1.getKromosom().copy();
@@ -49,6 +76,13 @@ public class Crossover {
         return new Individu[] {new Individu(firstChild, fitnessFunction), new Individu(secondChild, fitnessFunction)};
     }
 
+    /**
+     * Melakukan Uniform Crossover.
+     * Setiap bit memiliki peluang 50% untuk ditukar antar orang tua.
+     * @param parent1 Orang tua 1.
+     * @param parent2 Orang tua 2.
+     * @return Array berisi dua keturunan.
+     */
     private Individu[] uniformCrossover(Individu parent1, Individu parent2) {
         int i, length = parent1.getKromosom().getLength();
 
@@ -70,6 +104,14 @@ public class Crossover {
         return new Individu[] {new Individu(firstChild, fitnessFunction), new Individu(secondChild, fitnessFunction)};
     }
 
+    /**
+     * Melakukan K-Point Crossover.
+     * Menentukan 'k' titik potong dan menukar segmen di antara titik-titik tersebut.
+     * @param parent1 Orang tua 1.
+     * @param parent2 Orang tua 2.
+     * @param k Jumlah titik potong.
+     * @return Array berisi dua keturunan.
+     */
     private Individu[] KPointCrossover(Individu parent1, Individu parent2, int k) {
         int i, length = parent1.getKromosom().getLength();
 

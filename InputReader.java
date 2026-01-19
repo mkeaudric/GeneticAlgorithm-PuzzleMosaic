@@ -1,7 +1,20 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
-
+/**
+ * Kelas InputReader berfungsi untuk membaca data dari file eksternal.
+ * @author Kelompok AI Mosaic
+ * @version 1.0
+ */
 public class InputReader {
+
+    /**
+     * Membaca file teks yang berisi representasi angka-angka Mosaic Puzzle.
+     * Format file yang diharapkan: Baris pertama adalah ukuran (N), 
+     * baris berikutnya adalah matriks N x N berisi angka (atau -1 jika kosong).
+     * @param namaFile Path atau nama file yang akan dibaca.
+     * @return Objek MosaicPuzzle yang telah terisi angka.
+     * @throws Exception Jika file tidak ditemukan, format ukuran salah, atau baris data kurang.
+     */
     public static MosaicPuzzle bacaPuzzle(String namaFile) throws Exception {
         // buka file
         BufferedReader br = new BufferedReader(new FileReader(namaFile));
@@ -42,6 +55,13 @@ public class InputReader {
         return puzzle;
     }
 
+    /**
+     * Membaca file parameter untuk konfigurasi Algoritma Genetik.
+     * Diharapkan file berisi 9 baris data parameter secara berurutan.
+     * @param namaFile Path file parameter (ctjh: "parameter.txt").
+     * @return Objek GAParamater yang berisi konfigurasi lengkap.
+     * @throws Exception Jika baris parameter kurang atau format angka salah.
+     */
     public static GAParamater bacaParameter(String namaFile) throws Exception {
         BufferedReader br = new BufferedReader(new FileReader(namaFile));
 
