@@ -82,7 +82,7 @@ public class MosaicSolverGA {
         System.out.printf("Crossover rate: %.4f%n", param.getCrossoverRate());
         System.out.printf("Mutation rate: %.4f%n", param.getMutationRate());
         System.out.printf("Elitism percent: %.4f%n", param.getElitismPercent());
-        System.out.println("Tournament size: " + param.getSelectionSize());
+        System.out.println("Tournament size: " + param.getTournamentSize());
         System.out.println("Selection method: '" + param.getSelectionMethod() + "'");
         System.out.println("Crossover method: '" + param.getCrossoverMethod() + "'");
 

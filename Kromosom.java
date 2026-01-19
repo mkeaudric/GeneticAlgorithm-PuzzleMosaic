@@ -124,18 +124,32 @@ public class Kromosom {
         fixedAllele.set(index, isFixed);
     }
 
-    //set alel yang sudah pasti pada posisi (row,col)
+     /**
+     * Menandai alel sebagai 'Fixed' agar tidak berubah pada index 2D.
+     * @param row index baris
+     * @param col index kolom
+     * @param isFixed true jika ingin dikunci.
+     */
     public void setFixedAllele(int row, int col, boolean isFixed) {
         int index = row * size + col;
         fixedAllele.set(index, isFixed);
     }
 
-    //check whether allele at index is fixed
+     /**
+     * Mendapatkan status 'Fixed' dari alel pada index 1D.
+     * @param index Indeks linear.
+     * @return true jika alel sudah fixed, false jika belum.
+     */
     public boolean getFixedAllele(int index) {
         return fixedAllele.get(index);
     }
 
-    //check whether allele at (row,col) is fixed
+    /**
+     * Mendapatkan status 'Fixed' dari alel pada index 1D.
+     * @param row index baris
+     * @param col index kolom
+     * @return true jika alel sudah fixed, false jika belum.
+     */
     public boolean getFixedAllele(int row, int col) {
         int index = row * size + col;
         return fixedAllele.get(index);
