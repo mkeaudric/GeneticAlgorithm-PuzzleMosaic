@@ -20,15 +20,15 @@ public class MosaicResultPrint {
         }
 
         //baca puzzle dari file
-        String filePeta = args[0];
+        String filePeta = "puzzle/" + args[0];
         MosaicPuzzle puzzle = InputReader.bacaPuzzle(filePeta);
         int size = puzzle.getSize();
 
-
+        //input manual solusi dari user
         Kromosom manualSolution = new Kromosom(size, puzzle);
         
         Scanner sc = new Scanner(System.in);
-        
+
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (sc.hasNext()) {

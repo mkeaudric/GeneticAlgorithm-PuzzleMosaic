@@ -33,8 +33,8 @@ public class MosaicSolverGA {
             return;
         }
 
-        String filePeta = args[0];
-        String fileParameter = args[1];
+        String filePeta = "puzzle/" + args[0];
+        String fileParameter = "parameter/" + args[1];
 
         MosaicPuzzle puzzle = InputReader.bacaPuzzle(filePeta);
         GAParamater param = InputReader.bacaParameter(fileParameter);
