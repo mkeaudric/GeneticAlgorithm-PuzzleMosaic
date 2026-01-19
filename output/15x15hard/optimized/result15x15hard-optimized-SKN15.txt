@@ -1,0 +1,345 @@
+seed :12345
+=== GA Parameters ===
+Total generations: 100000
+Population size: 225
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'tournament'
+Crossover method: 'k-point-5'
+Crossover method recognized as: k-point with k = 5
+=== Inisialisasi Populasi ===
+Ukuran populasi: 225
+Best fitness awal: 0,267826
+Average fitness awal: 0,190333
+Best individu (visual):
+. . . . . . . . . . . . . . . 
+. B . . W . . . . . W W W . . 
+. B . . W . . W B . B W B B B 
+. B . B B B . W B . B W W B W 
+. . B . . . . W B . B W B B W 
+. . B . . . . . . . B B B W W 
+. . B W W W . . . . . . W B B 
+. . . . . . . . . . . . W W W 
+. . . . . . . . . . . . W B B 
+. . B . . . . . . . . . W B B 
+. . B . B . B B B W W W . . . 
+. . B . B . . B B W W W . . . 
+. . . . B . . B B B B W W W . 
+. . . . W . W W B W . W . . . 
+. . . . . . . W B W . W . . . 
+Generasi 0 | Best Fitness: 0,311237 | Avg Fitness: 0,247595
+Generasi 5000 | Best Fitness: 0,560185 | Avg Fitness: 0,383811
+Generasi 10000 | Best Fitness: 0,560185 | Avg Fitness: 0,394428
+Generasi 15000 | Best Fitness: 0,560185 | Avg Fitness: 0,393115
+Generasi 20000 | Best Fitness: 0,560185 | Avg Fitness: 0,390939
+Generasi 25000 | Best Fitness: 0,560185 | Avg Fitness: 0,385803
+Generasi 30000 | Best Fitness: 0,657407 | Avg Fitness: 0,406202
+Generasi 35000 | Best Fitness: 0,657407 | Avg Fitness: 0,409504
+Generasi 40000 | Best Fitness: 0,657407 | Avg Fitness: 0,405038
+Generasi 45000 | Best Fitness: 0,657407 | Avg Fitness: 0,406814
+Generasi 50000 | Best Fitness: 0,657407 | Avg Fitness: 0,405255
+Generasi 55000 | Best Fitness: 0,657407 | Avg Fitness: 0,406946
+Generasi 60000 | Best Fitness: 0,657407 | Avg Fitness: 0,400914
+Generasi 65000 | Best Fitness: 0,657407 | Avg Fitness: 0,400288
+Generasi 70000 | Best Fitness: 0,657407 | Avg Fitness: 0,403512
+Generasi 75000 | Best Fitness: 0,657407 | Avg Fitness: 0,404093
+Generasi 80000 | Best Fitness: 0,657407 | Avg Fitness: 0,409087
+Generasi 85000 | Best Fitness: 0,657407 | Avg Fitness: 0,405567
+Generasi 90000 | Best Fitness: 0,657407 | Avg Fitness: 0,400562
+Generasi 95000 | Best Fitness: 0,657407 | Avg Fitness: 0,405316
+Best Fitness: 0,657407
+Total running time: 177,990130 detik
+B B W B B B W B B W B B W B B 
+W B B B W B W W W B W W W W W 
+W B B B W W B W B B B W B B B 
+B B W B B B W W B B B W W B W 
+W W B B W W B W B W B W B B W 
+W B B B B B W B W B B B B W W 
+B B B W W W B B B W W B W B B 
+W B W B W B B B W B B W W W W 
+W B W B B B W W W B W W W B B 
+B W B B W W B W W B B W W B B 
+B B B W B B B B B W W W W B W 
+W W B B B W W B B W W W B B W 
+W B W W B W B B B B B W W W B 
+B W W B W B W W B W B W B W W 
+W W B W B W B W B W W W W B B 
+
+seed :12346
+=== GA Parameters ===
+Total generations: 100000
+Population size: 225
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'tournament'
+Crossover method: 'k-point-5'
+Crossover method recognized as: k-point with k = 5
+=== Inisialisasi Populasi ===
+Ukuran populasi: 225
+Best fitness awal: 0,249503
+Average fitness awal: 0,189379
+Best individu (visual):
+. . . . . . . . . . . . . . . 
+. B . . W . . . . . W W W . . 
+. B . . W . . W B . B W B B B 
+. B . B B B . W B . B W W B W 
+. . B . . . . W B . B W B B W 
+. . B . . . . . . . B B B W W 
+. . B W W W . . . . . . W B B 
+. . . . . . . . . . . . W W W 
+. . . . . . . . . . . . W B B 
+. . B . . . . . . . . . W B B 
+. . B . B . B B B W W W . . . 
+. . B . B . . B B W W W . . . 
+. . . . B . . B B B B W W W . 
+. . . . W . W W B W . W . . . 
+. . . . . . . W B W . W . . . 
+Generasi 0 | Best Fitness: 0,310020 | Avg Fitness: 0,246947
+Generasi 5000 | Best Fitness: 0,611111 | Avg Fitness: 0,399177
+Generasi 10000 | Best Fitness: 0,611111 | Avg Fitness: 0,390323
+Generasi 15000 | Best Fitness: 0,611111 | Avg Fitness: 0,397977
+Generasi 20000 | Best Fitness: 0,611111 | Avg Fitness: 0,397337
+Generasi 25000 | Best Fitness: 0,611111 | Avg Fitness: 0,394405
+Generasi 30000 | Best Fitness: 0,611111 | Avg Fitness: 0,396977
+Generasi 35000 | Best Fitness: 0,611111 | Avg Fitness: 0,395540
+Generasi 40000 | Best Fitness: 0,611111 | Avg Fitness: 0,397400
+Generasi 45000 | Best Fitness: 0,611111 | Avg Fitness: 0,390565
+Generasi 50000 | Best Fitness: 0,611111 | Avg Fitness: 0,399498
+Generasi 55000 | Best Fitness: 0,611111 | Avg Fitness: 0,394346
+Generasi 60000 | Best Fitness: 0,611111 | Avg Fitness: 0,404387
+Generasi 65000 | Best Fitness: 0,611111 | Avg Fitness: 0,390675
+Generasi 70000 | Best Fitness: 0,611111 | Avg Fitness: 0,396035
+Generasi 75000 | Best Fitness: 0,611111 | Avg Fitness: 0,395957
+Generasi 80000 | Best Fitness: 0,611111 | Avg Fitness: 0,395251
+Generasi 85000 | Best Fitness: 0,611111 | Avg Fitness: 0,390547
+Generasi 90000 | Best Fitness: 0,611111 | Avg Fitness: 0,391255
+Generasi 95000 | Best Fitness: 0,611111 | Avg Fitness: 0,392703
+Best Fitness: 0,611111
+Total running time: 160,489837 detik
+W B W B B B W B B W B B W B B 
+B B B B W B W W B W W W W W W 
+W B B B W W B W B B B W B B B 
+W B W B B B B W B B B W W B W 
+W B B W B W W W B W B W B B W 
+W B B B B B W B B W B B B W W 
+W B B W W W B B B W W W W B B 
+B B W B W B B B W W B W W W W 
+W B W B B B W W W W B W W B B 
+W W B W B W W B W B B W W B B 
+B B B B B B B B B W W W W B W 
+W B B W B W W B B W W W B B W 
+W B W W B W B B B B B W W W B 
+W W W B W B W W B W B W B W W 
+W B B W B W B W B W W W W B B 
+
+seed :12347
+=== GA Parameters ===
+Total generations: 100000
+Population size: 225
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'tournament'
+Crossover method: 'k-point-5'
+Crossover method recognized as: k-point with k = 5
+=== Inisialisasi Populasi ===
+Ukuran populasi: 225
+Best fitness awal: 0,253030
+Average fitness awal: 0,184121
+Best individu (visual):
+. . . . . . . . . . . . . . . 
+. B . . W . . . . . W W W . . 
+. B . . W . . W B . B W B B B 
+. B . B B B . W B . B W W B W 
+. . B . . . . W B . B W B B W 
+. . B . . . . . . . B B B W W 
+. . B W W W . . . . . . W B B 
+. . . . . . . . . . . . W W W 
+. . . . . . . . . . . . W B B 
+. . B . . . . . . . . . W B B 
+. . B . B . B B B W W W . . . 
+. . B . B . . B B W W W . . . 
+. . . . B . . B B B B W W W . 
+. . . . W . W W B W . W . . . 
+. . . . . . . W B W . W . . . 
+Generasi 0 | Best Fitness: 0,319201 | Avg Fitness: 0,242478
+Generasi 5000 | Best Fitness: 0,530093 | Avg Fitness: 0,382518
+Generasi 10000 | Best Fitness: 0,543651 | Avg Fitness: 0,387244
+Generasi 15000 | Best Fitness: 0,581481 | Avg Fitness: 0,391493
+Generasi 20000 | Best Fitness: 0,581481 | Avg Fitness: 0,391785
+Generasi 25000 | Best Fitness: 0,581481 | Avg Fitness: 0,388467
+Generasi 30000 | Best Fitness: 0,581481 | Avg Fitness: 0,393027
+Generasi 35000 | Best Fitness: 0,581481 | Avg Fitness: 0,392061
+Generasi 40000 | Best Fitness: 0,581481 | Avg Fitness: 0,401491
+Generasi 45000 | Best Fitness: 0,581481 | Avg Fitness: 0,387687
+Generasi 50000 | Best Fitness: 0,581481 | Avg Fitness: 0,393592
+Generasi 55000 | Best Fitness: 0,581481 | Avg Fitness: 0,393493
+Generasi 60000 | Best Fitness: 0,581481 | Avg Fitness: 0,392556
+Generasi 65000 | Best Fitness: 0,581481 | Avg Fitness: 0,400888
+Generasi 70000 | Best Fitness: 0,581481 | Avg Fitness: 0,392949
+Generasi 75000 | Best Fitness: 0,581481 | Avg Fitness: 0,393134
+Generasi 80000 | Best Fitness: 0,581481 | Avg Fitness: 0,390673
+Generasi 85000 | Best Fitness: 0,581481 | Avg Fitness: 0,394418
+Generasi 90000 | Best Fitness: 0,581481 | Avg Fitness: 0,396752
+Generasi 95000 | Best Fitness: 0,581481 | Avg Fitness: 0,394797
+Best Fitness: 0,581481
+Total running time: 157,893756 detik
+B B W B B B W B W W B B W B B 
+W B B B W B W W B B W W W W W 
+W B B B W W B W B B B W B B B 
+B B W B B B W W B W B W W B W 
+W W B B W W B W B B B W B B W 
+W B B B B B B B W B B B B W W 
+B B B W W W B B W W W W W B B 
+W B W B W B W B W B B W W W W 
+W B W B B B B W W W B W W B B 
+B W B B W B W B W B B W W B B 
+B W B B B W B B B W W W W B B 
+W B B W B B W B B W W W B W W 
+W B W W B W B B B B B W W W B 
+W W W B W W W W B W B W B B W 
+B W B W B B B W B W W W W W B 
+
+seed :12348
+=== GA Parameters ===
+Total generations: 100000
+Population size: 225
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'tournament'
+Crossover method: 'k-point-5'
+Crossover method recognized as: k-point with k = 5
+=== Inisialisasi Populasi ===
+Ukuran populasi: 225
+Best fitness awal: 0,258389
+Average fitness awal: 0,187871
+Best individu (visual):
+. . . . . . . . . . . . . . . 
+. B . . W . . . . . W W W . . 
+. B . . W . . W B . B W B B B 
+. B . B B B . W B . B W W B W 
+. . B . . . . W B . B W B B W 
+. . B . . . . . . . B B B W W 
+. . B W W W . . . . . . W B B 
+. . . . . . . . . . . . W W W 
+. . . . . . . . . . . . W B B 
+. . B . . . . . . . . . W B B 
+. . B . B . B B B W W W . . . 
+. . B . B . . B B W W W . . . 
+. . . . B . . B B B B W W W . 
+. . . . W . W W B W . W . . . 
+. . . . . . . W B W . W . . . 
+Generasi 0 | Best Fitness: 0,300329 | Avg Fitness: 0,244568
+Generasi 5000 | Best Fitness: 0,657407 | Avg Fitness: 0,401050
+Generasi 10000 | Best Fitness: 0,657407 | Avg Fitness: 0,402507
+Generasi 15000 | Best Fitness: 0,657407 | Avg Fitness: 0,401534
+Generasi 20000 | Best Fitness: 0,657407 | Avg Fitness: 0,399110
+Generasi 25000 | Best Fitness: 0,657407 | Avg Fitness: 0,402784
+Generasi 30000 | Best Fitness: 0,657407 | Avg Fitness: 0,401539
+Generasi 35000 | Best Fitness: 0,657407 | Avg Fitness: 0,407547
+Generasi 40000 | Best Fitness: 0,657407 | Avg Fitness: 0,407754
+Generasi 45000 | Best Fitness: 0,657407 | Avg Fitness: 0,402911
+Generasi 50000 | Best Fitness: 0,657407 | Avg Fitness: 0,404748
+Generasi 55000 | Best Fitness: 0,657407 | Avg Fitness: 0,398975
+Generasi 60000 | Best Fitness: 0,657407 | Avg Fitness: 0,403986
+Generasi 65000 | Best Fitness: 0,657407 | Avg Fitness: 0,406522
+Generasi 70000 | Best Fitness: 0,657407 | Avg Fitness: 0,403410
+Generasi 75000 | Best Fitness: 0,657407 | Avg Fitness: 0,402523
+Generasi 80000 | Best Fitness: 0,657407 | Avg Fitness: 0,407113
+Generasi 85000 | Best Fitness: 0,657407 | Avg Fitness: 0,399759
+Generasi 90000 | Best Fitness: 0,657407 | Avg Fitness: 0,402909
+Generasi 95000 | Best Fitness: 0,657407 | Avg Fitness: 0,400559
+Best Fitness: 0,657407
+Total running time: 157,950662 detik
+B B W B B B W B B W B B W B B 
+W B B B W B W W W B W W W W W 
+W B B B W W B W B B B W B B B 
+B B W B B B W W B B B W W B W 
+W W B B W W B W B W B W B B W 
+W B B B B B W B B W B B B W W 
+B B B W W W B B W B W B W B B 
+W B W B W B B B W B B W W W W 
+W B W B B B W W W B W W W B B 
+W B B W B W B W W B B W W B B 
+B B B W B W B B B W W W W B W 
+W W B B B B W B B W W W B B W 
+W B W W B W B B B B B W W W B 
+W B W W W W W W B W B W B W W 
+W W B B B B B W B W W W W B B 
+
+seed :12349
+=== GA Parameters ===
+Total generations: 100000
+Population size: 225
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'tournament'
+Crossover method: 'k-point-5'
+Crossover method recognized as: k-point with k = 5
+=== Inisialisasi Populasi ===
+Ukuran populasi: 225
+Best fitness awal: 0,266746
+Average fitness awal: 0,189197
+Best individu (visual):
+. . . . . . . . . . . . . . . 
+. B . . W . . . . . W W W . . 
+. B . . W . . W B . B W B B B 
+. B . B B B . W B . B W W B W 
+. . B . . . . W B . B W B B W 
+. . B . . . . . . . B B B W W 
+. . B W W W . . . . . . W B B 
+. . . . . . . . . . . . W W W 
+. . . . . . . . . . . . W B B 
+. . B . . . . . . . . . W B B 
+. . B . B . B B B W W W . . . 
+. . B . B . . B B W W W . . . 
+. . . . B . . B B B B W W W . 
+. . . . W . W W B W . W . . . 
+. . . . . . . W B W . W . . . 
+Generasi 0 | Best Fitness: 0,309621 | Avg Fitness: 0,245420
+Generasi 5000 | Best Fitness: 0,560185 | Avg Fitness: 0,382955
+Generasi 10000 | Best Fitness: 0,581481 | Avg Fitness: 0,397083
+Generasi 15000 | Best Fitness: 0,581481 | Avg Fitness: 0,390577
+Generasi 20000 | Best Fitness: 0,581481 | Avg Fitness: 0,390056
+Generasi 25000 | Best Fitness: 0,581481 | Avg Fitness: 0,391525
+Generasi 30000 | Best Fitness: 0,581481 | Avg Fitness: 0,389486
+Generasi 35000 | Best Fitness: 0,581481 | Avg Fitness: 0,390173
+Generasi 40000 | Best Fitness: 0,581481 | Avg Fitness: 0,393803
+Generasi 45000 | Best Fitness: 0,581481 | Avg Fitness: 0,397064
+Generasi 50000 | Best Fitness: 0,581481 | Avg Fitness: 0,392857
+Generasi 55000 | Best Fitness: 0,581481 | Avg Fitness: 0,386339
+Generasi 60000 | Best Fitness: 0,581481 | Avg Fitness: 0,395703
+Generasi 65000 | Best Fitness: 0,581481 | Avg Fitness: 0,390759
+Generasi 70000 | Best Fitness: 0,581481 | Avg Fitness: 0,398110
+Generasi 75000 | Best Fitness: 0,581481 | Avg Fitness: 0,394107
+Generasi 80000 | Best Fitness: 0,581481 | Avg Fitness: 0,394506
+Generasi 85000 | Best Fitness: 0,581481 | Avg Fitness: 0,391260
+Generasi 90000 | Best Fitness: 0,581481 | Avg Fitness: 0,392137
+Generasi 95000 | Best Fitness: 0,581481 | Avg Fitness: 0,401023
+Best Fitness: 0,581481
+Total running time: 152,268657 detik
+B W W B B B W B W W B B W B B 
+B B B B W B W W B B W W W W W 
+W B B B W W B W B B B W B B B 
+W B W B B B W W B W B W W B W 
+B W B B W W B W B B B W B B W 
+W B B B B B W B B W B B B W W 
+W B B W W W B B W W W B W B B 
+B B W B W B B B W B B W W W W 
+W B W B B B W W W B W W W B B 
+W W B B B W W W B B B W W B B 
+B B B W B B B B B W W W B B B 
+B W B W B W W B B W W W B W W 
+W W B W B W B B B B B W W W B 
+W B W B W B W W B W B W B B W 
+W W B W B W B W B W W W W W B 
+

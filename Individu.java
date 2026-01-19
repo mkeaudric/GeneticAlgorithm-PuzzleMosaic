@@ -59,8 +59,4 @@ public class Individu implements Comparable<Individu> {
         return this.fitness;
     }
 
-    public void setFitness(double fitness) {
-        this.fitness = fitness;
-        this.fitnessCalculated = true;
-    }  
 }
