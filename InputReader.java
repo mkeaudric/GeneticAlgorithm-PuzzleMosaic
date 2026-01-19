@@ -45,6 +45,7 @@ public class InputReader {
                 throw new Exception("jumlah angka tidak sesuai ukuran puzzle di baris " + (row + 1));
             }
 
+            //buat pengisian angka di puzzle
             for(int col = 0; col < size; col++) {
                 int angka = Integer.parseInt(data[col]);
                 //set angka di puzzle
@@ -66,16 +67,21 @@ public class InputReader {
         BufferedReader br = new BufferedReader(new FileReader(namaFile));
 
         try{
+            //array string untuk nampung 9 parameter
             String[] baris = new String[9];
 
+            //loop untuk baca 9 baris
             for(int i = 0; i < 9; i++) {
                 baris[i] = br.readLine();
+                //cek apakah baris ada
                 if(baris[i] == null) {
                     br.close();
                     throw new Exception("Parameter kurang di baris " + (i + 1));
                 }
+                //trim spasi
                 baris[i] = baris[i].trim();
             }
+            //parsing parameter dari string ke tipe data yang sesuai
             int totalGeneration = Integer.parseInt(baris[0]);
             int populationSize = Integer.parseInt(baris[1]);
             double crossoverRate = Double.parseDouble(baris[2]);
@@ -92,11 +98,5 @@ public class InputReader {
         finally {
             br.close();
         }
-
-        
-
-        
-
-        
     }
 }

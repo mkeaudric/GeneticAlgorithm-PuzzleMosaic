@@ -102,6 +102,7 @@ public class Kromosom {
         return length;
     }
 
+    //mengembalikan ukuran puzzle (row/col)
     public int getSize() {
         return size;
     }
@@ -155,7 +156,7 @@ public class Kromosom {
         return puzzle;
     }
 
-    // method buat bantu ngecek heuristik aja, print si kromosom yang udah fixed saat ini
+    // method print kromosom yang terkena heuristic
     public void printCurrentFixedKromosom(){
         int i, j;
         for(i=0; i < size; i++){
@@ -167,6 +168,7 @@ public class Kromosom {
         }
     }
 
+    // method print kromosom saat ini
     public void printCurrentKromosom(){
         int i, j;
         for(i=0; i < size; i++){

@@ -7,7 +7,7 @@ public class GAParamater {
     private final int SelectionSize; // ukuran untuk seleksi individu
     private final String selectionMethod; // metode seleksi yang digunakan (misalnya "tournament", "roulette wheel", dll)
     private final String crossoverMethod; // metode crossover yang digunakan (misalnya "one-point", "two-point", dll)
-    private final double probabilitasHitam; //
+    private final double probabilitasHitam; //prbablitas kemunculan kotak hitam pada kromosom awal
     
 
     public GAParamater(int totalGeneration, int populationSize, double crossoverRate, double mutationRate, double elitismPercent, int SelectionSize, String selectionMethod, String crossoverMethod, double probabilitasHitam) {
@@ -22,6 +22,7 @@ public class GAParamater {
         this.probabilitasHitam = probabilitasHitam;
     }
 
+    //getter untuk atribut GAParameter
     public int getTotalGeneration() {
         return totalGeneration;
     }

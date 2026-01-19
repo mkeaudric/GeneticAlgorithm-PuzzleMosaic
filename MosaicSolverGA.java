@@ -200,6 +200,17 @@ public class MosaicSolverGA {
                                 limit++;
                             } while (adaPerubahan && limit < 3); // Limit 3 cukup untuk performa
                         }
+
+                        //KHUSUS SELAIN20X20 HARD
+                        // boolean adaPerubahan;
+                        // int limit = 0;
+                        // do {
+                        //     // Terapkan heuristik fill certain sebanyak maksimal 3 kali
+                        //     adaPerubahan = PenandaHeuristik.heuristicFillCertain(offspring.getKromosom());
+                        //     if (adaPerubahan) perluResetFitness = true;
+                        //     limit++;
+                        // } while (adaPerubahan && limit < 3); // Limit 3 cukup untuk performa
+                        
                         // Reset fitness jika ada perubahan pada kromosom
                         if (perluResetFitness) offspring.resetFitness();
                         // Tambahkan offspring ke populasi baru

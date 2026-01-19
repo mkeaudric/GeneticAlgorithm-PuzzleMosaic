@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -16,11 +15,10 @@ public class Populasi {
     private double populationFitness; //total fitness populasi
     private FitnessFunction fitnessFunction; //fungsi fitness untuk evaluasi individu
     private Individu bestIndividu; //individu terbaik dalam populasi, ambil beberapa (elitism)
-    private MosaicPuzzle puzzle;
 
     /**
      * Konstruktor untuk membuat populasi baru.
-     * * @param populationSize    Jumlah total individu yang akan dibuat.
+     * * @param populationSize  Jumlah total individu yang akan dibuat.
      * @param probabilitasHitam Probabilitas awal kemunculan kotak hitam pada kromosom.
      * @param fitnessFunction   Fungsi untuk mengevaluasi kualitas individu.
      * @param puzzle            Data puzzle Mosaic yang menjadi acuan.
@@ -29,7 +27,6 @@ public class Populasi {
         this.populationSize = populationSize;
         this.fitnessFunction = fitnessFunction;
         this.individuList = new ArrayList<>();
-        this.puzzle = puzzle;
 
         // panggil PenandaHeuristik sekali aja disini, nanti pas bikin kromosom biar ga panggil berkali" tinggal copy aja template
         Kromosom heuristicTemplate = new Kromosom(puzzle.getSize(), puzzle);
@@ -39,6 +36,7 @@ public class Populasi {
             System.out.println("Tidak ada fixed allele yang diset");
         }
 
+        //loop selama populationSize untuk buat individu
         for(int i=0; i<populationSize; i++) {
             //buat kromosom acak
             Kromosom kromosom = Kromosom.createRandomKromosom(probabilitasHitam, puzzle, heuristicTemplate);
@@ -53,6 +51,7 @@ public class Populasi {
         evaluatePopulation();
     }
 
+    //method untukmenghitung fitness populasi
     public void evaluatePopulation() {
         populationFitness = 0;
 
@@ -69,7 +68,7 @@ public class Populasi {
         }
     }
 
-    //getter dan setter
+    //getter
     public List<Individu> getIndividuList() {
         return individuList;
     }
@@ -81,20 +80,24 @@ public class Populasi {
      */
     public List<Individu> getTopElitism(int k) {
         List<Individu> elites = new ArrayList<>();
+        //kalau elistism = 0, return kosong
         if (k <= 0) return elites;
-    
-        k = Math.min(k, individuList.size());
+
+        //loop untuk ambil top k individu dengan memasukkan salinan individu ke daftar elites
         for (int i = 0; i < k; i++) {
             elites.add(individuList.get(i).copyForElitism());
         }
+        //return daftar elites
         return elites;
     }
 
+    //method untuk bikin populasi baru
     public void setIndividuList(List<Individu> newPopulation) {
         this.individuList = newPopulation;
         evaluatePopulation();
     }
 
+    //getter untuk atribut populasi
     public int getPopulationSize() {
         return populationSize;
     }
