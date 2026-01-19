@@ -1,0 +1,806 @@
+Running SKN-8 on 5x5 Hard 
+ 
+====================================== 
+Seed: 12345 
+====================================== 
+Seed: 12345
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,435065
+Average fitness awal: 0,148174
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,435065 | Avg Fitness: 0,157271
+Solusi ditemukan pada generasi 22
+Best Fitness: 1,000000
+Total running time: 0,012746 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+Seed: 12346
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,380682
+Average fitness awal: 0,152729
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,380682 | Avg Fitness: 0,158088
+Solusi ditemukan pada generasi 182
+Best Fitness: 1,000000
+Total running time: 0,033824 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+Seed: 12347
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,575758
+Average fitness awal: 0,159929
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,575758 | Avg Fitness: 0,157699
+Solusi ditemukan pada generasi 23
+Best Fitness: 1,000000
+Total running time: 0,003439 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+Seed: 12348
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,488636
+Average fitness awal: 0,164742
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,488636 | Avg Fitness: 0,153869
+Solusi ditemukan pada generasi 855
+Best Fitness: 1,000000
+Total running time: 0,103639 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+Seed: 12349
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,380682
+Average fitness awal: 0,149877
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,380682 | Avg Fitness: 0,161527
+Solusi ditemukan pada generasi 33
+Best Fitness: 1,000000
+Total running time: 0,005472 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+==================================================
+AVERAGE STATISTICS (5 RUNS)
+==================================================
+Average Best Fitness : 1,000000
+Average Generations  : 223,00
+Average Time         : 0,031824 detik
+==================================================
+ 
+====================================== 
+Seed: 12346 
+====================================== 
+Seed: 12345
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,435065
+Average fitness awal: 0,148174
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,435065 | Avg Fitness: 0,157271
+Solusi ditemukan pada generasi 22
+Best Fitness: 1,000000
+Total running time: 0,011909 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+Seed: 12346
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,380682
+Average fitness awal: 0,152729
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,380682 | Avg Fitness: 0,158088
+Solusi ditemukan pada generasi 182
+Best Fitness: 1,000000
+Total running time: 0,043863 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+Seed: 12347
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,575758
+Average fitness awal: 0,159929
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,575758 | Avg Fitness: 0,157699
+Solusi ditemukan pada generasi 23
+Best Fitness: 1,000000
+Total running time: 0,004641 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+Seed: 12348
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,488636
+Average fitness awal: 0,164742
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,488636 | Avg Fitness: 0,153869
+Solusi ditemukan pada generasi 855
+Best Fitness: 1,000000
+Total running time: 0,123030 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+Seed: 12349
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,380682
+Average fitness awal: 0,149877
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,380682 | Avg Fitness: 0,161527
+Solusi ditemukan pada generasi 33
+Best Fitness: 1,000000
+Total running time: 0,003952 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+==================================================
+AVERAGE STATISTICS (5 RUNS)
+==================================================
+Average Best Fitness : 1,000000
+Average Generations  : 223,00
+Average Time         : 0,037479 detik
+==================================================
+ 
+====================================== 
+Seed: 12347 
+====================================== 
+Seed: 12345
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,435065
+Average fitness awal: 0,148174
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,435065 | Avg Fitness: 0,157271
+Solusi ditemukan pada generasi 22
+Best Fitness: 1,000000
+Total running time: 0,013620 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+Seed: 12346
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,380682
+Average fitness awal: 0,152729
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,380682 | Avg Fitness: 0,158088
+Solusi ditemukan pada generasi 182
+Best Fitness: 1,000000
+Total running time: 0,042564 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+Seed: 12347
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,575758
+Average fitness awal: 0,159929
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,575758 | Avg Fitness: 0,157699
+Solusi ditemukan pada generasi 23
+Best Fitness: 1,000000
+Total running time: 0,003421 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+Seed: 12348
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,488636
+Average fitness awal: 0,164742
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,488636 | Avg Fitness: 0,153869
+Solusi ditemukan pada generasi 855
+Best Fitness: 1,000000
+Total running time: 0,172481 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+Seed: 12349
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,380682
+Average fitness awal: 0,149877
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,380682 | Avg Fitness: 0,161527
+Solusi ditemukan pada generasi 33
+Best Fitness: 1,000000
+Total running time: 0,009712 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+==================================================
+AVERAGE STATISTICS (5 RUNS)
+==================================================
+Average Best Fitness : 1,000000
+Average Generations  : 223,00
+Average Time         : 0,048360 detik
+==================================================
+ 
+====================================== 
+Seed: 12348 
+====================================== 
+Seed: 12345
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,435065
+Average fitness awal: 0,148174
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,435065 | Avg Fitness: 0,157271
+Solusi ditemukan pada generasi 22
+Best Fitness: 1,000000
+Total running time: 0,016653 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+Seed: 12346
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,380682
+Average fitness awal: 0,152729
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,380682 | Avg Fitness: 0,158088
+Solusi ditemukan pada generasi 182
+Best Fitness: 1,000000
+Total running time: 0,037017 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+Seed: 12347
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,575758
+Average fitness awal: 0,159929
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,575758 | Avg Fitness: 0,157699
+Solusi ditemukan pada generasi 23
+Best Fitness: 1,000000
+Total running time: 0,003275 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+Seed: 12348
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,488636
+Average fitness awal: 0,164742
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,488636 | Avg Fitness: 0,153869
+Solusi ditemukan pada generasi 855
+Best Fitness: 1,000000
+Total running time: 0,105075 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+Seed: 12349
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,380682
+Average fitness awal: 0,149877
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,380682 | Avg Fitness: 0,161527
+Solusi ditemukan pada generasi 33
+Best Fitness: 1,000000
+Total running time: 0,009499 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+==================================================
+AVERAGE STATISTICS (5 RUNS)
+==================================================
+Average Best Fitness : 1,000000
+Average Generations  : 223,00
+Average Time         : 0,034304 detik
+==================================================
+ 
+====================================== 
+Seed: 12349 
+====================================== 
+Seed: 12345
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,435065
+Average fitness awal: 0,148174
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,435065 | Avg Fitness: 0,157271
+Solusi ditemukan pada generasi 22
+Best Fitness: 1,000000
+Total running time: 0,012871 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+Seed: 12346
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,380682
+Average fitness awal: 0,152729
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,380682 | Avg Fitness: 0,158088
+Solusi ditemukan pada generasi 182
+Best Fitness: 1,000000
+Total running time: 0,039806 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+Seed: 12347
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,575758
+Average fitness awal: 0,159929
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,575758 | Avg Fitness: 0,157699
+Solusi ditemukan pada generasi 23
+Best Fitness: 1,000000
+Total running time: 0,004593 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+Seed: 12348
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,488636
+Average fitness awal: 0,164742
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,488636 | Avg Fitness: 0,153869
+Solusi ditemukan pada generasi 855
+Best Fitness: 1,000000
+Total running time: 0,109487 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+Seed: 12349
+=== GA Parameters ===
+Total generations: 5000
+Population size: 100
+Crossover rate: 0,7000
+Mutation rate: 0,0500
+Elitism percent: 0,0500
+Tournament size: 5
+Selection method: 'random'
+Crossover method: 'uniform'
+=== Inisialisasi Populasi ===
+Ukuran populasi: 100
+Best fitness awal: 0,380682
+Average fitness awal: 0,149877
+Best individu (visual):
+. B . . W 
+. B . . W 
+. B B B B 
+. . . . . 
+. . . . . 
+Generasi 0 | Best Fitness: 0,380682 | Avg Fitness: 0,161527
+Solusi ditemukan pada generasi 33
+Best Fitness: 1,000000
+Total running time: 0,003487 detik
+B B W W W 
+W B W B W 
+W B B B B 
+W W B W B 
+W W W W W 
+
+==================================================
+AVERAGE STATISTICS (5 RUNS)
+==================================================
+Average Best Fitness : 1,000000
+Average Generations  : 223,00
+Average Time         : 0,034049 detik
+==================================================
